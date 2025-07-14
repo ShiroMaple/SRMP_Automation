@@ -1,5 +1,9 @@
 {
-    "MyTask1": {},
+    "MyTask1": {
+        "recognition":"OCR",
+        "expected":"编队",
+        "action":"Click"         
+    },
     "MyTask2": {},
     "MyTask3": {},
     "MyTask4": {
@@ -7,5 +11,6 @@
         "custom_recognition": "my_reco_222",
         "action": "Custom",
         "custom_action": "my_action_111"
+        
     }
 }

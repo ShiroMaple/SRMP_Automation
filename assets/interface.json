@@ -15,23 +15,17 @@
     ],
     "resource": [
         {
-            "name": "官服",
+            "name": "Default",
             "path": [
                 "{PROJECT_DIR}/resource"
-            ]
-        },
-        {
-            "name": "B 服",
-            "path": [
-                "{PROJECT_DIR}/resource",
-                "{PROJECT_DIR}/resource_bilibili"
             ]
         }
     ],
     "agent": {
         "child_exec": "python",
         "child_args": [
-            "{PROJECT_DIR}/agent/main.py"
+            //"{PROJECT_DIR}/agent/main.py"
+            "G:/CodeSpace/SRMP_Automation/agent/main.py"
         ]
     },
     "task": [
@@ -60,6 +54,7 @@
         }
     ],
     "option": {
+        /*
         "任务选项1": {
             "cases": [
                 {
@@ -80,5 +75,6 @@
                 }
             ]
         }
+        */
     }
 }
