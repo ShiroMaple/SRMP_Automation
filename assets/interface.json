@@ -30,15 +30,16 @@
     },
     "task": [
         {
+            "name": "森空岛签到",
+            "entry": "Skland",
+            "option": [
+                "关闭森空岛"
+            ]
+        }
+        /*
+        ,{
             "name": "普通任务",
             "entry": "MyTask1"
-        },
-        {
-            "name": "选项任务",
-            "entry": "MyTask2",
-            "option": [
-                "任务选项1"
-            ]
         },
         {
             "name": "参数任务",
@@ -51,9 +52,27 @@
         {
             "name": "带Custom的任务",
             "entry": "MyTask4"
-        }
+        }*/
     ],
     "option": {
+        "关闭森空岛":{"cases": [
+            {
+                "name":"启用",
+                "pipeline_override":{
+                    "CloseSkland":{
+                        "enabled":true
+                    }
+                }
+            },
+            {
+                "name":"禁用",
+                "pipeline_override":{
+                    "CloseSkland":{
+                        "enabled":false
+                    }
+                }
+            }            
+        ]}
         /*
         "任务选项1": {
             "cases": [
