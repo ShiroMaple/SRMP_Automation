@@ -38,6 +38,10 @@
         {
             "name": "小黑盒签到",
             "entry": "entry_signXiaoheihe"
+        },
+        {
+            "name":"游侠网",
+            "entry": "entry_signYouxia"   
         }
     ],
     "option": {

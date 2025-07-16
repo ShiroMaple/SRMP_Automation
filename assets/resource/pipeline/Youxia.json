@@ -1,0 +1,45 @@
+{
+    "entry_signYouxia": {
+        "next": ["enterSignYouxia","enterMyPage"],
+        "interrupt": "startYouxia"
+    },
+    "startYouxia": {
+        "action": "StartApp",
+        "package": "net.ali213.YX"
+    },
+    "stopYouxia": {
+        "action": "StopApp",
+        "package": "net.ali213.YX"
+    },
+    "enterMyPage": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "Youxia/enterMyPage.png",
+                "roi": [
+                    617,
+                    1183,
+                    681,
+                    1260
+                ]
+            }
+        },
+        "action": "Click",
+        "next": "enterSignYouxia"
+    },
+    "enterSignYouxia": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "Youxia/enterSignYouxia.png",
+                "roi": [
+                    488,
+                    648,
+                    630,
+                    691
+                ]
+            }
+        },
+        "action": "Click"
+    }
+}
