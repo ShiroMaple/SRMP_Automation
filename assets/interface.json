@@ -24,76 +24,42 @@
     "agent": {
         "child_exec": "python",
         "child_args": [
-            //"{PROJECT_DIR}/agent/main.py"
-            "G:/CodeSpace/SRMP_Automation/agent/main.py"
+            "{PROJECT_DIR}/../agent/main.py"
         ]
     },
     "task": [
         {
             "name": "森空岛签到",
-            "entry": "Skland",
+            "entry": "entry_signSkland",
             "option": [
                 "关闭森空岛"
             ]
+        },
+        {
+            "name": "小黑盒签到",
+            "entry": "entry_signXiaoheihe"
         }
-        /*
-        ,{
-            "name": "普通任务",
-            "entry": "MyTask1"
-        },
-        {
-            "name": "参数任务",
-            "entry": "MyTask3",
-            "option": [
-                "任务选项1"
-            ],
-            "pipeline_override": {}
-        },
-        {
-            "name": "带Custom的任务",
-            "entry": "MyTask4"
-        }*/
     ],
     "option": {
-        "关闭森空岛":{"cases": [
-            {
-                "name":"启用",
-                "pipeline_override":{
-                    "CloseSkland":{
-                        "enabled":true
-                    }
-                }
-            },
-            {
-                "name":"禁用",
-                "pipeline_override":{
-                    "CloseSkland":{
-                        "enabled":false
-                    }
-                }
-            }            
-        ]}
-        /*
-        "任务选项1": {
+        "关闭森空岛": {
             "cases": [
                 {
-                    "name": "文本1",
+                    "name": "启用",
                     "pipeline_override": {
-                        "OcrTask": {
-                            "text": "文本1"
+                        "CloseSkland": {
+                            "enabled": true
                         }
                     }
                 },
                 {
-                    "name": "文本2",
+                    "name": "禁用",
                     "pipeline_override": {
-                        "OcrTask": {
-                            "text": "文本2"
+                        "CloseSkland": {
+                            "enabled": false
                         }
                     }
                 }
             ]
         }
-        */
     }
 }
