@@ -1,0 +1,144 @@
+{
+    "entry_signWeiboST": {
+        "next": [
+            "谢绝评分",
+            "进入超话页面"
+        ],
+        "interrupt": "启动微博"
+    },
+    "谢绝评分": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "不了，谢谢",
+                "roi": [
+                    120,
+                    600,
+                    465,
+                    100
+                ]
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "next": "进入超话页面"
+    },
+    "进入超话页面": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": [
+                    "超话",
+                    "精华"
+                ],
+                "roi": [
+                    165,
+                    1183,
+                    119,
+                    96
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    216,
+                    1213,
+                    1,
+                    1
+                ]
+            }
+        },
+        "post_delay": 5000,
+        "next": "进入超话签到"
+    },
+    "进入超话签到": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": [
+                    "一键签到",
+                    "签到"
+                ],
+                "roi": [
+                    506,
+                    181,
+                    214,
+                    163
+                ]
+            }
+        },
+        "action": "Click",
+        "next": [
+            "位于超话签到页面",
+            "进入超话签到"
+        ]
+    },
+    "位于超话签到页面": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "7级及以上的超话",
+                "roi": [
+                    8,
+                    122,
+                    314,
+                    446
+                ]
+            }
+        },
+        "next": [
+            "检测超话签到完成"
+        ],
+        "interrupt": "进入某个超话",
+    },
+    "检测超话签到完成": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "及以的话",
+                "roi": [
+                    8,
+                    122,
+                    314,
+                    446
+                ]
+            }
+        },
+    },
+    "进入某个超话": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "Weibo/buttonSign.png",
+                "roi": [
+                    525,
+                    193,
+                    191,
+                    1086
+                ]
+            }
+        },
+        "action": "Click",
+        "next": "微博点击返回"
+    },
+    "微博点击返回": {
+        "action": "Click",
+        "target": [
+            33,
+            79,
+            15,
+            28
+        ]
+    },
+    "启动微博": {
+        "action": "StartApp",
+        "package": "com.sina.weibo"
+    },
+    "退出微博": {
+        "action": "StopApp",
+        "package": "com.sina.weibo"
+    }
+}
