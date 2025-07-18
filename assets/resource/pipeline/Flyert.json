@@ -1,0 +1,34 @@
+{
+    "entry_signFlyert": {
+        "next": [
+            "enterFlyertSignPage"
+        ],
+        "interrupt": [
+            "startFlyert"
+        ]
+    },
+    "enterFlyertSignPage": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "Flyert/SignButton.png",
+                "roi": [
+                    0,
+                    14,
+                    152,
+                    156
+                ]
+            }
+        },
+        "action": "Click",
+        "next": "stopFlyert",
+        "post_delay": 3000
+    },
+    "startFlyert": {
+        "action": "StartApp",
+        "package": "com.ideal.flyerteacafes"
+    },
+    "stopFlyert":{
+        "action": "StopApp",
+    "package": "com.ideal.flyerteacafes"    }
+}

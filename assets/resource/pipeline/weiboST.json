@@ -1,10 +1,37 @@
 {
     "entry_signWeiboST": {
         "next": [
-            "谢绝评分",
-            "进入超话页面"
+            "进入超话页面",
+            "谢绝评分"
         ],
-        "interrupt": "启动微博"
+        "interrupt": [
+            "微博点击返回",
+            "启动微博"
+        ]
+    },
+    "微博点击返回": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "Weibo/buttonBack1.png",
+                    "Weibo/buttonBack2.png"
+                ],
+                "roi": [
+                    0,
+                    14,
+                    147,
+                    150
+                ],
+                "green_mask": true,
+                "threshold": [
+                    0.7,
+                    0.5
+                ]
+            }
+        },
+        "action": "Click",
+        "post_delay": 3000
     },
     "谢绝评分": {
         "recognition": {
@@ -22,22 +49,24 @@
         "action": {
             "type": "Click"
         },
-        "next": "进入超话页面"
+        "next": "进入超话页面",
+        "interrupt": "微博点击返回"
     },
     "进入超话页面": {
         "recognition": {
-            "type": "OCR",
+            "type": "TemplateMatch",
             "param": {
-                "expected": [
-                    "超话",
-                    "精华"
+                "template": [
+                    "Weibo/iconST1.png",
+                    "Weibo/iconST2.png"
                 ],
                 "roi": [
                     165,
                     1183,
                     119,
                     96
-                ]
+                ],
+                "green_mask": true
             }
         },
         "action": {
@@ -52,9 +81,12 @@
             }
         },
         "post_delay": 5000,
-        "next": "进入超话签到"
+        "next": [
+            "进入超话签到页面"
+        ],
+        "interrupt": "微博点击返回"
     },
-    "进入超话签到": {
+    "进入超话签到页面": {
         "recognition": {
             "type": "OCR",
             "param": {
@@ -73,7 +105,7 @@
         "action": "Click",
         "next": [
             "位于超话签到页面",
-            "进入超话签到"
+            "进入超话签到页面"
         ]
     },
     "位于超话签到页面": {
@@ -90,25 +122,13 @@
             }
         },
         "next": [
+            "检测超话签到按钮",
             "检测超话签到完成"
         ],
-        "interrupt": "进入某个超话",
+        "interrupt": "微博上滑",
+        "on_error": "退出微博"
     },
-    "检测超话签到完成": {
-        "recognition": {
-            "type": "OCR",
-            "param": {
-                "expected": "及以的话",
-                "roi": [
-                    8,
-                    122,
-                    314,
-                    446
-                ]
-            }
-        },
-    },
-    "进入某个超话": {
+    "检测超话签到按钮": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -121,17 +141,49 @@
                 ]
             }
         },
-        "action": "Click",
-        "next": "微博点击返回"
+        "next": "进入某个超话"
     },
-    "微博点击返回": {
+    "进入某个超话": {
         "action": "Click",
-        "target": [
-            33,
-            79,
-            15,
-            28
-        ]
+        "target": "检测超话签到按钮",
+        "post_delay": 3000,
+        "next": "位于超话签到页面",
+        "interrupt": "微博点击返回"
+    },
+    "微博上滑": {
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin": [
+                    358,
+                    475,
+                    1,
+                    1
+                ],
+                "end": [
+                    360,
+                    126,
+                    1,
+                    1
+                ]
+            }
+        }
+    },
+    "检测超话签到完成": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "Weibo/buttonAlreadySign.png",
+                "roi": [
+                    525,
+                    193,
+                    191,
+                    1086
+                ],
+                "index": 4
+            }
+        },
+        "next": "退出微博"
     },
     "启动微博": {
         "action": "StartApp",

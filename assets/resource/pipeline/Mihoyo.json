@@ -1,0 +1,35 @@
+{
+    "entry_signMihoyo": {
+        "next": [
+            "enterFlyertSignPage"
+        ],
+        "interrupt": [
+            "startFlyert"
+        ]
+    },
+    "Mihoyo-skipChildMode": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "Flyert/SignButton.png",
+                "roi": [
+                    0,
+                    14,
+                    152,
+                    156
+                ]
+            }
+        },
+        "action": "Click",
+        "next": "stopFlyert",
+        "post_delay": 3000
+    },
+    "startMihoyo": {
+        "action": "StartApp",
+        "package": "com.mihoyo.hyperion"
+    },
+    "stopMihoyo": {
+        "action": "StopApp",
+        "package": "com.mihoyo.hyperion"
+    }
+}

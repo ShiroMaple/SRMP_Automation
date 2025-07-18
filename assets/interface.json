@@ -29,14 +29,14 @@
     },
     "task": [
         {
-            "name": "森空岛签到",
+            "name": "森空岛",
             "entry": "entry_signSkland",
             "option": [
                 "关闭森空岛"
             ]
         },
         {
-            "name": "小黑盒签到",
+            "name": "小黑盒",
             "entry": "entry_signXiaoheihe"
         },
         {
@@ -46,6 +46,10 @@
         {
             "name":"微博超话",
             "entry": "entry_signWeiboST"
+        },
+        {
+            "name":"飞客",
+            "entry": "entry_signFlyert"
         }
     ],
     "option": {
