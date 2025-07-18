@@ -1,17 +1,18 @@
 {
     "entry_signMihoyo": {
         "next": [
-            "enterFlyertSignPage"
+            "Mihoyo-skipChildMode",
+            "Mihoyo-enterMihoyoFlag"
         ],
         "interrupt": [
-            "startFlyert"
+            "startMihoyo"
         ]
     },
     "Mihoyo-skipChildMode": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": "Flyert/SignButton.png",
+                "template": "empty.png",
                 "roi": [
                     0,
                     14,
@@ -20,10 +21,46 @@
                 ]
             }
         },
-        "action": "Click",
-        "next": "stopFlyert",
-        "post_delay": 3000
+        "action": "Click"
     },
+    "Mihoyo-enterMihoyoFlag": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "Mihoyo/buttonMyPage.png",
+                "roi": [
+                    557,
+                    1137,
+                    163,
+                    143
+                ]
+            }
+        },
+        "next": [
+            "Mihoyo-enter_GenshinPage",
+            "Mihoyo-enter_StarrailPage",
+            "Mihoyo-enter_ZZZPage"
+        ],
+        "interrupt": "Mihoyo-左滑顶部选择栏"
+    },
+    "Mihoyo-左滑顶部选择栏": {
+        "action": "Swipe",
+        "begin": [
+            159,
+            103,
+            1,
+            1
+        ],
+        "end": [
+            453,
+            103,
+            1,
+            1
+        ]
+    },
+    "Mihoyo-enter_GenshinPage": {},
+    "Mihoyo-enter_StarrailPage": {},
+    "Mihoyo-enter_ZZZPage": {},
     "startMihoyo": {
         "action": "StartApp",
         "package": "com.mihoyo.hyperion"
