@@ -1,0 +1,54 @@
+{
+    "entry_signXiaoheihe": {
+        "next": [
+            "enterXiaoheihe"
+        ],
+        "interrupt": "startXiaoheihe"
+    },
+    "startXiaoheihe": {
+        "action": "StartApp",
+        "package": "com.max.xiaoheihe"
+    },
+    "stopXiaoheihe": {
+        "enabled": true,
+        "action": "StopApp",
+        "package": "com.max.xiaoheihe"
+    },
+    "enterXiaoheihe": {
+        "recognition": "TemplateMatch",
+        "template": "enterXiaoheihe.png",
+        "roi": [
+            33,
+            1175,
+            74,
+            101
+        ],
+        "next": "checkSignSucceed",
+        "on_error": [
+            "stopXiaoheihe"
+        ]
+    },
+    "checkSignSucceed": {
+        "recognition": "TemplateMatch",
+        "template": "SignSucceed_Xiaoheihe.png",
+        "roi": [
+            316,
+            384,
+            85,
+            82
+        ],
+        "next": "clickConfirm"
+    },
+    "clickConfirm": {
+        "recognition": "OCR",
+        "expected": "确定",
+        "roi": [
+            322,
+            764,
+            73,
+            40
+        ],
+        "action": "Click",
+        "next": "stopXiaoheihe"
+    }
+}

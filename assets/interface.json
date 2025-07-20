@@ -15,9 +15,15 @@
     ],
     "resource": [
         {
-            "name": "Default",
+            "name": "AndroidPhone",
             "path": [
-                "{PROJECT_DIR}/resource"
+                "{PROJECT_DIR}/resource/AndroidPhone"
+            ]            
+        },
+        {
+            "name": "Emulator",
+            "path": [
+                "{PROJECT_DIR}/resource/Emulator"
             ]
         }
     ],

@@ -1,0 +1,11 @@
+{
+    "entry_signMain":{
+
+    },
+    "entryApp":{
+        "action":"StartApp"
+    },
+    "exitApp":{
+        "action": "StopApp"
+    }
+}
