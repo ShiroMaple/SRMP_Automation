@@ -1,0 +1,69 @@
+{
+    "entry_signJD": {
+        "next": [
+            "JD-enterMyPage"
+        ],
+        "interrupt": [
+            "skipAD_LowerRightCorner",
+            "startJD"
+        ]
+    },
+    "JD-enterMyPage": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "我的",
+                "roi": [
+                    558,
+                    1430,
+                    162,
+                    171
+                ]
+            }
+        },
+        "action": "Click",
+        "next": "JD-enterSignPage",
+        "pre_delay": 1500
+    },
+    "JD-enterSignPage": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "签到赚积分",
+                "roi": [
+                    142,
+                    96,
+                    218,
+                    140
+                ]
+            }
+        },
+        "action": "Click",
+        "next": "JD-sign"
+    },
+    "JD-sign": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": ["立即签到","再签"],
+                "roi": [
+                    220,
+                    516,
+                    275,
+                    172
+                ]
+            }
+        },
+        "action": "Click",
+        "post_delay": 1500,
+        "next": "stopJD"
+    },
+    "startJD": {
+        "action": "StartApp",
+        "package": "com.jingdong.app.mall"
+    },
+    "stopJD": {
+        "action": "StopApp",
+        "package": "com.jingdong.app.mall"
+    }
+}

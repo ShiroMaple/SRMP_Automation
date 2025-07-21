@@ -35,11 +35,8 @@
     },
     "task": [
         {
-            "name": "森空岛",
-            "entry": "entry_signSkland",
-            "option": [
-                "关闭森空岛"
-            ]
+            "name": "微信P5X",
+            "entry": "entry_signP5XW"
         },
         {
             "name": "小黑盒",
@@ -48,14 +45,6 @@
         {
             "name": "游侠网",
             "entry": "entry_signYouxia"
-        },
-        {
-            "name": "微博超话",
-            "entry": "entry_signWeiboST"
-        },
-        {
-            "name": "飞客",
-            "entry": "entry_signFlyert"
         },
         {
             "name": "网上国网",
@@ -70,20 +59,31 @@
             "entry": "entry_signAtour"
         },
         {
+            "name": "携程旅行",
+            "entry": "entry_signCtrip"
+        },
+        {
             "name": "飞猪旅行",
             "entry": "entry_signFliggy"
         },
         {
-            "name": "携程旅行",
-            "entry": "entry_signCtrip"
+            "name": "飞客",
+            "entry": "entry_signFlyert"
         },
         {
             "name": "华住会",
             "entry": "entry_signHtinns"
         },
         {
-            "name": "微信P5X",
-            "entry": "entry_signP5XW"
+            "name": "森空岛",
+            "entry": "entry_signSkland",
+            "option": [
+                "关闭森空岛"
+            ]
+        },
+        {
+            "name": "微博超话",
+            "entry": "entry_signWeiboST"
         },
         {
             "name": "一点万象",
@@ -92,8 +92,12 @@
         {
             "name": "闲鱼",
             "entry": "entry_signIdlefish"
+        },
+        {
+            "name": "京东",
+            "entry": "entry_signJD"
         }
-
+        
     ],
     "option": {
         "关闭森空岛": {

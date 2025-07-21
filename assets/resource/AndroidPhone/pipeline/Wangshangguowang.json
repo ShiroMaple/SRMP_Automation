@@ -1,12 +1,29 @@
-{
+{ //等28号验证周签奖励领取
     "entry_signWsgw": {
         "next": [
+            "Wsgw-closePopWindow",
             "Wsgw-findSignButton1",
             "Wsgw-enterMyPage"
         ],
         "interrupt": [
             "startWsgw"
         ]
+    },
+    "Wsgw-closePopWindow": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "Wsgw/buttonClosePopWindow.png",
+                "roi": [
+                    545,
+                    284,
+                    135,
+                    135
+                ]
+            }
+        },
+        "action": "Click",
+        "next": "entry_signWsgw"
     },
     "Wsgw-findSignButton1": {
         "recognition": {
