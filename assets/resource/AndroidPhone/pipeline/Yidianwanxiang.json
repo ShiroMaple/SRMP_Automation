@@ -4,7 +4,7 @@
             "MIXC-enterMyPage"
         ],
         "interrupt": [
-            "MIXC-closePopWindow",
+            //"MIXC-closePopWindow",
             "startMIXC"
         ]
     },
@@ -38,10 +38,8 @@
             }
         },
         "action": "Click",
-        "next": "MIXC-enterSignPage",
-        "interrupt": [
-            "MIXC-closePopWindow"
-        ]
+        "next": ["MIXC-enterSignPage","MIXC-enterMyPage"]
+        //"interrupt":"MIXC-closePopWindow"
     },
     "MIXC-enterSignPage": {
         "recognition": {
@@ -57,7 +55,7 @@
             }
         },
         "action": "Click",
-        "next": "MIXC-sign"
+        "next": ["MIXC-sign","MIXC-enterSignPage"]
     },
     "MIXC-sign": {
         "recognition": {

@@ -24,7 +24,8 @@
             }
         },
         "action": "Click",
-        "next": "Fliggy-enterSignPage"
+        "next": "Fliggy-enterSignPage",
+        "interrupt": "Fliggy-clickBack"
     },
     "Fliggy-enterSignPage": {
         "recognition": {
@@ -41,7 +42,7 @@
         },
         "action": "Click",
         "post_delay": 5000,
-        "next": "Fliggy-flagSignPage"
+        "next": ["Fliggy-flagSignPage","Fliggy-enterSignPage"]
     },
     "Fliggy-flagSignPage": {
         "recognition": {
@@ -109,7 +110,8 @@
                 ]
             }
         },
-        "action": "Click"
+        "action": "Click",
+        "next": "Fliggy-signSucceed"
     },
     "Fliggy-signSucceed":{
         "recognition": {
@@ -119,7 +121,8 @@
                 "roi" : [0,749,396,172]
             }
         },
-        "next": "stopFliggy"
+        "next": "stopFliggy",
+        "post_delay": 2000
     },
     "Fliggy-clickBack": {
         "recognition": {

@@ -1,0 +1,100 @@
+{//目前无新债可申购，暂时上滑；出现可打新的情况时再继续编辑
+    "entry_signEastmoneyBerlin": {
+        "next": [
+            "EastmoneyBerlin-enterTradePage"
+        ],
+        "interrupt": [
+            "skipAD_LowerRightCorner",
+            "startEastmoneyBerlin"
+        ]
+    },
+    "EastmoneyBerlin-enterTradePage": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "交易",
+                "roi": [
+                    579,
+                    1475,
+                    141,
+                    126
+                ]
+            }
+        },
+        "action": "Click",
+        "next": "EastmoneyBerlin-flagTradePage"
+    },
+    "EastmoneyBerlin-flagTradePage": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "Eastmoney/flagTradePage.png",
+                "roi": [
+                    571,
+                    1429,
+                    149,
+                    172
+                ]
+            }
+        },
+        "next": "EastmoneyBerlin-enterIPOPage",
+        "post_delay": 1500
+    },
+    "EastmoneyBerlin-enterIPOPage": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "打新专区",
+                "roi": [
+                    108,
+                    472,
+                    223,
+                    142
+                ]
+            }
+        },
+        "action": "Click",
+        "next": "EastmoneyBerlin-enterNewBondsPage"
+    },
+    "EastmoneyBerlin-enterNewBondsPage": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "新债",
+                "roi": [
+                    79,
+                    354,
+                    201,
+                    172
+                ]
+            }
+        },
+        "action": "Click",
+        "next": "EastmoneyBerlin-checkNewBonds",
+        "pre_delay": 2000
+    },
+    "EastmoneyBerlin-checkNewBonds": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "暂无新债可申购",
+                "roi": [
+                    0,
+                    442,
+                    720,
+                    982
+                ]
+            }
+        },
+        "action": "DoNothing",
+        "next": "FullScreen-swipeUp"
+    },
+    "startEastmoneyBerlin": {
+        "action": "StartApp",
+        "package": "com.eastmoney.android.berlin"
+    },
+    "stopEastmoneyBerlin": {
+        "action": "StopApp",
+        "package": "com.eastmoney.android.berlin"
+    }
+}

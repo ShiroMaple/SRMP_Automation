@@ -1,4 +1,4 @@
-{//观察签到的后续是否有必要继续
+{ //观察签到的后续是否有必要继续
     "entry_signHtinns": {
         "next": [
             "Htinns-enterSignPage",
@@ -34,12 +34,15 @@
                     20,
                     1193,
                     205,
-                    135
+                    200
                 ]
             }
         },
         "action": "Click",
-        "next": "Htinns-sign"
+        "next": [
+            "Htinns-sign",
+            "Htinns-enterSignPage"
+        ]
     },
     "Htinns-sign": {
         "recognition": {
@@ -55,8 +58,8 @@
             }
         },
         "action": "Click",
-        "post_delay": 1500,
-        // "next": "stopHtinns"
+        "post_delay": 2000,
+        "next": "stopHtinns"
     },
     "startHtinns": {
         "action": "StartApp",

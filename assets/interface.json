@@ -55,6 +55,10 @@
             "entry": "entry_signEastmoneyFund"
         },
         {
+            "name": "东方财富",
+            "entry": "entry_signEastmoneyBerlin"
+        },
+        {
             "name": "亚朵",
             "entry": "entry_signAtour"
         },
@@ -97,7 +101,6 @@
             "name": "京东",
             "entry": "entry_signJD"
         }
-        
     ],
     "option": {
         "关闭森空岛": {

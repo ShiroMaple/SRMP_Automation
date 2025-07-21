@@ -23,7 +23,7 @@
             }
         },
         "action": "Click",
-        "next": "Youxia-enterSignPage"
+        "next": ["Youxia-enterSignPage","Youxia-enterMyPage"]
     },
     "Youxia-enterSignPage": {
         "recognition": {
@@ -60,6 +60,7 @@
     },
     "Youxia-checkSigned": {
         //检测是否获取CDKEY等奖励
+        "next": "FullScreen-swipeUp"
     },
     "Youxia-sign": {
         "recognition": {

@@ -35,5 +35,15 @@
             }
         },
         "action": "Click"
+    },
+    "FullScreen-swipeUp":{
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin" : [353,1581,1,1],
+                "end" : [353,1159,1,1]
+            }
+        }
     }
+
 }

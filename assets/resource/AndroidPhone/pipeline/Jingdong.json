@@ -1,12 +1,27 @@
 {
     "entry_signJD": {
         "next": [
-            "JD-enterMyPage"
+            "JD-flagMainPage"
         ],
         "interrupt": [
-            "skipAD_LowerRightCorner",
+            //"skipAD_LowerRightCorner",
             "startJD"
         ]
+    },
+    "JD-flagMainPage": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "Jingdong/iconMainPage.png",
+                "roi": [
+                    0,
+                    1433,
+                    163,
+                    168
+                ]
+            }
+        },
+        "next": "JD-enterSignPage"
     },
     "JD-enterMyPage": {
         "recognition": {
@@ -29,12 +44,12 @@
         "recognition": {
             "type": "OCR",
             "param": {
-                "expected": "签到赚积分",
+                "expected": "秒杀",
                 "roi": [
-                    142,
-                    96,
-                    218,
-                    140
+                    0,
+                    320,
+                    156,
+                    134
                 ]
             }
         },
@@ -45,17 +60,17 @@
         "recognition": {
             "type": "OCR",
             "param": {
-                "expected": ["立即签到","再签"],
+                "expected": "签到领豆",
                 "roi": [
-                    220,
-                    516,
-                    275,
-                    172
+                    159,
+                    326,
+                    236,
+                    148
                 ]
             }
         },
         "action": "Click",
-        "post_delay": 1500,
+        "post_delay": 3000,
         "next": "stopJD"
     },
     "startJD": {

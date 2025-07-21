@@ -86,7 +86,23 @@
                 ]
             }
         },
-        "next": "Wsgw-checkWeekAwards"
+        "next": "Wsgw-checkWeekAwards",
+        "interrupt": "Wsgw-clickReceive"
+    },
+    "Wsgw-clickReceive": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "Wsgw/buttonReceive.png",
+                "roi": [
+                    218,
+                    868,
+                    273,
+                    159
+                ]
+            }
+        },
+        "action": "Click"
     },
     "Wsgw-checkWeekAwards": {
         "recognition": {
