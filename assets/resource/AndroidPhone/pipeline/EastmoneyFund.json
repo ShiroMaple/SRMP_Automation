@@ -1,0 +1,69 @@
+{
+    "entry_signEastmoneyFund": {
+        "next": [
+            "EastmoneyFund-enterMyPage"
+        ],
+        "interrupt": [
+            "skipAD_LowerRightCorner",
+            "startEastmoneyFund"
+        ]
+    },
+    "EastmoneyFund-enterMyPage": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "我的",
+                "roi": [
+                    558,
+                    1430,
+                    162,
+                    171
+                ]
+            }
+        },
+        "action": "Click",
+        "next": "EastmoneyFund-enterSignPage",
+        "pre_delay": 1500
+    },
+    "EastmoneyFund-enterSignPage": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "签到赚积分",
+                "roi": [
+                    142,
+                    96,
+                    218,
+                    140
+                ]
+            }
+        },
+        "action": "Click",
+        "next": "EastmoneyFund-sign"
+    },
+    "EastmoneyFund-sign": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": ["立即签到","再签"],
+                "roi": [
+                    220,
+                    516,
+                    275,
+                    172
+                ]
+            }
+        },
+        "action": "Click",
+        "post_delay": 1500,
+        "next": "stopEastmoneyFund"
+    },
+    "startEastmoneyFund": {
+        "action": "StartApp",
+        "package": "com.eastmoney.android.fund"
+    },
+    "stopEastmoneyFund": {
+        "action": "StopApp",
+        "package": "com.eastmoney.android.fund"
+    }
+}

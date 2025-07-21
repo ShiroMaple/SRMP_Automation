@@ -1,0 +1,69 @@
+{//观察签到的后续是否有必要继续
+    "entry_signHtinns": {
+        "next": [
+            "Htinns-enterSignPage",
+            "Htinns-enterMainPage"
+        ],
+        "interrupt": [
+            "startHtinns"
+        ]
+    },
+    "Htinns-enterMainPage": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "首页",
+                "roi": [
+                    0,
+                    1486,
+                    152,
+                    115
+                ]
+            }
+        },
+        "action": "Click",
+        "next": "Htinns-enterSignPage",
+        "pre_delay": 1500
+    },
+    "Htinns-enterSignPage": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "会员签到",
+                "roi": [
+                    20,
+                    1193,
+                    205,
+                    135
+                ]
+            }
+        },
+        "action": "Click",
+        "next": "Htinns-sign"
+    },
+    "Htinns-sign": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "立即签到",
+                "roi": [
+                    211,
+                    1114,
+                    291,
+                    168
+                ]
+            }
+        },
+        "action": "Click",
+        "post_delay": 1500,
+        // "next": "stopHtinns"
+    },
+    "startHtinns": {
+        "action": "StartApp",
+        "package": "com.htinns"
+    },
+    "stopHtinns": {
+        "action": "StopApp",
+        "package": "com.htinns"
+    }
+}

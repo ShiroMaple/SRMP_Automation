@@ -75,9 +75,7 @@
             0
         ],
         "next": [
-            "Sign",
-            "CloseSkland",
-            "Stop"
+            "Sign"
         ]
     },
     "Sign": {
@@ -89,6 +87,7 @@
             649,
             672
         ],
+        "threshold": 0.5,
         "action": "Click",
         "next": [
             "CloseSkland",

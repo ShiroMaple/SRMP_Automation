@@ -1,0 +1,98 @@
+{
+    "entry_signWsgw": {
+        "next": [
+            "Wsgw-findSignButton1",
+            "Wsgw-enterMyPage"
+        ],
+        "interrupt": [
+            "startWsgw"
+        ]
+    },
+    "Wsgw-findSignButton1": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "Wsgw/signEntrance1.png",
+                "roi": [
+                    261,
+                    815,
+                    196,
+                    223
+                ]
+            }
+        },
+        "action": "Click",
+        "next": "Wsgw-checkSignPage"
+    },
+    "Wsgw-enterMyPage": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "Wsgw/buttonMyPage.png",
+                "roi": [
+                    568,
+                    1432,
+                    152,
+                    169
+                ]
+            }
+        },
+        "action": "Click",
+        "next": "Wsgw-findSignButton2"
+    },
+    "Wsgw-findSignButton2": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "Wsgw/signEntrance2.png",
+                "roi": [
+                    513,
+                    148,
+                    207,
+                    145
+                ]
+            }
+        },
+        "action": "Click",
+        "next": "Wsgw-checkSignPage"
+    },
+    "Wsgw-checkSignPage": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "每日签到",
+                "roi": [
+                    226,
+                    72,
+                    272,
+                    72
+                ]
+            }
+        },
+        "next": "Wsgw-checkWeekAwards"
+    },
+    "Wsgw-checkWeekAwards": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "Wsgw/buttonWeekAward.png",
+                "roi": [
+                    37,
+                    1067,
+                    643,
+                    79
+                ]
+            }
+        },
+        "action": "Click"
+        //"next":"Wsgw-checkSignPage"
+    },
+    "startWsgw": {
+        "action": "StartApp",
+        "package": "com.sgcc.wsgw.cn"
+    },
+    "stopWsgw": {
+        "action": "StopApp",
+        "package": "com.sgcc.wsgw.cn"
+    }
+}

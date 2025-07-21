@@ -1,0 +1,172 @@
+{
+    "entry_signIdlefish": {
+        "next": [
+            "Idlefish-enterSignPage"
+        ],
+        "interrupt": [
+            // "skipAD_LowerRightCorner",
+            "startIdlefish"
+        ]
+    },
+    "Idlefish-enterSignPage": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "签到",
+                "roi": [
+                    0,
+                    66,
+                    142,
+                    125
+                ]
+            }
+        },
+        "action": "Click",
+        "next": ["Idlefish-sign","Idlefish-signed"]        
+    },
+    "Idlefish-sign": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "签到",
+                "roi": [
+                    509,
+                    574,
+                    207,
+                    157
+                ]
+            }
+        },
+        "action": "Click",
+        "post_delay": 1000,
+        "next": "Idlefish-signed"
+    },
+    "Idlefish-signed": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "明日再来",
+                "roi": [
+                    509,
+                    574,
+                    207,
+                    157
+                ]
+            }
+        },
+        "action": "Click",    
+        "next": "Idlefish-enterMyPage",
+        "interrupt": "Idlefish-clickBack"
+    },
+    "Idlefish-enterMyPage": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "我的",
+                "roi": [
+                    560,
+                    1490,
+                    160,
+                    111
+                ]
+            }
+        },
+        "action": "Click",
+        "next": "Idlefish-flagMyPage"
+    },
+    "Idlefish-flagMyPage": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "Idlefish/flagMyPage.png",
+                "roi": [
+                    557,
+                    1437,
+                    161,
+                    158
+                ]
+            }
+        },
+        "action": "Click",
+        "next": [
+            "Idlefish-fetchExp",
+            "Idlefish-enterMyPost"
+        ]
+    },
+    "Idlefish-fetchExp": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "经验值待领取",
+                "roi": [
+                    82,
+                    239,
+                    240,
+                    145
+                ]
+            }
+        },
+        "action": "Click",
+        "next": "Idlefish-flagMyPage",
+        "post_delay": 2000
+    },
+    "Idlefish-enterMyPost": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "我发布的",
+                "roi": [
+                    0,
+                    698,
+                    203,
+                    146
+                ]
+            }
+        },
+        "action": "Click",
+        "next": "Idlefish-reFlash"
+    },
+    "Idlefish-reFlash": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "一键擦亮",
+                "roi": [
+                    314,
+                    472,
+                    275,
+                    170
+                ]
+            }
+        },
+        "action": "Click",
+        "next": "stopIdlefish",
+        "post_delay": 2000
+    },
+    "Idlefish-clickBack": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "Idlefish/buttonBack.png",
+                    "Idlefish/buttonBackCovered.png"
+                ],
+                "roi": [
+                    0,
+                    24,
+                    165,
+                    163
+                ]
+            }
+        },
+        "action": "Click"
+    },
+    "startIdlefish": {
+        "action": "StartApp",
+        "package": "com.taobao.idlefish"
+    },
+    "stopIdlefish": {
+        "action": "StopApp",
+        "package": "com.taobao.idlefish"
+    }
+}

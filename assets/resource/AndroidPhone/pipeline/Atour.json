@@ -1,0 +1,122 @@
+{
+    "entry_signAtour": {
+        "next": [
+            "Atour-drawedCard",
+            "Atour-signed",
+            "Atour-drawCard",
+            "Atour-sign",
+            "Atour-enterSignPage"
+        ],
+        "interrupt": [
+            "skipAD_UpperRightCorner",
+            "Atour-enterMainPage",
+            "startAtour"
+        ]
+    },
+    "Atour-enterMainPage": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "首页",
+                "roi": [
+                    0,
+                    1437,
+                    179,
+                    164
+                ]
+            }
+        },
+        "action": "Click",
+        "pre_delay": 1500
+    },
+    "Atour-enterSignPage": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "签到",
+                "roi": [
+                    0,
+                    929,
+                    233,
+                    247
+                ]
+            }
+        },
+        "action": "Click",
+        "next": [
+            "Atour-signed",
+            "Atour-sign"
+        ]
+    },
+    "Atour-sign": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "立即签到",
+                "roi": [
+                    243,
+                    465,
+                    229,
+                    145
+                ]
+            }
+        },
+        "action": "Click" ,
+        "next": "Atour-drawCard",
+        "on_error": "stopAtour"
+    },
+    "Atour-drawCard": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "抽",
+                "roi": [
+                    270,
+                    729,
+                    181,
+                    185
+                ]
+            }
+        },
+        "action": "Click",
+        "next":"Atour-drawedCard"
+    },
+    "Atour-signed": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "今日已签到",
+                "roi": [
+                    233,
+                    462,
+                    253,
+                    146
+                ]
+            }
+        },
+        "next": "stopAtour"
+    },
+    "Atour-drawedCard": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "您获得一张",
+                "roi": [
+                    132,
+                    556,
+                    241,
+                    140
+                ]
+            }
+        },
+        "next": "stopAtour"
+    },
+    "startAtour": {
+        "action": "StartApp",
+        "package": "com.atour.atourlife"
+    },
+    "stopAtour": {
+        "action": "StopApp",
+        "package": "com.atour.atourlife"
+    }
+}

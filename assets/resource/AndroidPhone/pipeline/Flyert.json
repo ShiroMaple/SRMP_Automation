@@ -1,13 +1,15 @@
-{
+{ //缺少完成确认，会遗漏
     "entry_signFlyert": {
         "next": [
-            "enterFlyertSignPage"
+            "Flyert-enterSignPage"
         ],
         "interrupt": [
+            "skipAD_LowerRightCorner",
             "startFlyert"
         ]
     },
-    "enterFlyertSignPage": {
+    "Flyert-IgnoreUpdates": {},
+    "Flyert-enterSignPage": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -21,14 +23,48 @@
             }
         },
         "action": "Click",
+        "next": [
+            "Flyert-checkSignSucceed"
+        ]
+    },
+    "Flyert-checkSignSucceed": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "签到成功",
+                "roi": [
+                    169,
+                    468,
+                    277,
+                    179
+                ]
+            }
+        },
         "next": "stopFlyert",
-        "post_delay": 3000
+        "post_delay": 1500
+    },
+    "Flyert-checkSigned": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "做任务赚威望",
+                "roi": [
+                    206,
+                    672,
+                    306,
+                    148
+                ]
+            }
+        },
+        "next": "stopFlyert",
+        "post_delay": 1500
     },
     "startFlyert": {
         "action": "StartApp",
         "package": "com.ideal.flyerteacafes"
     },
-    "stopFlyert":{
+    "stopFlyert": {
         "action": "StopApp",
-    "package": "com.ideal.flyerteacafes"    }
+        "package": "com.ideal.flyerteacafes"
+    }
 }

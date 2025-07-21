@@ -1,0 +1,138 @@
+{
+    "entry_signP5XW": {
+        "next": [
+            "P5XW-checkSignSucceed",
+            "Wechat-enterMessagePage"
+        ],
+        "interrupt": [
+            "startWechat"
+        ]
+    },
+    "Wechat-enterMessagePage": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "微信",
+                "roi": [
+                    5,
+                    1465,
+                    168,
+                    136
+                ]
+            }
+        },
+        "action": "Click",
+        "next": "Wechat-enterFloatWindow",
+        "post_delay": 1000
+    },
+    "Wechat-enterFloatWindow": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "Wechat/entrance_FloatWindow.png",
+                "roi": [
+                    25,
+                    92,
+                    45,
+                    30
+                ]
+            }
+        },
+        "action": "Click",
+        "next": "P5XW-enterSignPage",
+        "post_delay": 1000
+    },
+    "Wechat-closeWindow": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "Wechat/buttonCloseWindow.png",
+                "roi": [
+                    0,
+                    36,
+                    138,
+                    142
+                ]
+            }
+        },
+        "action": "Click",
+        "next":"Wechat-swipeLeft",
+        "post_delay": 1000
+    },
+    "Wechat-swipeLeft": {
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin": [
+                    652,
+                    733,
+                    1,
+                    1
+                ],
+                "end": [
+                    103,
+                    735,
+                    1,
+                    1
+                ]
+            }
+        }
+    },
+    "P5XW-enterSignPage": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "女神异闻录",
+                "roi": [
+                    7,
+                    512,
+                    249,
+                    152
+                ]
+            }
+        },
+        "action": "Click",
+        "next": "P5XW-sign",
+        "post_delay": 2000, //进入签到页面后等待页面自己刷新一次
+        "on_error": "Wechat-closeWindow"
+    },
+    "P5XW-sign": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "Wechat/P5XW-buttonSign.png",
+                "roi": [
+                    21,
+                    645,
+                    680,
+                    360
+                ]
+            }
+        },
+        "action": "Click",
+        "next": "P5XW-checkSignSucceed"
+    },
+    "P5XW-checkSignSucceed": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "Wechat/P5XW-signSucceed.png",
+                "roi": [
+                    7,
+                    316,
+                    293,
+                    207
+                ]
+            }
+        },
+        "next": "Wechat-closeWindow"
+    },
+    "startWechat": {
+        "action": "StartApp",
+        "package": "com.tencent.mm"
+    },
+    "stopWechat": {
+        "action": "StopApp",
+        "package": "com.tencent.mm"
+    }
+}

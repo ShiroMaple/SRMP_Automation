@@ -1,7 +1,83 @@
 {
+    //Todo
+    //游侠App签到确认很慢，必须有完签确认“今天+已签到”
+    // 检测是否获取CDKEY等奖励
     "entry_signYouxia": {
-        "next": ["enterSignYouxia","enterMyPage"],
+        "next": [
+            "Youxia-enterSignPage",
+            "Youxia-enterMyPage"
+        ],
         "interrupt": "startYouxia"
+    },
+    "Youxia-enterMyPage": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "Youxia/enterMyPage.png",
+                "roi": [
+                    560,
+                    1421,
+                    160,
+                    180
+                ]
+            }
+        },
+        "action": "Click",
+        "next": "Youxia-enterSignPage"
+    },
+    "Youxia-enterSignPage": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                //"template": "Youxia/enterSignYouxia.png",
+                "expected": "前往领取",
+                "roi": [
+                    395,
+                    518,
+                    325,
+                    258
+                ]
+            }
+        },
+        "action": "Click",
+        "next": "Youxia-checkSignPage"
+    },
+    "Youxia-checkSignPage": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "游侠福利月历",
+                "roi": [
+                    209,
+                    24,
+                    302,
+                    150
+                ]
+            }
+        },
+        "next": "Youxia-sign",
+        "post_delay": 1500
+    },
+    "Youxia-checkSigned": {
+        //检测是否获取CDKEY等奖励
+    },
+    "Youxia-sign": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "Youxia/buttonSign.png",
+                "roi": [
+                    28,
+                    498,
+                    656,
+                    1080
+                ],
+                "threshold": 0.9
+            }
+        },
+        "action": "Click",
+        "next": "Youxia-checkSigned",
+        "post_delay": 5000
     },
     "startYouxia": {
         "action": "StartApp",
@@ -10,36 +86,5 @@
     "stopYouxia": {
         "action": "StopApp",
         "package": "net.ali213.YX"
-    },
-    "enterMyPage": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "Youxia/enterMyPage.png",
-                "roi": [
-                    617,
-                    1183,
-                    681,
-                    1260
-                ]
-            }
-        },
-        "action": "Click",
-        "next": "enterSignYouxia"
-    },
-    "enterSignYouxia": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "Youxia/enterSignYouxia.png",
-                "roi": [
-                    488,
-                    648,
-                    630,
-                    691
-                ]
-            }
-        },
-        "action": "Click"
     }
 }

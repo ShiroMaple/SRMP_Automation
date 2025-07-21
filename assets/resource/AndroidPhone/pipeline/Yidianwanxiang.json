@@ -1,0 +1,87 @@
+{//签到后可能还会遇到一个拆盲盒确认按钮，7/24确认
+    "entry_signMIXC": {
+        "next": [
+            "MIXC-enterMyPage"
+        ],
+        "interrupt": [
+            "MIXC-closePopWindow",
+            "startMIXC"
+        ]
+    },
+    "MIXC-closePopWindow": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "MIXC/buttonClose.png",
+                "roi": [
+                    273,
+                    1081,
+                    171,
+                    171
+                ],
+                "green_mask": true
+            }
+        },
+        "action": "Click"
+    },
+    "MIXC-enterMyPage": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "MIXC/buttonMyPageUnchosen.png",
+                "roi": [
+                    557,
+                    1419,
+                    163,
+                    182
+                ]
+            }
+        },
+        "action": "Click",
+        "next": "MIXC-enterSignPage",
+        "interrupt": [
+            "MIXC-closePopWindow"
+        ]
+    },
+    "MIXC-enterSignPage": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "MIXC/entranceSignPage.png",
+                "roi": [
+                    461,
+                    183,
+                    254,
+                    175
+                ]
+            }
+        },
+        "action": "Click",
+        "next": "MIXC-sign"
+    },
+    "MIXC-sign": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "签到",
+                "roi": [
+                    253,
+                    1048,
+                    214,
+                    168
+                ]
+            }
+        },
+        "action": "Click",
+        "post_delay": 5000,
+        //"next": "stopMIXC"
+    },
+    "startMIXC": {
+        "action": "StartApp",
+        "package": "com.crland.mixc"
+    },
+    "stopMIXC": {
+        "action": "StopApp",
+        "package": "com.crland.mixc"
+    }
+}

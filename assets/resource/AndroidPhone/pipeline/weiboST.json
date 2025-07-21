@@ -6,6 +6,7 @@
         ],
         "interrupt": [
             "微博点击返回",
+            "skipAD_LowerRightCorner",
             "启动微博"
         ]
     },
@@ -31,18 +32,18 @@
             }
         },
         "action": "Click",
-        "post_delay": 3000
+        "post_delay": 1500
     },
     "谢绝评分": {
         "recognition": {
             "type": "OCR",
             "param": {
-                "expected": "不了，谢谢",
+                "expected": "不了",
                 "roi": [
-                    116,
-                    562,
-                    485,
-                    604
+                    222,
+                    758,
+                    174,
+                    159
                 ]
             }
         },
@@ -80,7 +81,7 @@
                 ]
             }
         },
-        "post_delay": 5000,
+        "post_delay": 3000,
         "next": [
             "进入超话签到页面"
         ],
@@ -92,7 +93,8 @@
             "param": {
                 "expected": [
                     "一键签到",
-                    "签到"
+                    "签到",
+                    "查看全部"
                 ],
                 "roi": [
                     551,
@@ -112,7 +114,10 @@
         "recognition": {
             "type": "OCR",
             "param": {
-                "expected": "7级及以上的超话",
+                "expected": [
+                    "7级及以上的超话",
+                    "常用超话"
+                ],
                 "roi": [
                     8,
                     122,
@@ -146,7 +151,7 @@
     "进入某个超话": {
         "action": "Click",
         "target": "检测超话签到按钮",
-        "post_delay": 3000,
+        "post_delay": 1500,
         "next": "位于超话签到页面",
         "interrupt": "微博点击返回"
     },

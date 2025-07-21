@@ -1,11 +1,39 @@
 {
-    "entry_signMain":{
-
+    "entry_signMain": {},
+    "entryApp": {
+        "action": "StartApp"
     },
-    "entryApp":{
-        "action":"StartApp"
-    },
-    "exitApp":{
+    "exitApp": {
         "action": "StopApp"
+    },
+    "skipAD_UpperRightCorner": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "跳过",
+                "roi": [
+                    450,
+                    0,
+                    270,
+                    320
+                ]
+            }
+        },
+        "action": "Click"
+    },
+    "skipAD_LowerRightCorner": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "跳过",
+                "roi": [
+                    450,
+                    0,
+                    270,
+                    320
+                ]
+            }
+        },
+        "action": "Click"
     }
 }

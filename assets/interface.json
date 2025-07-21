@@ -18,7 +18,7 @@
             "name": "AndroidPhone",
             "path": [
                 "{PROJECT_DIR}/resource/AndroidPhone"
-            ]            
+            ]
         },
         {
             "name": "Emulator",
@@ -46,17 +46,54 @@
             "entry": "entry_signXiaoheihe"
         },
         {
-            "name":"游侠网",
-            "entry": "entry_signYouxia"   
+            "name": "游侠网",
+            "entry": "entry_signYouxia"
         },
         {
-            "name":"微博超话",
+            "name": "微博超话",
             "entry": "entry_signWeiboST"
         },
         {
-            "name":"飞客",
+            "name": "飞客",
             "entry": "entry_signFlyert"
+        },
+        {
+            "name": "网上国网",
+            "entry": "entry_signWsgw"
+        },
+        {
+            "name": "天天基金",
+            "entry": "entry_signEastmoneyFund"
+        },
+        {
+            "name": "亚朵",
+            "entry": "entry_signAtour"
+        },
+        {
+            "name": "飞猪旅行",
+            "entry": "entry_signFliggy"
+        },
+        {
+            "name": "携程旅行",
+            "entry": "entry_signCtrip"
+        },
+        {
+            "name": "华住会",
+            "entry": "entry_signHtinns"
+        },
+        {
+            "name": "微信P5X",
+            "entry": "entry_signP5XW"
+        },
+        {
+            "name": "一点万象",
+            "entry": "entry_signMIXC"
+        },
+        {
+            "name": "闲鱼",
+            "entry": "entry_signIdlefish"
         }
+
     ],
     "option": {
         "关闭森空岛": {

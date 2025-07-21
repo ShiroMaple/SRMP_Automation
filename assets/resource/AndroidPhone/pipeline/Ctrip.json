@@ -1,0 +1,117 @@
+{//签到窗口弹出时机不固定，观察是否有必要进一步点击
+    "entry_signCtrip": {
+        "next": [
+            "Ctrip-ignoreUpdate",
+            "Ctrip-enterMyPage"
+        ],
+        "interrupt": [
+            //"skipAD",
+            "startCtrip"
+        ]
+    },
+    "Ctrip-ignoreUpdate": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "立即升级",
+                "roi": [
+                    220,
+                    925,
+                    275,
+                    165
+                ]
+            }
+        },
+        "next": "Ctrip-clickClose"
+    },
+    "Ctrip-clickClose": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "Ctrip/buttonClose.png",
+                "roi": [
+                    558,
+                    387,
+                    140,
+                    140
+                ]
+            }
+        },
+        "action": "Click",
+        "next": "Ctrip-enterMyPage"
+    },
+    "Ctrip-enterMyPage": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "我的",
+                "roi": [
+                    569,
+                    1485,
+                    151,
+                    116
+                ]
+            }
+        },
+        "action": "Click",
+        "next": "Ctrip-enterSignPage"
+    },
+    "Ctrip-enterSignPage": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "签到",
+                "roi": [
+                    464,
+                    58,
+                    144,
+                    129
+                ]
+            }
+        },
+        "action": "Click",
+        "next": ["Ctrip-signByButton","Ctrip-signByBubble"],
+        "post_delay": 3000
+    },
+    "Ctrip-signByButton": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "立即签到",
+                "roi": [
+                    215,
+                    865,
+                    288,
+                    170
+                ]
+            }
+        },
+        "action": "Click",
+        "post_delay": 1500
+        //"next": "stopCtrip"
+    },
+    "Ctrip-signByBubble": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "立即签到",
+                "roi": [
+                    253,
+                    199,
+                    204,
+                    142
+                ]
+            }
+        },
+        "action": "Click",
+        "post_delay": 1500
+    },
+    "startCtrip": {
+        "action": "StartApp",
+        "package": "ctrip.android.view"
+    },
+    "stopCtrip": {
+        "action": "StopApp",
+        "package": "ctrip.android.view"
+    }
+}
