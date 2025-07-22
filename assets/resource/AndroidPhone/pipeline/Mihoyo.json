@@ -2,7 +2,7 @@
     "entry_signMihoyo": {
         "next": [
             "Mihoyo-skipChildMode",
-            "Mihoyo-enterMihoyoFlag"
+            "Mihoyo-flagMainPage"
         ],
         "interrupt": [
             "startMihoyo"
@@ -10,38 +10,42 @@
     },
     "Mihoyo-skipChildMode": {
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "OCR",
             "param": {
-                "template": "empty.png",
+                "expected": "我知道了",
                 "roi": [
-                    0,
-                    14,
-                    152,
-                    156
+                    242,
+                    1061,
+                    233,
+                    159
                 ]
             }
         },
-        "action": "Click"
+        "action": "Click",
+        "next": [
+            //如果被弹窗卡住，那么在这里再加一步enterMainPage
+            "Mihoyo-flagMainPage"
+        ]
     },
-    "Mihoyo-enterMihoyoFlag": {
+    "Mihoyo-flagMainPage": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": "Mihoyo/buttonMyPage.png",
+                "template": "Mihoyo/iconMainPageChosen.png",
                 "roi": [
-                    557,
-                    1137,
-                    163,
-                    143
+                    0,
+                    1434,
+                    159,
+                    157
                 ]
             }
         },
         "next": [
-            "Mihoyo-enter_GenshinPage",
-            "Mihoyo-enter_StarrailPage",
-            "Mihoyo-enter_ZZZPage"
+            "Mihoyo-enterGenshinPage"
         ],
-        "interrupt": "Mihoyo-左滑顶部选择栏"
+        "interrupt": [
+            "Mihoyo-左滑顶部选择栏"
+        ]
     },
     "Mihoyo-左滑顶部选择栏": {
         "action": "Swipe",
@@ -58,9 +62,149 @@
             1
         ]
     },
-    "Mihoyo-enter_GenshinPage": {},
-    "Mihoyo-enter_StarrailPage": {},
-    "Mihoyo-enter_ZZZPage": {},
+    "Mihoyo-enterGenshinPage": {
+        "recognition": {
+            "type": "TemplateMatch",
+            //"type": "OCR",
+            "param": {
+                //"expected": "原神",
+                "template": [
+                    "Mihoyo/entranceGenshinPage1.png",
+                    "Mihoyo/entranceGenshinPage2.png"
+                ],
+                "roi": [
+                    0,
+                    39,
+                    189,
+                    155
+                ]
+                //"green_mask": true
+            }
+        },
+        "action": "Click",
+        "next": [
+            "Mihoyo-signGenshin",
+            "Mihoyo-enterGenshinPage"
+        ],
+        "interrupt": "Mihoyo-enterSignPage"
+    },
+    "Mihoyo-signGenshin": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "Mihoyo/iconSignGenshin.png",
+                "roi": [
+                    46,
+                    487,
+                    628,
+                    421
+                ]
+            }
+        },
+        "action": "Click",
+        "next": "Mihoyo-enterStarrailPage",
+        "interrupt": "Mihoyo-clickBack",
+        "post_delay": 1500
+    },
+    "Mihoyo-enterStarrailPage": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "Mihoyo/entranceStarrailPage.png",
+                "roi": [
+                    116,
+                    35,
+                    361,
+                    159
+                ]
+                //"green_mask": true
+            }
+        },
+        "action": "Click",
+        "next": [
+            "Mihoyo-signStarrail",
+            "Mihoyo-enterStarrailPage"
+        ]
+    },
+    "Mihoyo-signStarrail": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "Mihoyo/iconSignStarrail.png",
+                "roi": [
+                    46,
+                    487,
+                    628,
+                    421
+                ],
+                "green_mask": true
+            }
+        },
+        "action": "Click",
+        "next": "Mihoyo-enterZZZPage",
+        "interrupt": "Mihoyo-clickBack",
+        "post_delay": 1500
+    },
+    "Mihoyo-enterZZZPage": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "Mihoyo/entranceZZZPage.png",
+                "roi": [
+                    409,
+                    44,
+                    214,
+                    147
+                ]
+                //"green_mask": true
+            }
+        },
+        "action": "Click",
+        "next": [
+            "Mihoyo-signZZZ",
+            "Mihoyo-enterZZZPage"
+        ]
+    },
+    "Mihoyo-signZZZ": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "Mihoyo/iconSignZZZ.png",
+                "roi": [
+                    52,
+                    500,
+                    623,
+                    401
+                ]
+            }
+        },
+        "action": "Click",
+        "next": "stopMihoyo",
+        "post_delay": 1500
+    },
+    "Mihoyo-enterSignPage": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "签到福利",
+                "roi": [
+                    21,
+                    166,
+                    386,
+                    171
+                ]
+            }
+        }
+    },
+    "Mihoyo-clickBack": {
+        "action": "Click",
+        "target": [
+            34,
+            88,
+            29,
+            41
+        ]
+    },
     "startMihoyo": {
         "action": "StartApp",
         "package": "com.mihoyo.hyperion"
