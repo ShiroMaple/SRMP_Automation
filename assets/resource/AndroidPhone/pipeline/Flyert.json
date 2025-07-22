@@ -24,7 +24,8 @@
         },
         "action": "Click",
         "next": [
-            "Flyert-checkSignSucceed"
+            "Flyert-checkSignSucceed",
+            "Flyert-enterSignPage"
         ]
     },
     "Flyert-checkSignSucceed": {

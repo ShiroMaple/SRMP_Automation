@@ -1,4 +1,4 @@
-{
+{//优化判断已签的过程，剔除冗余代码
     "entry_signMihoyo": {
         "next": [
             "Mihoyo-skipChildMode",
@@ -64,14 +64,14 @@
     },
     "Mihoyo-enterGenshinPage": {
         "recognition": {
-            "type": "TemplateMatch",
-            //"type": "OCR",
+            //"type": "TemplateMatch",
+            "type": "OCR",
             "param": {
-                //"expected": "原神",
-                "template": [
+                "expected": "原神",
+                /*"template": [
                     "Mihoyo/entranceGenshinPage1.png",
                     "Mihoyo/entranceGenshinPage2.png"
-                ],
+                ],*/
                 "roi": [
                     0,
                     39,
@@ -83,10 +83,31 @@
         },
         "action": "Click",
         "next": [
-            "Mihoyo-signGenshin",
-            "Mihoyo-enterGenshinPage"
+            "Mihoyo-signGenshin"
         ],
-        "interrupt": "Mihoyo-enterSignPage"
+        "interrupt": "Mihoyo-enterSignPage",
+        "on_error": "Mihoyo-signed1",
+        "timeout": 3000
+    },
+    "Mihoyo-signed1": {
+        "action": "Click",
+        "target": [
+            39,
+            96,
+            17,
+            26
+        ],
+        "next": "Mihoyo-enterStarrailPage"
+    },
+    "Mihoyo-signed2": {
+        "action": "Click",
+        "target": [
+            39,
+            96,
+            17,
+            26
+        ],
+        "next": "Mihoyo-enterZZZPage"
     },
     "Mihoyo-signGenshin": {
         "recognition": {
@@ -98,33 +119,44 @@
                     487,
                     628,
                     421
-                ]
+                ],
+                "green_mask": true
             }
         },
         "action": "Click",
+        "target_offset": [
+            -60,
+            60,
+            0,
+            0
+        ],
         "next": "Mihoyo-enterStarrailPage",
-        "interrupt": "Mihoyo-clickBack",
-        "post_delay": 1500
+        "interrupt": "Mihoyo-swipeBack",
+        "post_delay": 3000
     },
     "Mihoyo-enterStarrailPage": {
         "recognition": {
-            "type": "TemplateMatch",
+            //"type": "TemplateMatch",
+            "type": "OCR",
             "param": {
-                "template": "Mihoyo/entranceStarrailPage.png",
+                //"template": "Mihoyo/entranceStarrailPage.png",
+                "expected": "星穹铁道",
                 "roi": [
-                    116,
-                    35,
-                    361,
-                    159
+                    162,
+                    81,
+                    274,
+                    70
                 ]
                 //"green_mask": true
             }
         },
         "action": "Click",
         "next": [
-            "Mihoyo-signStarrail",
-            "Mihoyo-enterStarrailPage"
-        ]
+            "Mihoyo-signStarrail"
+        ],
+        "interrupt": "Mihoyo-enterSignPage",
+        "on_error": "Mihoyo-signed2",
+        "timeout": 3000
     },
     "Mihoyo-signStarrail": {
         "recognition": {
@@ -141,9 +173,15 @@
             }
         },
         "action": "Click",
+        "target_offset": [
+            0,
+            -60,
+            0,
+            -60
+        ],
         "next": "Mihoyo-enterZZZPage",
-        "interrupt": "Mihoyo-clickBack",
-        "post_delay": 1500
+        "interrupt": "Mihoyo-swipeBack",
+        "post_delay": 3000
     },
     "Mihoyo-enterZZZPage": {
         "recognition": {
@@ -161,9 +199,11 @@
         },
         "action": "Click",
         "next": [
-            "Mihoyo-signZZZ",
-            "Mihoyo-enterZZZPage"
-        ]
+            "Mihoyo-signZZZ"
+        ],
+        "interrupt": "Mihoyo-enterSignPage",
+        "on_error":"stopMihoyo",
+        "timeout": 3000
     },
     "Mihoyo-signZZZ": {
         "recognition": {
@@ -179,24 +219,33 @@
             }
         },
         "action": "Click",
-        "next": "stopMihoyo",
+        "target_offset": [
+            -60,
+            60,
+            -60,
+            60
+        ],
+        //next": "stopMihoyo",
         "post_delay": 1500
     },
     "Mihoyo-enterSignPage": {
         "recognition": {
             "type": "OCR",
             "param": {
-                "expected": "签到福利",
+                "expected": "签到*",
                 "roi": [
-                    21,
-                    166,
-                    386,
-                    171
+                    32,
+                    173,
+                    250,
+                    151
                 ]
             }
-        }
+        },
+        "action": "Click",
+        "post_wait_freezes": 2250
     },
-    "Mihoyo-clickBack": {
+    "Mihoyo-swipeBack": {
+        /*
         "action": "Click",
         "target": [
             34,
@@ -204,6 +253,25 @@
             29,
             41
         ]
+            */
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin": [
+                    718,
+                    1137,
+                    1,
+                    1
+                ],
+                "end": [
+                    600,
+                    1137,
+                    1,
+                    1
+                ],
+                "duration": 500
+            }
+        }
     },
     "startMihoyo": {
         "action": "StartApp",

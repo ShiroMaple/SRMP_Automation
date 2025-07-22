@@ -54,7 +54,11 @@
             }
         },
         "action": "Click",
-        "next": "JD-sign"
+        "next": [
+            "JD-signed",
+            "JD-sign",
+            "JD-enterSignPage"
+        ]
     },
     "JD-sign": {
         "recognition": {
@@ -70,7 +74,26 @@
             }
         },
         "action": "Click",
-        "post_delay": 3000,
+        "post_delay": 5000,
+        "next": [
+            "JD-signed",
+            "JD-sign"
+        ]
+    },
+    "JD-signed": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "赚更多京豆",
+                "roi": [
+                    159,
+                    326,
+                    236,
+                    148
+                ]
+            }
+        },
+        "post_delay": 1500,
         "next": "stopJD"
     },
     "startJD": {

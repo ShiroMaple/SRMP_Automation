@@ -117,8 +117,9 @@
                 ]
             }
         },
-        "action": "Click"
+        "action": "Click",
         //"next":"Wsgw-checkSignPage"
+        "next": "FullScreen-swipeUp"
     },
     "startWsgw": {
         "action": "StartApp",

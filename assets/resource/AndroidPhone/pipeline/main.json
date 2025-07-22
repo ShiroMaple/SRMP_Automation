@@ -44,6 +44,16 @@
                 "end" : [353,1159,1,1]
             }
         }
+    },
+    "FullScreen-swipeBack":{
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin" : [718,1137,1,1],
+                "end" : [600,1137,1,1],
+                "duration":500
+            }
+        }
     }
 
 }
