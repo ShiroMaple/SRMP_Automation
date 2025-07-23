@@ -1,0 +1,11 @@
+{
+    "entry_test":{
+        "next":"tryOCR"
+    },
+    "tryOCR":{
+        "recognition": {
+            "type": "OCR",
+            "expect": "测试"
+        }
+    }
+}

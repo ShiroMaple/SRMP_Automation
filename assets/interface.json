@@ -93,6 +93,10 @@
             "name": "微博超话",
             "entry": "entry_signWeiboST"
         },
+                {
+            "name": "TapTap",
+            "entry": "entry_signTapTap"
+        },
         {
             "name": "一点万象",
             "entry": "entry_signMIXC"
@@ -104,7 +108,20 @@
         {
             "name": "京东",
             "entry": "entry_signJD"
+        },
+        {
+            "name": "京东金融",
+            "entry": "entry_signJDFinance"
+        },
+        {
+            "name": "QQ",
+            "entry": "entry_signQQ"
+        },
+        {
+            "name": "测试",
+            "entry": "entry_test"
         }
+
     ],
     "option": {
         "关闭森空岛": {

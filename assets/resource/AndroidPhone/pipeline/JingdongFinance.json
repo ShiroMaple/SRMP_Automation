@@ -1,0 +1,155 @@
+{
+    "entry_signJDFinance": {
+        "next": [           
+            "JDFinance-flagMainPage"
+        ],
+        "interrupt": [
+            //"skipAD_LowerRightCorner",
+            "startJDFinance"
+        ]
+    },
+    "JDFinance-flagMainPage": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "Jingdong/iconJDFMainPage.png",
+                "roi": [
+                    0,
+                    1433,
+                    163,
+                    168
+                ]
+            }
+        },
+        "next": "JDFinance-enterSignPage"
+    },
+    /*
+    "JDFinance-enterMyPage": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "我的",
+                "roi": [
+                    558,
+                    1430,
+                    162,
+                    171
+                ]
+            }
+        },
+        "action": "Click",
+        "next": "JDFinance-enterSignPage",
+        "pre_delay": 1500
+    },
+    */
+    "JDFinance-enterSignPage": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "签到",
+                "recommended roi": [
+                    0,
+                    496,
+                    198,
+                    154
+                ]
+            }
+        },
+        "action": "Click",
+        "next": [
+            "JDFinance-closePopWindow"
+            /*  "JDFinance-signed",
+            "JDFinance-sign",
+            "JDFinance-enterSignPage"*/
+        ]
+    },
+    "JDFinance-closePopWindow": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "Jingdong/buttonJDFClose.png",
+                "roi": [
+                    175,
+                    979,
+                    377,
+                    395
+                ]
+            }
+        },
+        "action": "Click"
+    },
+    "JDFinance-getBeanPage": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "领京豆",
+                "recommended roi": [
+                    11,
+                    1240,
+                    177,
+                    134
+                ]
+            }
+        },
+        "action": "Click"
+    },
+    "JDFinance-getBean": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "Jingdong/buttonClickAward.png",
+                "recommended roi": [
+                    477,
+                    515,
+                    220,
+                    166
+                ]
+            }
+        },
+        "action": "Click"
+    },
+    "JDFinance-sign": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "签到领豆",
+                "roi": [
+                    159,
+                    326,
+                    236,
+                    148
+                ]
+            }
+        },
+        "action": "Click",
+        "post_delay": 5000,
+        "next": [
+            "JDFinance-signed",
+            "JDFinance-sign"
+        ]
+    },
+    "JDFinance-signed": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "赚更多京豆",
+                "roi": [
+                    159,
+                    326,
+                    236,
+                    148
+                ]
+            }
+        },
+        "post_delay": 1500,
+        "next": "stopJDFinance"
+    },
+    "startJDFinance": {
+        "action": "StartApp",
+        "package": "com.jingdong.jrapp"
+    },
+    "stopJDFinance": {
+        "action": "StopApp",
+        "package": "com.jingdong.jrapp"
+    }
+}
