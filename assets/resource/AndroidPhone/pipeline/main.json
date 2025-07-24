@@ -19,8 +19,10 @@
                 ]
             }
         },
-        "action": "Click"
+        "action": "Click",
+        "pre_delay": 0
     },
+    //不稳定，经常误入其它界面
     "skipAD_LowerRightCorner": {
         "recognition": {
             "type": "OCR",
@@ -34,26 +36,65 @@
                 ]
             }
         },
-        "action": "Click"
+        "action": "Click",
+        "pre_delay": 0
     },
-    "FullScreen-swipeUp":{
+    "swipeUp": {
         "action": {
             "type": "Swipe",
             "param": {
-                "begin" : [353,1581,1,1],
-                "end" : [353,1159,1,1]
+                "begin": [
+                    353,
+                    1227,
+                    1,
+                    1
+                ],
+                "end": [
+                    353,
+                    823,
+                    1,
+                    1
+                ]
             }
         }
     },
-    "FullScreen-swipeBack":{
+    "FullScreen-swipeUp": {
         "action": {
             "type": "Swipe",
             "param": {
-                "begin" : [718,1137,1,1],
-                "end" : [600,1137,1,1],
-                "duration":500
+                "begin": [
+                    353,
+                    1581,
+                    1,
+                    1
+                ],
+                "end": [
+                    353,
+                    1159,
+                    1,
+                    1
+                ]
+            }
+        }
+    },
+    "FullScreen-swipeBack": {
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin": [
+                    718,
+                    1137,
+                    1,
+                    1
+                ],
+                "end": [
+                    600,
+                    1137,
+                    1,
+                    1
+                ],
+                "duration": 500
             }
         }
     }
-
 }

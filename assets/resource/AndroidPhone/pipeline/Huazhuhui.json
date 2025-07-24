@@ -1,11 +1,28 @@
 { //观察签到的后续是否有必要继续
     "entry_signHtinns": {
         "next": [
-            "Htinns-enterSignPage",
-            "Htinns-enterMainPage"
+            "Htinns-confirmApp"
         ],
         "interrupt": [
             "startHtinns"
+        ]
+    },
+    "Htinns-confirmApp": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "华住号",
+                "recommended roi": [
+                    411,
+                    1485,
+                    183,
+                    116
+                ]
+            }
+        },
+        "next": [
+            "Htinns-enterSignPage",
+            "Htinns-enterMainPage"
         ]
     },
     "Htinns-enterMainPage": {
@@ -48,7 +65,7 @@
         "recognition": {
             "type": "OCR",
             "param": {
-                "expected": "立即签到",
+                "expected": ["立即签到","签到开盲盒"],
                 "roi": [
                     211,
                     1114,
@@ -58,7 +75,7 @@
             }
         },
         "action": "Click",
-        "post_delay": 2000,
+        "post_wait_freezes": 1500,
         "next": "stopHtinns"
     },
     "startHtinns": {

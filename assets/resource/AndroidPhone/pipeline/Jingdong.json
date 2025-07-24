@@ -74,7 +74,7 @@
             }
         },
         "action": "Click",
-        "post_delay": 5000,
+        "post_wait_freezes": 1500,
         "next": [
             "JD-signed",
             "JD-sign"

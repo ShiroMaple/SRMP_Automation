@@ -1,6 +1,7 @@
 {
     "entry_signWeiboST": {
         "next": [
+            "Weibo-测试",
             "进入超话页面",
             "谢绝评分"
         ],
@@ -8,6 +9,14 @@
             "微博点击返回",
             "skipAD_LowerRightCorner",
             "启动微博"
+        ]
+    },
+    "Weibo-测试": {
+        "next": [
+            "微博-超话自动点赞"
+        ],
+        "interrupt": [
+            "Weibo-swipeUp"
         ]
     },
     "微博点击返回": {
@@ -190,6 +199,48 @@
             }
         },
         "next": "退出微博"
+    },
+    "微博-超话自动点赞": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "Weibo/buttonLikeIt.png",
+                "roi": [
+                    531,
+                    228,
+                    61,
+                    1230
+                ],
+                "threshold": 0.9
+            }
+        },
+        "action": "Click",
+        "pre_wait_freezes": 1000,
+        "post_wait_freezes": 500,
+        "next": [
+            "微博-超话自动点赞"
+        ],
+        "interrupt": "Weibo-swipeUp"
+    },
+    "Weibo-swipeUp": {
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin": [
+                    353,
+                    1227,
+                    1,
+                    1
+                ],
+                "end": [
+                    353,
+                    823,
+                    1,
+                    1
+                ],
+                "duration": 1000
+            }
+        }
     },
     "启动微博": {
         "action": "StartApp",

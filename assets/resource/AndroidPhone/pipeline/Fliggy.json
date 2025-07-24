@@ -1,13 +1,33 @@
 {
     "entry_signFliggy": {
         "next": [
-            "Fliggy-enterMainPage",
-            "Fliggy-enterSignPage"
+            "Fliggy-confirmApp"
         ],
         "interrupt": [
-            "skipAD_UpperRightCorner",
-            "Fliggy-clickBack",
+            //"skipAD_UpperRightCorner",
+            //"Fliggy-clickBack",
             "startFliggy"
+        ]
+    },
+    "Fliggy-confirmApp": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "Fliggy/iconMainPageChosen.png",
+                    "Fliggy/iconMainPageUnchosen.png"
+                ],
+                "roi": [
+                    0,
+                    1431,
+                    194,
+                    170
+                ]
+            }
+        },
+        "next": [
+            "Fliggy-enterSignPage",
+            "Fliggy-enterMainPage"
         ]
     },
     "Fliggy-enterMainPage": {
@@ -42,7 +62,10 @@
         },
         "action": "Click",
         "post_delay": 5000,
-        "next": ["Fliggy-flagSignPage","Fliggy-enterSignPage"]
+        "next": [
+            "Fliggy-flagSignPage",
+            "Fliggy-enterSignPage"
+        ]
     },
     "Fliggy-flagSignPage": {
         "recognition": {
@@ -113,12 +136,17 @@
         "action": "Click",
         "next": "Fliggy-signSucceed"
     },
-    "Fliggy-signSucceed":{
+    "Fliggy-signSucceed": {
         "recognition": {
             "type": "OCR",
-            "param":{
-                "expected" : "签到成功",
-                "roi" : [0,749,396,172]
+            "param": {
+                "expected": "签到成功",
+                "roi": [
+                    0,
+                    749,
+                    396,
+                    172
+                ]
             }
         },
         "next": "stopFliggy",

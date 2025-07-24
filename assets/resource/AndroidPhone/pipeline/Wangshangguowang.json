@@ -87,7 +87,9 @@
             }
         },
         "next": "Wsgw-checkWeekAwards",
-        "interrupt": "Wsgw-clickReceive"
+        "interrupt": "Wsgw-clickReceive",
+        "timeout": 5000,
+        "on_error": "FullScreen-swipeUp"
     },
     "Wsgw-clickReceive": {
         "recognition": {
@@ -114,11 +116,13 @@
                     1067,
                     643,
                     79
-                ]
+                ],
+                "threshold": 1
             }
         },
         "action": "Click",
         //"next":"Wsgw-checkSignPage"
+        "post_delay": 3000,
         "next": "FullScreen-swipeUp"
     },
     "startWsgw": {

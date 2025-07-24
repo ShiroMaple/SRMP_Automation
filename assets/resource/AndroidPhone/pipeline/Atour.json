@@ -63,7 +63,8 @@
         },
         "action": "Click" ,
         "next": "Atour-drawCard",
-        "on_error": "stopAtour"
+        "on_error": "stopAtour",
+        "timeout": 5000
     },
     "Atour-drawCard": {
         "recognition": {

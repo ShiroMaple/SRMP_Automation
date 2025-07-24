@@ -1,7 +1,6 @@
 {
     "entry_signTapTap": {
-        "next": [
-            "TapTap-signZZZ",
+        "next": [            
             "Taptap-confirmApp"
         ],
         "interrupt": [
@@ -123,16 +122,14 @@
         },
         "next": "TapTap-signSR",
         "interrupt": "TapTap-checkSignButton",
-        "on_error": "TapTap-enterZZZPage",
+        "on_error": "TapTap-passSR",
         "timeout": 5000
     },
     "TapTap-signSR": {
-        //待补全
-        /*
         "recognition": {
             "type": "OCR",
             "param": {
-                "expected": "活动已结束",
+                "expected": "立即集卡",
                 "roi": [
                     362,
                     1408,
@@ -140,7 +137,8 @@
                     174
                 ]
             }
-        },*/
+        },
+        "action":"Click",
         "next": "TapTap-passSR"
     },
     "TapTap-passSR": {
@@ -278,8 +276,7 @@
             }
         },
         "action": "Click",
-        "next": "TapTap-signSucceedArknights",
-        "interrupt": "TapTap-clickBack"
+        "next": "TapTap-signSucceedArknights"
     },
     "TapTap-signSucceedArknights": {
         "recognition": {
@@ -342,9 +339,8 @@
         },
         "next": "TapTap-signP5X",
         "interrupt": "TapTap-checkSignButton",
-        "on_error": [
-            "stopTapTap"
-        ]
+        "on_error":"stopTapTap",
+        "timeout": 5000
     },
     "TapTap-signP5X": {
         /*
@@ -360,7 +356,7 @@
         "recognition": {
             "type": "OCR",
             "param": {
-                "expected": "活动已结束",
+                "expected": "立即集卡",
                 "roi": [
                     362,
                     1408,
@@ -369,6 +365,7 @@
                 ]
             }
         },
+        "action": "Click",
         "next": "stopTapTap",
         "post_delay": 3000
     },
@@ -376,7 +373,7 @@
         "recognition": {
             "type": "OCR",
             "param": {
-                "expected": "签到",
+                "expected": ["签到领礼","签到活动","版本签到","签到礼包"],
                 "roi": [
                     0,
                     513,

@@ -1,10 +1,10 @@
-{//目前无新债可申购，暂时上滑；出现可打新的情况时再继续编辑
+{ //目前无新债可申购，暂时上滑；出现可打新的情况时再继续编辑
     "entry_signEastmoneyBerlin": {
         "next": [
             "EastmoneyBerlin-enterTradePage"
         ],
         "interrupt": [
-            "skipAD_LowerRightCorner",
+            //"skipAD_LowerRightCorner",    
             "startEastmoneyBerlin"
         ]
     },
@@ -54,7 +54,8 @@
             }
         },
         "action": "Click",
-        "next": "EastmoneyBerlin-enterNewBondsPage"
+        "next": "EastmoneyBerlin-enterNewBondsPage",
+        "post_delay": 2000
     },
     "EastmoneyBerlin-enterNewBondsPage": {
         "recognition": {
@@ -70,8 +71,7 @@
             }
         },
         "action": "Click",
-        "next": "EastmoneyBerlin-checkNewBonds",
-        "pre_delay": 2000
+        "next": "EastmoneyBerlin-checkNewBonds"       
     },
     "EastmoneyBerlin-checkNewBonds": {
         "recognition": {
@@ -79,10 +79,10 @@
             "param": {
                 "expected": "暂无新债可申购",
                 "roi": [
-                    0,
-                    442,
-                    720,
-                    982
+                    4,
+                    489,
+                    707,
+                    876
                 ]
             }
         },

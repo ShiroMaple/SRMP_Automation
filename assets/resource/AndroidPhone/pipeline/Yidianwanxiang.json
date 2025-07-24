@@ -71,8 +71,8 @@
             }
         },
         "action": "Click",
-        "post_delay": 5000,
-        //"next": "stopMIXC"
+        "post_wait_freezes": 3000,
+        "next": "FullScreen-swipeUp"
     },
     "startMIXC": {
         "action": "StartApp",
