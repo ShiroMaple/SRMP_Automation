@@ -1,5 +1,24 @@
 {
     "entry_signAtour": {
+        "next": "Atour-confirmApp",
+        "interrupt": [
+            //"skipAD_UpperRightCorner",
+            "startAtour"
+        ]
+    },
+    "Atour-confirmApp": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "亚朵星球",
+                "roi": [
+                    172,
+                    1481,
+                    193,
+                    120
+                ]
+            }
+        },
         "next": [
             "Atour-drawedCard",
             "Atour-signed",
@@ -7,11 +26,7 @@
             "Atour-sign",
             "Atour-enterSignPage"
         ],
-        "interrupt": [
-            "skipAD_UpperRightCorner",
-            "Atour-enterMainPage",
-            "startAtour"
-        ]
+        "interrupt": "Atour-enterMainPage"
     },
     "Atour-enterMainPage": {
         "recognition": {
@@ -61,7 +76,7 @@
                 ]
             }
         },
-        "action": "Click" ,
+        "action": "Click",
         "next": "Atour-drawCard",
         "on_error": "stopAtour",
         "timeout": 5000
@@ -80,7 +95,7 @@
             }
         },
         "action": "Click",
-        "next":"Atour-drawedCard"
+        "next": "Atour-drawedCard"
     },
     "Atour-signed": {
         "recognition": {

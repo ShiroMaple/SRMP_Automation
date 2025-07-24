@@ -56,11 +56,8 @@
             }
         },
         "next": "Youxia-sign",
+        "interrupt": "swipeUp",
         "post_delay": 1500
-    },
-    "Youxia-checkSigned": {
-        //检测是否获取CDKEY等奖励
-        "next": "FullScreen-swipeUp"
     },
     "Youxia-sign": {
         "recognition": {
@@ -83,6 +80,10 @@
     "startYouxia": {
         "action": "StartApp",
         "package": "net.ali213.YX"
+    },
+        "Youxia-checkSigned": {
+        //检测是否获取CDKEY等奖励
+        "next": "FullScreen-swipeUp"
     },
     "stopYouxia": {
         "action": "StopApp",

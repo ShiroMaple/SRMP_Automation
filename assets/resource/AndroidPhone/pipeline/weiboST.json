@@ -1,7 +1,7 @@
 {
     "entry_signWeiboST": {
         "next": [
-            "Weibo-测试",
+           // "Weibo-测试",
             "进入超话页面",
             "谢绝评分"
         ],
@@ -211,12 +211,11 @@
                     61,
                     1230
                 ],
-                "threshold": 0.9
+                "threshold": 0.8
             }
         },
-        "action": "Click",
-        "pre_wait_freezes": 1000,
-        "post_wait_freezes": 500,
+        "action": "Click",        
+        //"post_wait_freezes": 300,
         "next": [
             "微博-超话自动点赞"
         ],
@@ -238,9 +237,10 @@
                     1,
                     1
                 ],
-                "duration": 1000
+                "duration": 600
             }
-        }
+        },
+        "post_wait_freezes": 600
     },
     "启动微博": {
         "action": "StartApp",

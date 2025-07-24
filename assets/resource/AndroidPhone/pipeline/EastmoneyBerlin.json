@@ -22,7 +22,7 @@
             }
         },
         "action": "Click",
-        "next": "EastmoneyBerlin-flagTradePage"
+        "next": ["EastmoneyBerlin-flagTradePage","EastmoneyBerlin-enterTradePage"]
     },
     "EastmoneyBerlin-flagTradePage": {
         "recognition": {
@@ -54,7 +54,7 @@
             }
         },
         "action": "Click",
-        "next": "EastmoneyBerlin-enterNewBondsPage",
+        "next": ["EastmoneyBerlin-enterNewBondsPage","EastmoneyBerlin-enterIPOPage"],
         "post_delay": 2000
     },
     "EastmoneyBerlin-enterNewBondsPage": {
@@ -71,7 +71,7 @@
             }
         },
         "action": "Click",
-        "next": "EastmoneyBerlin-checkNewBonds"       
+        "next": ["EastmoneyBerlin-checkNewBonds","EastmoneyBerlin-enterNewBondsPage"]      
     },
     "EastmoneyBerlin-checkNewBonds": {
         "recognition": {
