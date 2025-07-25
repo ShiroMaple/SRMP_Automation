@@ -12,7 +12,7 @@
             "type": "OCR",
             "param": {
                 "expected": "华住号",
-                "recommended roi": [
+                "roi": [
                     411,
                     1485,
                     183,
@@ -23,7 +23,8 @@
         "next": [
             "Htinns-enterSignPage",
             "Htinns-enterMainPage"
-        ]
+        ],
+        "interrupt": "Hitnns-closePopWindow"
     },
     "Htinns-enterMainPage": {
         "recognition": {
@@ -77,6 +78,16 @@
         "action": "Click",
         "post_wait_freezes": 1500,
         "next": "stopHtinns"
+    },
+    "Hitnns-closePopWindow":{
+        "recognition": {
+            "type": "TemplateMatch",
+            "param":{
+                "template": ["Htinns/buttonClose1.png","Htinns/buttonClose2.png"],
+                "roi" : [289,1165,140,136]
+            }
+        },
+        "action":"Click"
     },
     "startHtinns": {
         "action": "StartApp",

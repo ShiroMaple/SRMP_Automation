@@ -163,12 +163,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "Mihoyo/iconSignStarrail.png",
-                "roi": [
-                    46,
-                    487,
-                    628,
-                    421
-                ],
+"roi" : [46,483,623,577],
                 "green_mask": true
             }
         },

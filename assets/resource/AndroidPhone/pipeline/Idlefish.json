@@ -112,8 +112,7 @@
             }
         },
         "action": "Click",
-        "next": "Idlefish-enterMyPost",
-        "interrupt": "Idlefish-clickBack",
+        "next": "Idlefish-clickExp",
         "post_delay": 2000
     },
     "Idlefish-clickExp":{

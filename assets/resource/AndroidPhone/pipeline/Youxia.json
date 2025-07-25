@@ -4,6 +4,7 @@
     // 检测是否获取CDKEY等奖励
     "entry_signYouxia": {
         "next": [
+            "Youxia-checkSignPage",
             "Youxia-enterSignPage",
             "Youxia-enterMyPage"
         ],
@@ -23,7 +24,10 @@
             }
         },
         "action": "Click",
-        "next": ["Youxia-enterSignPage","Youxia-enterMyPage"]
+        "next": [
+            "Youxia-enterSignPage",
+            "Youxia-enterMyPage"
+        ]
     },
     "Youxia-enterSignPage": {
         "recognition": {
@@ -55,7 +59,10 @@
                 ]
             }
         },
-        "next": "Youxia-sign",
+        "next": [
+            "Youxia-sign",
+            "Youxia-tryLottery"
+        ],
         "interrupt": "swipeUp",
         "post_delay": 1500
     },
@@ -65,25 +72,61 @@
             "param": {
                 "template": "Youxia/buttonSign.png",
                 "roi": [
-                    28,
-                    498,
-                    656,
-                    1080
+                    30,
+                    226,
+                    658,
+                    1300
                 ],
                 "threshold": 0.9
             }
         },
         "action": "Click",
-        "next": "Youxia-checkSigned",
+        "next": "Youxia-tryLottery"
+        
+    },
+    "Youxia-checkSigned": {
+        "next": "FullScreen-swipeUp",
         "post_delay": 5000
+    },
+    "Youxia-tryLottery": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "开始抽奖",
+                "roi": [
+                    259,
+                    1052,
+                    199,
+                    518
+                ]
+            }
+        },
+        "action": "Click",
+        "post_wait_freezes": 1000,
+        "next": "Youxia-ReceiveLottery",
+        "timeout": 5000,
+        "on_error": "FullScreen-swipeUp"
+    },
+    "Youxia-ReceiveLottery": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "领取",
+                "roi": [
+                    257,
+                    1043,
+                    214,
+                    150
+                ]
+            }
+        },
+        "action": "Click",
+        "next": "FullScreen-swipeUp",
+        "post_delay": 3000
     },
     "startYouxia": {
         "action": "StartApp",
         "package": "net.ali213.YX"
-    },
-        "Youxia-checkSigned": {
-        //检测是否获取CDKEY等奖励
-        "next": "FullScreen-swipeUp"
     },
     "stopYouxia": {
         "action": "StopApp",

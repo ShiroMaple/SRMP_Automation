@@ -93,7 +93,7 @@
         },
         "action": "Click",
         "next": "Ctrip-flagSignPage",
-        "post_delay": 3000
+        "post_wait_freezes": 2000
     },
     "Ctrip-flagSignPage": {
         /*
