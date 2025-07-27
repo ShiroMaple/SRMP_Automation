@@ -58,7 +58,8 @@
             "JD-signed",
             "JD-sign",
             "JD-enterSignPage"
-        ]
+        ],
+        "interrupt": "JD-clickBack"
     },
     "JD-sign": {
         "recognition": {
@@ -95,6 +96,24 @@
         },
         "post_delay": 1500,
         "next": "stopJD"
+    },
+    "JD-clickBack": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "Jingdong/buttonBack1.png",
+                    "Jingdong/buttonBack2.png"
+                ],
+                "roi": [
+                    0,
+                    38,
+                    144,
+                    149
+                ]
+            }
+        },
+        "action": "Click"
     },
     "startJD": {
         "action": "StartApp",

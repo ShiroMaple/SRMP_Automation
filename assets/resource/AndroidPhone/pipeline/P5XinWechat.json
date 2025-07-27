@@ -5,6 +5,7 @@
             "Wechat-enterMessagePage"
         ],
         "interrupt": [
+            "Wechat-clickBack",
             "startWechat"
         ]
     },
@@ -42,6 +43,21 @@
         "next": "P5XW-enterSignPage",
         "post_delay": 1000
     },
+    "Wechat-clickBack": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "Wechat/buttonBack.png",
+                "roi": [
+                    0,
+                    38,
+                    127,
+                    139
+                ]
+            }
+        },
+        "action": "Click"
+    },
     "Wechat-closeWindow": {
         "recognition": {
             "type": "TemplateMatch",
@@ -56,7 +72,7 @@
             }
         },
         "action": "Click",
-        "next":"Wechat-swipeLeft",
+        "next": "Wechat-swipeLeft",
         "post_delay": 1000
     },
     "Wechat-swipeLeft": {

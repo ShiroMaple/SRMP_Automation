@@ -118,7 +118,7 @@
     "Idlefish-clickExp":{
         "action": "Click",
         "target" : [149,155,103,109],
-        "post_delay": 1500,
+        "post_delay": 3000,
         "next": "Idlefish-enterMyPost",
         "interrupt": "Idlefish-clickBack"
     },

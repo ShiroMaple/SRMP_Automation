@@ -138,7 +138,7 @@
                 ]
             }
         },
-        "action":"Click",
+        "action": "Click",
         "next": "TapTap-passSR"
     },
     "TapTap-passSR": {
@@ -339,24 +339,14 @@
         },
         "next": "TapTap-signP5X",
         "interrupt": "TapTap-checkSignButton",
-        "on_error":"stopTapTap",
+        "on_error": "stopTapTap",
         "timeout": 5000
     },
     "TapTap-signP5X": {
-        /*
-        "recognition": {"type": "OCR","param":{
-            "expected": "立即集卡",
-            "roi" : [362,1408,299,174]
-        }},
-        
-        "action": "Click",
-        "next": "TapTap-signSucceedP5X"
-        */
-        //待补全
         "recognition": {
             "type": "OCR",
             "param": {
-                "expected": "立即集卡",
+                "expected": "立即签到",
                 "roi": [
                     362,
                     1408,
@@ -369,11 +359,43 @@
         "next": "stopTapTap",
         "post_delay": 3000
     },
+    "next-getP5XAward": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "恭喜获得",
+                "roi": [
+                    206,
+                    336,
+                    266,
+                    190
+                ]
+            }
+        },
+        "next": "TapTap-clickCopy",
+        "post_delay": 2000
+    },
+    "TapTap-clickCopy": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "复制",
+"roi" : [413,736,220,159]
+            }
+        },
+        "action": "Click"
+        //"next"
+    },
     "TapTap-checkSignButton": {
         "recognition": {
             "type": "OCR",
             "param": {
-                "expected": ["签到领礼","签到活动","版本签到","签到礼包"],
+                "expected": [
+                    "签到领礼",
+                    "签到活动",
+                    "版本签到",
+                    "签到礼包"
+                ],
                 "roi": [
                     0,
                     513,

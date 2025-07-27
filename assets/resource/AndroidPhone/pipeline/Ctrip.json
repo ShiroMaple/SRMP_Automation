@@ -1,6 +1,7 @@
 {
     "entry_signCtrip": {
         "next": [
+            "Ctrip-ignoreUpdate",
             "Ctrip-enterMyPage"
             //,"Ctrip-flagSignPage"
         ],
@@ -13,13 +14,8 @@
         "recognition": {
             "type": "OCR",
             "param": {
-                "expected": "立即升级",
-                "roi": [
-                    220,
-                    925,
-                    275,
-                    165
-                ]
+                "expected": "立即安装",
+"roi" : [257,1025,213,74]
             }
         },
         "next": "Ctrip-clickClose"
@@ -29,12 +25,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "Ctrip/buttonClose1.png",
-                "roi": [
-                    558,
-                    387,
-                    140,
-                    140
-                ]
+"roi" : [559,460,142,142]
             }
         },
         "action": "Click",

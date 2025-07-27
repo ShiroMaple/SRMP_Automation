@@ -5,7 +5,8 @@
     "entry_signYouxia": {
         "next": [
             "Youxia-checkSignPage",
-            "Youxia-enterSignPage",
+            "Youxia-enterSignPage1",
+            "Youxia-enterSignPage2",
             "Youxia-enterMyPage"
         ],
         "interrupt": "startYouxia"
@@ -25,11 +26,12 @@
         },
         "action": "Click",
         "next": [
-            "Youxia-enterSignPage",
+            "Youxia-enterSignPage1",
+            "Youxia-enterSignPage2",
             "Youxia-enterMyPage"
         ]
     },
-    "Youxia-enterSignPage": {
+    "Youxia-enterSignPage1": {
         "recognition": {
             "type": "OCR",
             "param": {
@@ -40,6 +42,22 @@
                     518,
                     325,
                     258
+                ]
+            }
+        },
+        "action": "Click",
+        "next": "Youxia-checkSignPage"
+    },
+    "Youxia-enterSignPage2": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "Youxia/entranceSign2.png",
+                "roi": [
+                    228,
+                    935,
+                    263,
+                    172
                 ]
             }
         },
@@ -60,8 +78,8 @@
             }
         },
         "next": [
-            "Youxia-sign",
-            "Youxia-tryLottery"
+            "Youxia-sign"
+            //"Youxia-tryLottery"
         ],
         "interrupt": "swipeUp",
         "post_delay": 1500
@@ -81,12 +99,29 @@
             }
         },
         "action": "Click",
-        "next": "Youxia-tryLottery"
-        
+        "next": "Youxia-checkSigned"
     },
     "Youxia-checkSigned": {
-        "next": "FullScreen-swipeUp",
-        "post_delay": 5000
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin": [
+                    353,
+                    1227,
+                    1,
+                    1
+                ],
+                "end": [
+                    353,
+                    823,
+                    1,
+                    1
+                ],
+                "duration": 500
+            }
+        },
+        //"next": "Youxia-tryLottery"   //等获取可点击的抽奖按钮再启用
+        "next": "FullScreen-swipeUp"
     },
     "Youxia-tryLottery": {
         "recognition": {
