@@ -237,6 +237,7 @@
             }
         },
         "action": "Click",
+        //"pre_delay": ,
         "post_wait_freezes": 2250
     },
     "Mihoyo-swipeBack": {

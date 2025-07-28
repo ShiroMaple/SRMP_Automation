@@ -46,6 +46,7 @@
         },
         "action": "Click",
         "next": [
+            "Ctrip-ignoreUpdate",
             "Ctrip-flagMyPage",
             "Ctrip-enterMyPage"
         ]
@@ -102,6 +103,7 @@
         },
         */
         "next": [
+            "Ctrip-closePopWindow",
             "Ctrip-signByButton",
             "Ctrip-signByBubble",
             "Ctrip-travelOnCloud",

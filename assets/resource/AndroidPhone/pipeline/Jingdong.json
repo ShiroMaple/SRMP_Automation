@@ -79,7 +79,8 @@
         "next": [
             "JD-signed",
             "JD-sign"
-        ]
+        ],
+        "interrupt": "JD-clickBack"
     },
     "JD-signed": {
         "recognition": {

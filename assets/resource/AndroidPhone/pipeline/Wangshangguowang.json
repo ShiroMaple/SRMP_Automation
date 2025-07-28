@@ -110,20 +110,21 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": "Wsgw/buttonWeekAward.png",
+                "template": "Wsgw/buttonWeekAward1.png",
                 "roi": [
                     37,
-                    1067,
+                    988,
                     643,
                     79
                 ],
-                "threshold": 1
+                "threshold": 0.8
             }
         },
         "action": "Click",
-        //"next":"Wsgw-checkSignPage"
+        "target_offset": [0,70,0,0],
         "post_delay": 3000,
-        "next": "FullScreen-swipeUp"
+        "next": "Wsgw-checkSignPage"
+        //"next": "FullScreen-swipeUp"
     },
     "startWsgw": {
         "action": "StartApp",
