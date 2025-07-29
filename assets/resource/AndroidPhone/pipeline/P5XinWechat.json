@@ -1,7 +1,6 @@
 {
     "entry_signP5XW": {
         "next": [
-            "P5XW-checkSignSucceed",
             "Wechat-enterMessagePage"
         ],
         "interrupt": [

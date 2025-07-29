@@ -1,34 +1,35 @@
 from maa.agent.agent_server import AgentServer
 from maa.custom_action import CustomAction
 from maa.context import Context
+import json
 
-#运行节点
-"""
-@AgentServer.custom_action("run")
-class Run(CustomAction):
 
+@AgentServer.custom_action("my_action_111")
+class MyCustomAction(CustomAction):
+    """
     def run(
         self,
         context: Context,
         argv: CustomAction.RunArg,
-    ) -> CustomAction.RunResult | bool:
-            try:
-                args =parse_query_args(argv)
-                type=args.get("type,"task")
-                key=args.get("key","")
+    ) -> bool:
 
-                if type=="" or key=="":
-                return False
-
-                if type=="task":
-                context.run_task(key)
-                elif type=="node":
-                context.run_action(key)
-
-                return True
-            except Exception as e:
-                return Prompt.error("运行节点",e)
         print("my_action_111 is running!")
 
         return True
-"""
+    """
+    def run(
+        self,
+        context: Context,
+        argv: CustomAction.RunArg,
+    ) -> bool:
+        # 1. 解析 custom_action_param (JSON 字符串 -> Python 字典)
+        try:
+            params = json.loads(argv.custom_action_param)  # 解析 JSON
+            srmp = params.get("srmp")  # 获取 srmp 参数
+        except json.JSONDecodeError:
+            print("Error: custom_action_param is not valid JSON!")
+            return False
+
+        # 2. 打印 srmp 的值
+        print(f"Received parameter : {srmp}")
+        return True  

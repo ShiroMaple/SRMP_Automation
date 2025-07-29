@@ -1,12 +1,51 @@
 {
     "entry_signIdlefish": {
         "next": [
-            "Idlefish-enterSignPage"
+            "Idlefish-isLoading"
         ],
         "interrupt": [
             // "skipAD_LowerRightCorner",
             "startIdlefish"
         ]
+    },
+    "Idlefish-isLoading": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "Idlefish/iconLoading.png",
+                "roi": [
+                    252,
+                    1093,
+                    214,
+                    213
+                ]
+            }
+        },
+        "action":"DoNothing",   //不加这个DoNothing就会默认点一下跳转到广告页面去？
+        "next": [
+            "Idlefish-isStuck",
+            "Idlefish-enterSignPage"
+        ],
+        "interrupt": "startIdlefish",
+        "post_delay": 4000
+    },
+    "Idlefish-isStuck": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "Idlefish/iconLoading.png",
+                "roi": [
+                    252,
+                    1093,
+                    214,
+                    213
+                ]
+            }
+        },
+        "action": "StopApp",
+        "package": "com.taobao.idlefish",        
+        "next":"entry_signIdlefish",
+        "post_delay": 1000
     },
     "Idlefish-enterSignPage": {
         "recognition": {
@@ -115,9 +154,14 @@
         "next": "Idlefish-clickExp",
         "post_delay": 2000
     },
-    "Idlefish-clickExp":{
+    "Idlefish-clickExp": {
         "action": "Click",
-        "target" : [149,155,103,109],
+        "target": [
+            149,
+            155,
+            103,
+            109
+        ],
         "post_delay": 3000,
         "next": "Idlefish-enterMyPost",
         "interrupt": "Idlefish-clickBack"

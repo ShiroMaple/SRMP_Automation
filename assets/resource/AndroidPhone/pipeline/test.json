@@ -1,11 +1,18 @@
 {
     "entry_test":{
-        "next":"tryOCR"
+        "next":"tryTestCode"
     },
-    "tryOCR":{
+    "tryTestCode":{
+        /*
         "recognition": {
             "type": "OCR",
             "expect": "测试"
         }
-    }
+        */
+        "action": "Custom",
+        "custom_action": "my_action_111",
+        "custom_action_param": {
+            "srmp":"SRMP"
+        }
+        }
 }

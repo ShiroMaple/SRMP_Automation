@@ -220,8 +220,8 @@
             -60,
             60
         ],
-        //next": "stopMihoyo",
-        "post_delay": 1500
+        "post_delay": 1500,
+        "next": "stopMihoyo"
     },
     "Mihoyo-enterSignPage": {
         "recognition": {
@@ -241,15 +241,6 @@
         "post_wait_freezes": 2250
     },
     "Mihoyo-swipeBack": {
-        /*
-        "action": "Click",
-        "target": [
-            34,
-            88,
-            29,
-            41
-        ]
-            */
         "action": {
             "type": "Swipe",
             "param": {

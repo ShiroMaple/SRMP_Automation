@@ -16,13 +16,15 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": "Taobao/buttonBack.png",
+                "template": "empty.png",
                 "roi": [0, 0, 100, 100]
             }
         },
         "action": "Click",
         "next": "Taobao-enterMyPage"
     },
+    "Taobao-enterMyPage":{},
+    "Taobao-clickClose":{},
     "startTaobao":{
         "action": {
             "type": "StartApp",
