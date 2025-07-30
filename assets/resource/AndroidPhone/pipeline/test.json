@@ -1,18 +1,25 @@
 {
-    "entry_test":{
-        "next":"tryTestCode"
+    "entry_test": {
+        "next": "tryTestCode"
     },
-    "tryTestCode":{
-        /*
+    "tryTestCode": {
         "recognition": {
             "type": "OCR",
-            "expect": "测试"
-        }
-        */
+            "param": {
+                "expected": ".*",
+                "roi": [
+                    546,
+                    584,
+                    131,
+                    57
+                ]
+            }
+        },
         "action": "Custom",
         "custom_action": "my_action_111",
         "custom_action_param": {
-            "srmp":"SRMP is Beeping!"
+            "srmp": "Here the world!"
+            //"recde":
         }
-        }
+    }
 }

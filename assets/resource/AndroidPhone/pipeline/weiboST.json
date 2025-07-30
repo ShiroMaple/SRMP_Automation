@@ -1,7 +1,8 @@
 {
     "entry_signWeiboST": {
         "next": [
-           // "Weibo-测试",
+            "Weibo-locateRedeemCode",
+            // "Weibo-测试",
             "进入超话页面",
             "谢绝评分"
         ],
@@ -161,8 +162,78 @@
         "action": "Click",
         "target": "检测超话签到按钮",
         "post_delay": 1500,
-        "next": "位于超话签到页面",
+        "next": ["Weibo-DetectPresent","位于超话签到页面"],
         "interrupt": "微博点击返回"
+    },
+    "Weibo-DetectPresent": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": [
+                    "可领"
+                ],
+                "roi": [
+                    64,
+                    650,
+                    645,
+                    109
+                ]
+            }
+        },
+        "action": "Click",
+        "target_offset": [
+            -30,
+            45,
+            0,
+            0
+        ],
+        "next": "Weibo-locateRedeemCode"
+    },
+    "Weibo-cancelCheckbox": {   //既然不然从剪贴板里直接获取，那就不使用复制按钮也就不需要这一步了
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "Weibo/checkboxChecked.png",
+                "roi": [
+                    202,
+                    939,
+                    134,
+                    135
+                ]                
+            }
+        },
+        "action": "Click",
+        "post_delay": 1000,
+        "next": [
+            "Weibo-cancelCheckbox",
+            "Weibo-locateRedeemCode"
+        ]
+    },
+    "Weibo-locateRedeemCode":{
+        "recognition": {
+            "type": "OCR",
+            "param":{
+                "expected" : "兑换码：",
+                "roi" : [147,814,193,135]
+            }
+        },
+        "next":"Weibo-ocrRedeemCode"
+    },
+    "Weibo-ocrRedeemCode": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": [
+                    ".*"
+                ],
+                "roi": "Weibo-locateRedeemCode",
+                "roi_offset": [87,0,120,0]
+            }
+        },
+        "action": "Custom",
+        "custom_action": "my_action_sendRedeemCode",
+        "next":"位于超话签到页面",
+        "interrupt": "FullScreen-swipeBack"
     },
     "微博上滑": {
         "action": {
@@ -214,7 +285,7 @@
                 "threshold": 0.8
             }
         },
-        "action": "Click",        
+        "action": "Click",
         //"post_wait_freezes": 300,
         "next": [
             "微博-超话自动点赞"
