@@ -12,7 +12,7 @@
         "action": "Custom",
         "custom_action": "my_action_111",
         "custom_action_param": {
-            "srmp":"SRMP"
+            "srmp":"SRMP is Beeping!"
         }
         }
 }

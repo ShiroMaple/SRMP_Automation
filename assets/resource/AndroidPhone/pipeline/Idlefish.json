@@ -61,6 +61,7 @@
             }
         },
         "action": "Click",
+        "post_wait_freezes": 1500,
         "next": [
             "Idlefish-sign",
             "Idlefish-signed",
@@ -71,18 +72,18 @@
         "recognition": {
             "type": "OCR",
             "param": {
-                "expected": "签到",
+                "expected": ["签到","领取奖励"],
                 "roi": [
-                    509,
+                    540,
                     574,
-                    207,
-                    157
+                    167,
+                    250
                 ]
             }
         },
         "action": "Click",
         "post_delay": 1000,
-        "next": "Idlefish-signed"
+        "next": ["Idlefish-sign","Idlefish-signed"]
     },
     "Idlefish-signed": {
         "recognition": {
@@ -97,7 +98,7 @@
                 ]
             }
         },
-        "action": "Click",
+        //"action": "Click",
         "next": "Idlefish-enterMyPage",
         "interrupt": "Idlefish-clickBack"
     },
