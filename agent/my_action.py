@@ -38,9 +38,9 @@ class MyCustomAction(CustomAction):
         context: Context,
         argv: CustomAction.RunArg,
     ) -> bool:  
-        
+        GameName=json.loads(argv.custom_action_param).get("GameName","Unknown")
         RedeemCode = argv.reco_detail.best_result.text if argv.reco_detail.best_result else "No result found"
-        desp="Genshin Impact RedeemCode: " + RedeemCode  
+        desp=GameName+" RedeemCode: " + RedeemCode  
         response = sc_send(sendkey, title, desp, options)
         print(response)
-        print(f"RedeemCode: {RedeemCode}")
+        print(f"{GameName} RedeemCode: {RedeemCode}")

@@ -1,6 +1,7 @@
 {
     "entry_signTapTap": {
-        "next": [            
+        "next": [
+            "TapTap-ocrRedeemCode",
             "Taptap-confirmApp"
         ],
         "interrupt": [
@@ -372,18 +373,26 @@
                 ]
             }
         },
-        "next": "TapTap-clickCopy",
+        "next": "TapTap-ocrRedeemCode",
         "post_delay": 2000
     },
-    "TapTap-clickCopy": {
+    "TapTap-ocrRedeemCode": {
         "recognition": {
             "type": "OCR",
             "param": {
-                "expected": "复制",
-"roi" : [413,736,220,159]
+                "expected": "[a-zA-Z0-9]{12}",  //备用通配符^[a-zA-Z0-9]{6,15}$ //^[a-zA-Z0-9]{12}$
+                "roi": [
+                    171,
+                    502,
+                    397,
+                    546
+                ],
+                "replace": [["兑换码：",""],["复制",""]]
             }
         },
-        "action": "Click"
+        "action": "Custom",
+        "custom_action": "my_action_sendRedeemCode",
+        "custom_action_param": {"GameName":"P5X"}
         //"next"
     },
     "TapTap-checkSignButton": {
