@@ -1,4 +1,4 @@
-{//优化判断已签的过程，剔除冗余代码
+{ //优化判断已签的过程，剔除冗余代码
     "entry_signMihoyo": {
         "next": [
             "Mihoyo-skipChildMode",
@@ -151,9 +151,7 @@
             }
         },
         "action": "Click",
-        "next": [
-            "Mihoyo-signStarrail"
-        ],
+        "next": "Mihoyo-signStarrail",
         "interrupt": "Mihoyo-enterSignPage",
         "on_error": "Mihoyo-signed2",
         "timeout": 3000
@@ -163,7 +161,13 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "Mihoyo/iconSignStarrail.png",
-"roi" : [46,483,623,577],
+                "roi": [
+                    46,
+                    483,
+                    623,
+                    577
+                ],
+                "threshold": 0.6,
                 "green_mask": true
             }
         },
@@ -193,11 +197,9 @@
             }
         },
         "action": "Click",
-        "next": [
-            "Mihoyo-signZZZ"
-        ],
+        "next": "Mihoyo-signZZZ",
         "interrupt": "Mihoyo-enterSignPage",
-        "on_error":"stopMihoyo",
+        "on_error": "stopMihoyo",
         "timeout": 3000
     },
     "Mihoyo-signZZZ": {
@@ -237,8 +239,7 @@
             }
         },
         "action": "Click",
-        //"pre_delay": ,
-        "post_wait_freezes": 2250
+        "post_wait_freezes": 2500
     },
     "Mihoyo-swipeBack": {
         "action": {

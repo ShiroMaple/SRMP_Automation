@@ -1,8 +1,7 @@
 {
     "entry_signWeiboST": {
         "next": [
-            "Weibo-locateRedeemCode",
-            // "Weibo-测试",
+            // "Weibo-测试",           
             "进入超话页面",
             "谢绝评分"
         ],
@@ -162,10 +161,13 @@
         "action": "Click",
         "target": "检测超话签到按钮",
         "post_delay": 1500,
-        "next": ["Weibo-DetectPresent","位于超话签到页面"],
+        "next": [
+            "Weibo-detectPresent",
+            "位于超话签到页面"
+        ],
         "interrupt": "微博点击返回"
     },
-    "Weibo-DetectPresent": {
+    "Weibo-detectPresent": {
         "recognition": {
             "type": "OCR",
             "param": {
@@ -189,7 +191,7 @@
         ],
         "next": "Weibo-locateRedeemCode"
     },
-    "Weibo-cancelCheckbox": {   //既然不然从剪贴板里直接获取，那就不使用复制按钮也就不需要这一步了
+    "Weibo-cancelCheckbox": { //既然不然从剪贴板里直接获取，那就不使用复制按钮也就不需要这一步了
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -199,7 +201,7 @@
                     939,
                     134,
                     135
-                ]                
+                ]
             }
         },
         "action": "Click",
@@ -209,30 +211,39 @@
             "Weibo-locateRedeemCode"
         ]
     },
-    "Weibo-locateRedeemCode":{
+    "Weibo-locateRedeemCode": {
         "recognition": {
             "type": "OCR",
-            "param":{
-                "expected" : "兑换码：",
-                "roi" : [147,814,193,135]
+            "param": {
+                "expected": "兑换码：",
+                "roi": [
+                    147,
+                    814,
+                    193,
+                    135
+                ]
             }
         },
-        "next":"Weibo-ocrRedeemCode"
+        "next": "Weibo-ocrRedeemCode"
     },
     "Weibo-ocrRedeemCode": {
         "recognition": {
             "type": "OCR",
             "param": {
-                "expected": [
-                    ".*"
-                ],
-                "roi": "Weibo-locateRedeemCode",
-                "roi_offset": [87,0,120,0]
+                "expected": "",
+                "only_rec": true,
+                "roi": "Weibo-locateRedeemCode", //因为使用前一个节点的坐标，所以测试时要从前一个开始不能直接跳到这一个
+                "roi_offset": [
+                    80,
+                    -10,
+                    75,
+                    15
+                ]
             }
         },
         "action": "Custom",
         "custom_action": "my_action_sendRedeemCode",
-        "next":"位于超话签到页面",
+        "next": "位于超话签到页面",
         "interrupt": "FullScreen-swipeBack"
     },
     "微博上滑": {

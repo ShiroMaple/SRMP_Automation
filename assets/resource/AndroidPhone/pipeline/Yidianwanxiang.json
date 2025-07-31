@@ -1,10 +1,10 @@
-{//签到后可能还会遇到一个拆盲盒确认按钮，7/24确认
+{ 
     "entry_signMIXC": {
         "next": [
             "MIXC-enterMyPage"
         ],
         "interrupt": [
-            //"MIXC-closePopWindow",
+            "MIXC-closePopWindow",
             "startMIXC"
         ]
     },
@@ -38,8 +38,27 @@
             }
         },
         "action": "Click",
-        "next": ["MIXC-enterSignPage","MIXC-enterMyPage"]
-        //"interrupt":"MIXC-closePopWindow"
+        "next": [
+            "MIXC-enterStarPage",
+            "MIXC-enterMyPage"
+        ],
+        "interrupt": "MIXC-closePopWindow"
+    },
+    "MIXC-enterStarPage": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "签到得万象星",
+                "roi": [
+                    437,
+                    830,
+                    283,
+                    247
+                ]
+            }
+        },
+        "action": "Click",
+        "next": ["MIXC-enterSignPage","MIXC-enterStarPage"]
     },
     "MIXC-enterSignPage": {
         "recognition": {
@@ -47,15 +66,18 @@
             "param": {
                 "template": "MIXC/entranceSignPage.png",
                 "roi": [
-                    461,
-                    183,
-                    254,
-                    175
+                    551,
+                    28,
+                    169,
+                    167
                 ]
             }
         },
         "action": "Click",
-        "next": ["MIXC-sign","MIXC-enterSignPage"]
+        "next": [
+            "MIXC-sign",
+            "MIXC-enterSignPage"
+        ]
     },
     "MIXC-sign": {
         "recognition": {
@@ -72,7 +94,21 @@
         },
         "action": "Click",
         "post_wait_freezes": 3000,
-        "next": "FullScreen-swipeUp"
+        "next": "MIXC-openBox",
+        "on_error": "FullScreen-swipeUp",
+        "timeout": 5000
+    },
+    "MIXC-openBox":{
+        "recognition": {
+            "type": "OCR",
+            "param":{
+                "expected" : "立即打开",
+                "roi" : [206,977,297,183]
+            }
+        },
+        "action": "Click",
+        "post_wait_freezes": 1500,
+        "next": "stopMIXC"
     },
     "startMIXC": {
         "action": "StartApp",
