@@ -49,9 +49,9 @@
     },
     "Fliggy-enterSignPage": {
         "recognition": {
-            "type": "OCR",
+            "type": "TemplateMatch",
             "param": {
-                "expected": "里程签到",
+                "template" : "Fliggy/buttonSignPage.png",
                 "roi": [
                     430,
                     590,

@@ -1,7 +1,8 @@
 {
     "entry_signTapTap": {
         "next": [
-            "TapTap-ocrRedeemCode",
+            //"TapTap-ocrRedeemCode",
+            "TapTap-getGenshinAward",
             "Taptap-confirmApp"
         ],
         "interrupt": [
@@ -82,7 +83,61 @@
         "interrupt": "TapTap-checkSignButton"
     },
     "TapTap-signGenshin": {
-        //待补全
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "立即签到",
+                "roi": [
+                    362,
+                    1408,
+                    299,
+                    174
+                ]
+            }
+        },
+        "action": "Click",
+        //"next": "TapTap-passGenshin"
+        "next": "TapTap-getGenshinAward"
+    },
+    "TapTap-getGenshinAward":{
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "领取今日礼包",
+"roi" : [204,1013,306,172]
+            }
+        },
+        "action": "Click",
+        "next": "TapTap-ocrRedeemCode2"
+    },
+    "TapTap-ocrRedeemCode2": { //临时，以后与其它的合并
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "[a-zA-Z0-9]{12}", //备用通配符^[a-zA-Z0-9]{6,15}$ //^[a-zA-Z0-9]{12}$
+                "roi": [
+                    171,
+                    502,
+                    397,
+                    546
+                ],
+                "replace": [
+                    [
+                        "兑换码：",
+                        ""
+                    ],
+                    [
+                        "复制",
+                        ""
+                    ]
+                ]
+            }
+        },
+        "action": "Custom",
+        "custom_action": "my_action_sendRedeemCode",
+        "custom_action_param": {
+            "GameName": "Genshin"
+        },
         "next": "TapTap-passGenshin"
     },
     "TapTap-passGenshin": {
@@ -380,19 +435,30 @@
         "recognition": {
             "type": "OCR",
             "param": {
-                "expected": "[a-zA-Z0-9]{12}",  //备用通配符^[a-zA-Z0-9]{6,15}$ //^[a-zA-Z0-9]{12}$
+                "expected": "[a-zA-Z0-9]{12}", //备用通配符^[a-zA-Z0-9]{6,15}$ //^[a-zA-Z0-9]{12}$
                 "roi": [
                     171,
                     502,
                     397,
                     546
                 ],
-                "replace": [["兑换码：",""],["复制",""]]
+                "replace": [
+                    [
+                        "兑换码：",
+                        ""
+                    ],
+                    [
+                        "复制",
+                        ""
+                    ]
+                ]
             }
         },
         "action": "Custom",
         "custom_action": "my_action_sendRedeemCode",
-        "custom_action_param": {"GameName":"P5X"}
+        "custom_action_param": {
+            "GameName": "P5X"
+        }
         //"next"
     },
     "TapTap-checkSignButton": {
@@ -400,6 +466,7 @@
             "type": "OCR",
             "param": {
                 "expected": [
+                    "签到.{1}原石",                    
                     "签到领礼",
                     "签到活动",
                     "版本签到",

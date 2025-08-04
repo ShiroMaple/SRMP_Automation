@@ -14,8 +14,8 @@
         "recognition": {
             "type": "OCR",
             "param": {
-                "expected": "立即安装",
-"roi" : [257,1025,213,74]
+                "expected": ["立即安装","立即升级"],
+"roi" : [257,925,213,174]
             }
         },
         "next": "Ctrip-clickClose"
@@ -103,8 +103,8 @@
         },
         */
         "next": [
-            "Ctrip-closePopWindow",
             "Ctrip-signByButton",
+            "Ctrip-closePopWindow",            
             "Ctrip-signByBubble",
             "Ctrip-travelOnCloud",
             "Ctrip-isTravelling"

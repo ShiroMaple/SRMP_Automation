@@ -38,7 +38,8 @@
             159,
             158
         ],
-        "next": "clickConfirm"
+        //"next": "clickConfirm"
+        "next":"FullScreen-swipeUp"
     },
     "clickConfirm": {
         "recognition": "OCR",

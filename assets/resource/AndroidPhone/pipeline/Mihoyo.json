@@ -44,8 +44,19 @@
             "Mihoyo-enterGenshinPage"
         ],
         "interrupt": [
+            "Mihoyo-closePopWindow",
             "Mihoyo-左滑顶部选择栏"
         ]
+    },
+    "Mihoyo-closePopWindow":{
+        "recognition": {
+            "type": "TemplateMatch",
+            "param":{
+                "template" : "Mihoyo/buttonClosePop.png",
+                "roi" : [292,1143,135,134]
+            }
+        },
+        "action":"Click"     
     },
     "Mihoyo-左滑顶部选择栏": {
         "action": "Swipe",

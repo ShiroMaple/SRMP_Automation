@@ -60,7 +60,9 @@
         "next": [
             "Htinns-sign",
             "Htinns-enterSignPage"
-        ]
+        ],
+        "interrupt": "Hitnns-closePopWindow"
+
     },
     "Htinns-sign": {
         "recognition": {

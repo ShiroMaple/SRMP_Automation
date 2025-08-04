@@ -1,7 +1,8 @@
 {
     "entry_signWeiboST": {
         "next": [
-            // "Weibo-测试",           
+            // "Weibo-测试",    
+            "Weibo-locateRedeemCode",       
             "进入超话页面",
             "谢绝评分"
         ],
@@ -243,6 +244,7 @@
         },
         "action": "Custom",
         "custom_action": "my_action_sendRedeemCode",
+        "custom_action_param": {"GameName":"Genshin"},
         "next": "位于超话签到页面",
         "interrupt": "FullScreen-swipeBack"
     },

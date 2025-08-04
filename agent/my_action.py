@@ -3,6 +3,7 @@ from maa.custom_action import CustomAction
 from maa.context import Context
 import json
 from serverchan_sdk import sc_send
+#from .utils import parse_query_args,Prompt
 
 sendkey="sctp2102ta-lbduuk43fh2pz462ln61oko4"
 title="from MaaFw"
@@ -38,9 +39,36 @@ class MyCustomAction(CustomAction):
         context: Context,
         argv: CustomAction.RunArg,
     ) -> bool:  
+        
         GameName=json.loads(argv.custom_action_param).get("GameName","Unknown")
+        
+        
         RedeemCode = argv.reco_detail.best_result.text if argv.reco_detail.best_result else "No result found"
         desp=GameName+" RedeemCode: " + RedeemCode  
         response = sc_send(sendkey, title, desp, options)
         print(response)
         print(f"{GameName} RedeemCode: {RedeemCode}")
+
+"""
+#运行节点
+@AgentServer.custom_action("run")
+class Run(CustomAction):
+    def run (
+            self,context:Context,argv:CustomAction.RunArg
+    )-> CustomAction.RunResult | bool:
+        try:
+            args=parse_query_args(argv)
+            type=args.get("type","task")
+            key=args.get("key","")
+
+            if type=="" or key=="":
+                return False
+            if type=="task":
+                context.run_task(key)
+            elif type=="node":
+                context.run_action(key)
+            
+            return True
+        except Exception as e:
+            return Prompt.error("运行节点",e)
+"""

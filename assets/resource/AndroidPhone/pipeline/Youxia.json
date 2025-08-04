@@ -78,11 +78,13 @@
             }
         },
         "next": [
-            "Youxia-sign"
-            //"Youxia-tryLottery"
+            "Youxia-sign",
+            "Youxia-tryLottery"
         ],
         "interrupt": "swipeUp",
-        "post_delay": 1500
+        "post_delay": 1500,
+        "on_error": "FullScreen-swipeUp",
+        "timeout": 10000
     },
     "Youxia-sign": {
         "recognition": {
@@ -106,38 +108,38 @@
             "type": "Swipe",
             "param": {
                 "begin": [
-                    353,
-                    1227,
+                    362,
+                    1528,
                     1,
                     1
                 ],
                 "end": [
-                    353,
-                    823,
+                    362,
+                    153,
                     1,
                     1
                 ],
                 "duration": 500
             }
         },
-        //"next": "Youxia-tryLottery"   //等获取可点击的抽奖按钮再启用
-        "next": "FullScreen-swipeUp"
+        "next": "Youxia-tryLottery" //等获取可点击的抽奖按钮再启用
+        //"next": "FullScreen-swipeUp"
     },
     "Youxia-tryLottery": {
         "recognition": {
-            "type": "OCR",
+            "type": "TemplateMatch",
             "param": {
-                "expected": "开始抽奖",
+                "template": "Youxia/buttonLottery.png",
                 "roi": [
-                    259,
-                    1052,
-                    199,
-                    518
+                    226,
+                    1062,
+                    269,
+                    184
                 ]
             }
         },
         "action": "Click",
-        "post_wait_freezes": 1000,
+        "post_wait_freezes": 2000,
         "next": "Youxia-ReceiveLottery",
         "timeout": 5000,
         "on_error": "FullScreen-swipeUp"
@@ -156,8 +158,9 @@
             }
         },
         "action": "Click",
-        "next": "FullScreen-swipeUp",
-        "post_delay": 3000
+        "next": "Youxia-checkSignPage",
+        "post_delay": 1500,
+        "interrupt": "FullScreen-swipeBack"
     },
     "startYouxia": {
         "action": "StartApp",
