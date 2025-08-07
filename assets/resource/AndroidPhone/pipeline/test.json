@@ -1,6 +1,6 @@
 {
     "entry_test": {
-        "next": "tryTestCode"
+        "next": "tryJump"
     },
     "tryTestCode": {
         "recognition": {
@@ -21,5 +21,31 @@
             "srmp": "Here the world!"
             //"recde":
         }
+    },
+    "tryJump": {
+        "recognition": "DirectHit",
+        "action": "Custom",
+        "custom_action": "set_str_node_attrs",
+        //"custom_action_param": "node=FullScreen-swipeUp&keys=next&values=打开设置",
+        "custom_action_param": "node=FullScreen-swipeUp&keys=next&values=打开相册",
+        "next": "FullScreen-swipeUp"
+    },
+    "打开设置": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "设置"
+            }
+        },
+        "action": "Click"
+    },
+    "打开相册": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "相册"
+            }
+        },
+        "action": "Click"
     }
 }
