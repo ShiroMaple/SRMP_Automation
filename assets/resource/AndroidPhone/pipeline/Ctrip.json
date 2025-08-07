@@ -195,6 +195,18 @@
             }
         },
         "action": "Click",
+        "post_wait_freezes": 1000,
+        "next": ["Ctrip-云旅行次数奖励","Ctrip-randomTrip"]
+    },
+    "Ctrip-云旅行次数奖励":{
+        "recognition": {
+            "type": "OCR",
+            "param":{
+                "expected": "领奖励",
+                "roi" : [516,298,186,144]
+            }
+        },
+        "action":"Click",
         "next": "Ctrip-randomTrip"
     },
     "Ctrip-randomTrip": {

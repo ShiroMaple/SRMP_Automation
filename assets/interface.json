@@ -84,10 +84,12 @@
         },
         {
             "name": "森空岛",
-            "entry": "entry_signSkland",
+            "entry": "entry_signSkland"
+            /*
             "option": [
                 "关闭森空岛"
             ]
+            */
         },
         {
             "name": "微博超话",

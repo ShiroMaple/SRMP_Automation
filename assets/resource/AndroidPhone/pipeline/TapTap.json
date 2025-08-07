@@ -80,13 +80,34 @@
         },
         "post_delay": 1500,
         "next": "TapTap-signGenshin",
-        "interrupt": "TapTap-checkSignButton"
+        "interrupt": [
+            "TapTap-checkSignButton",
+            "TapTap-原神已签"
+        ]
+    },
+    "TapTap-原神已签": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "今天已集卡",
+                "roi": [
+                    362,
+                    1408,
+                    299,
+                    174
+                ]
+            }
+        },
+        "next": "TapTap-passGenshin"
     },
     "TapTap-signGenshin": {
         "recognition": {
             "type": "OCR",
             "param": {
-                "expected": "立即签到",
+                "expected": [
+                    "立即签到",
+                    "立即集卡"
+                ],
                 "roi": [
                     362,
                     1408,
@@ -99,16 +120,27 @@
         //"next": "TapTap-passGenshin"
         "next": "TapTap-getGenshinAward"
     },
-    "TapTap-getGenshinAward":{
+    "TapTap-getGenshinAward": {
         "recognition": {
             "type": "OCR",
             "param": {
-                "expected": "领取今日礼包",
-"roi" : [204,1013,306,172]
+                "expected": [
+                    "领取今日礼包",
+                    "收下卡片"
+                ],
+                "roi": [
+                    204,
+                    1013,
+                    306,
+                    172
+                ]
             }
         },
         "action": "Click",
-        "next": "TapTap-ocrRedeemCode2"
+        "post_wait_freezes": 1000,
+        "next": "TapTap-ocrRedeemCode2",
+        "timeout": 5000,
+        "on_error": "TapTap-passGenshin"
     },
     "TapTap-ocrRedeemCode2": { //临时，以后与其它的合并
         "recognition": {
@@ -242,7 +274,7 @@
         "recognition": {
             "type": "OCR",
             "param": {
-                "expected": "立即集卡",
+                "expected": ["立即集卡","立即签到"],
                 "roi": [
                     362,
                     1408,
@@ -466,7 +498,7 @@
             "type": "OCR",
             "param": {
                 "expected": [
-                    "签到.{1}原石",                    
+                    "签到.{1}原石",
                     "签到领礼",
                     "签到活动",
                     "版本签到",

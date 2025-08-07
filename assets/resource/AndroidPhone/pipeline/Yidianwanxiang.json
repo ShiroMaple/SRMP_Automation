@@ -1,7 +1,8 @@
 { 
     "entry_signMIXC": {
         "next": [
-            "MIXC-enterMyPage"
+            "MIXC-enterMyPage",
+            "MIXC-enterStarPage"
         ],
         "interrupt": [
             "MIXC-closePopWindow",

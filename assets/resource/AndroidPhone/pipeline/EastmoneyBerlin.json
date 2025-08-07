@@ -1,6 +1,7 @@
 { //目前无新债可申购，暂时上滑；出现可打新的情况时再继续编辑
     "entry_signEastmoneyBerlin": {
         "next": [
+            //"EastmoneyBerlin-reportResult",
             "EastmoneyBerlin-enterTradePage"
         ],
         "interrupt": [
@@ -22,7 +23,10 @@
             }
         },
         "action": "Click",
-        "next": ["EastmoneyBerlin-flagTradePage","EastmoneyBerlin-enterTradePage"]
+        "next": [
+            "EastmoneyBerlin-flagTradePage",
+            "EastmoneyBerlin-enterTradePage"
+        ]
     },
     "EastmoneyBerlin-flagTradePage": {
         "recognition": {
@@ -54,7 +58,10 @@
             }
         },
         "action": "Click",
-        "next": ["EastmoneyBerlin-enterNewBondsPage","EastmoneyBerlin-enterIPOPage"],
+        "next": [
+            "EastmoneyBerlin-enterNewBondsPage",
+            "EastmoneyBerlin-enterIPOPage"
+        ],
         "post_delay": 2000
     },
     "EastmoneyBerlin-enterNewBondsPage": {
@@ -71,13 +78,71 @@
             }
         },
         "action": "Click",
-        "next": ["EastmoneyBerlin-checkNewBonds","EastmoneyBerlin-enterNewBondsPage"]      
+        "next": "EastmoneyBerlin-flagNewBondsPage"
+    },
+    "EastmoneyBerlin-flagNewBondsPage": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "Eastmoney/flagNewBondsPageChosen.png",
+                "roi": [
+                    80,
+                    352,
+                    193,
+                    171
+                ]
+            }
+        },
+        "post_delay": 1,
+        "next": [
+            "EastmoneyBerlin-新债预约申购Step1",
+            "EastmoneyBerlin-checkNewBonds",
+            "EastmoneyBerlin-enterNewBondsPage"
+        ]
+    },
+    "EastmoneyBerlin-新债预约申购Step1":{
+        "recognition": {
+            "type": "OCR",
+            "param":{
+                "expected" : "键预约申购",
+                "roi" : [409,443,311,202]
+            }
+        },
+        "action": "Click",
+        "next": "EastmoneyBerlin-新债预约申购Step2",
+        "post_delay": 500
+    },
+    "EastmoneyBerlin-新债预约申购Step2":{   
+        "recognition": {
+            "type": "OCR",
+            "param":{
+                "expected" : "预约申购",
+                "roi" : [73,1221,552,179]       //后续观察1只以上申购时按钮位置会不会偏移
+            }
+        },
+        "action": "Click",
+        "next": ["EastmoneyBerlin-reportResult"],
+        "post_delay": 500
+
+    },
+    "EastmoneyBerlin-reportResult":{
+        "recognition": {
+            "type": "OCR",
+            "param":{
+                "expected": "",
+                "roi" : [22,1267,565,157]
+            }
+        },
+        "action": "Custom",
+        "custom_action":"my_action_sendMessage",
+        "custom_action_param": {"Source":"东方财富"},
+        "next": "stopEastmoneyBerlin"
     },
     "EastmoneyBerlin-checkNewBonds": {
         "recognition": {
             "type": "OCR",
             "param": {
-                "expected": "暂无新债可申购",
+                "expected": ["暂无新债可申购","已全部预约"],
                 "roi": [
                     4,
                     489,

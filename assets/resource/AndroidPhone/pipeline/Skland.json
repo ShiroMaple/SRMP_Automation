@@ -13,7 +13,7 @@
         "package": "com.hypergryph.skland/com.hypergryph.skland.SchemeActivity"
     },
     "CloseSkland": {
-        "enabled": false,
+        "enabled": true,
         "action": "StopApp",
         "package": "com.hypergryph.skland"
     },

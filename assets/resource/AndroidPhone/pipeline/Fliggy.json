@@ -28,7 +28,19 @@
         "next": [
             "Fliggy-enterSignPage",
             "Fliggy-enterMainPage"
-        ]
+        ],
+        "interrupt": "Fliggy-closePopWindow"
+    },
+    "Fliggy-closePopWindow":{
+        "recognition": {
+            "type": "TemplateMatch",
+            "param":{
+                "template" : "Fliggy/buttonClosePopWindow.png",
+                "roi" : [275,1172,166,165],
+                "green_mask": true
+            }
+        },
+        "action":"Click"
     },
     "Fliggy-enterMainPage": {
         "recognition": {

@@ -46,7 +46,7 @@
             }
         },
         "action": "Click",
-        "next": "Youxia-checkSignPage"
+        "next": ["Youxia-checkSignPage","Youxia-enterSignPage2"]
     },
     "Youxia-enterSignPage2": {
         "recognition": {

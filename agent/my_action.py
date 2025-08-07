@@ -49,6 +49,21 @@ class MyCustomAction(CustomAction):
         print(response)
         print(f"{GameName} RedeemCode: {RedeemCode}")
 
+@AgentServer.custom_action("my_action_sendMessage")
+class MyCustomAction(CustomAction):
+    def run(
+        self,
+        context: Context,
+        argv: CustomAction.RunArg,
+    ) -> bool:  
+        
+        MessageSource=json.loads(argv.custom_action_param).get("Source","Unknown")        
+        
+        Reco_Message = argv.reco_detail.best_result.text if argv.reco_detail.best_result else "No result found"
+        desp=MessageSource+": " + Reco_Message
+        response = sc_send(sendkey, title, desp, options)
+        print(response)
+        print(f"{MessageSource} : {Reco_Message}")
 """
 #运行节点
 @AgentServer.custom_action("run")

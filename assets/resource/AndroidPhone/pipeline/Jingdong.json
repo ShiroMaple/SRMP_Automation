@@ -79,7 +79,8 @@
         "post_wait_freezes": 1500,
         "next": [
             "JD-signed",
-            "JD-sign"
+            "JD-sign",
+            "JD-enterSignPage"
         ],
         "interrupt": "JD-clickBack"
     },
