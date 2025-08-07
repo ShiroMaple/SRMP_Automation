@@ -1,6 +1,6 @@
 {
     "entry_test": {
-        "next": "tryJump"
+        "next": "tryUnlock"
     },
     "tryTestCode": {
         "recognition": {
@@ -47,5 +47,11 @@
             }
         },
         "action": "Click"
+    },
+    "tryUnlock":{
+        "recognition": "DirectHit",
+        "action": "Custom",
+        "custom_action": "swipeUnlock",
+        "custom_action_param": "x1=355&y1=573&x2=129&y2=801&x3=586&y3=801&x4=355&y4=1034"
     }
 }
