@@ -1,6 +1,15 @@
 {
     "entry_test": {
-        "next": "tryJump"
+        "next":  "testOCR"
+    },
+    "testOCR":{
+        "recognition": "OCR",
+        "expected": "",
+        "next": "explore_NodeInfo"
+    },
+    "explore_NodeInfo":{
+        "action": "Custom",
+        "custom_action": "my_action_111"
     },
     "tryTestCode": {
         "recognition": {

@@ -1,7 +1,7 @@
 {
     "entry_signTapTap": {
         "next": [
-            //"TapTap-recoGameName",  //test
+            "TapTap-flagGenshinPage",  //test
             "Taptap-confirmApp"
         ],
         "interrupt": [
@@ -84,8 +84,8 @@
             }
         },
         "action": "Click",
-        "post_wait_freezes": 200,
-        "next": "TapTap-swipeUp"
+        "post_wait_freezes": 1
+        //"next": "TapTap-swipeUp"
     },
     "TapTap-swipeUp": { //上滑使签到页的游戏名出现
         "action": "Swipe",
@@ -127,17 +127,19 @@
             }
         },
         "pre_delay": 0,
-        "post_delay": 0,
-        //"next": "TapTap-recoRedeemCode"
+        "post_delay": 0
     },
     //====================================签到并获取奖励====================================
     "TapTap-不可签": {
         "recognition": {
             "type": "OCR",
             "param": {
-                "expected": [
+                "expected": [                    
+                    "活动已结束",
+                    "已签满",
                     "今天已集卡",
-                    "活动已结束"
+                    "今日已签到"
+
                 ],
                 "roi": [
                     362,
@@ -166,15 +168,17 @@
             }
         },
         "action": "Click",
-        "next": "TapTap-getAward"
+        "next": "TapTap-getAward",
+        "post_wait_freezes": 300
     },
-        "TapTap-getAward": {
+    "TapTap-getAward": {
         "recognition": {
             "type": "OCR",
             "param": {
                 "expected": [
                     "领取今日礼包", //可能显示该字样时有礼包
-                    "收下卡片" //可能显示该字样时无礼包
+                    "收下卡片", //可能显示该字样时无礼包
+                    "恭喜获得"
                 ],
                 "roi": [
                     204,
@@ -189,6 +193,29 @@
         "next": "TapTap-recoRedeemCode", //应该再加一个中间过程，因为点完可能会没有礼包
         "timeout": 5000,
         "on_error": "TapTap-pass"
+    },
+    "TapTap-签到成功": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "签到成功",
+                "roi": [
+                    33,
+                    365,
+                    255,
+                    161
+                ]
+            }
+        },
+        "action": "Click",
+        "target": [
+            305,
+            1076,
+            114,
+            43
+        ]//,
+        //"next": "TapTap-enterArknightsPage",
+        //"interrupt": "TapTap-clickBack"
     },
     //识别兑换码前必须先识别名称，已在进入签到页面时识别
     "TapTap-recoRedeemCode": {
@@ -222,11 +249,10 @@
         }
     },
     //====================================签到====================================
-    "TapTap-enterGenshinPage":{
+    "TapTap-enterGenshinPage": {
         "next": "TapTap-flagGenshinPage",
         "pre_delay": 0,
         "post_delay": 0
-        
     },
     "TapTap-flagGenshinPage": {
         "recognition": {
@@ -241,7 +267,7 @@
                 ]
             }
         },
-        "post_delay": 1500,
+        "post_delay": 200,
         "next": [
             "TapTap-可签",
             "TapTap-不可签"
@@ -249,7 +275,7 @@
         "interrupt": [
             "TapTap-识别签到页面入口"
         ]
-    },  
+    },
     "TapTap-passGenshin": {
         "next": "TapTap-enterSRPage",
         "interrupt": "TapTap-clickBack"
@@ -277,7 +303,7 @@
         "recognition": {
             "type": "OCR",
             "param": {
-                "expected": "星穹铁道",
+                "expected": "星穹铁道",                
                 "roi": [
                     64,
                     231,
@@ -288,26 +314,10 @@
         },
         "post_delay": 1500,
         "next": [
-            "TapTap-星铁可签",
-            "TapTap-不可签" //这一步逻辑可能可以合并，把识别游戏名前置，根据名称跳转下一步
+            "TapTap-可签",
+            "TapTap-不可签"
         ],
         "interrupt": "TapTap-识别签到页面入口"
-    },
-    "TapTap-星铁可签": {
-        "recognition": {
-            "type": "OCR",
-            "param": {
-                "expected": "立即集卡",
-                "roi": [
-                    362,
-                    1408,
-                    299,
-                    174
-                ]
-            }
-        },
-        "action": "Click",
-        "next": "TapTap-passStarrail" //还差一步确认领取礼包，可能可以与原神部分合并，等能领了再做
     },
     "TapTap-passStarrail": {
         "next": "TapTap-enterZZZPage",
@@ -345,50 +355,11 @@
                 ]
             }
         },
-        "next": "TapTap-绝区零可签",
-        "interrupt": "TapTap-识别签到页面入口"
-    },
-    "TapTap-绝区零可签": {
-        "recognition": {
-            "type": "OCR",
-            "param": {
-                "expected": [
-                    "立即集卡",
-                    "立即签到"
-                ],
-                "roi": [
-                    362,
-                    1408,
-                    299,
-                    174
-                ]
-            }
-        },
-        "action": "Click",
-        "next": "TapTap-signSucceedZZZ"
-    },
-    "TapTap-signSucceedZZZ": {
-        "recognition": {
-            "type": "OCR",
-            "param": {
-                "expected": "签到成功",
-                "roi": [
-                    33,
-                    365,
-                    255,
-                    161
-                ]
-            }
-        },
-        "action": "Click",
-        "target": [
-            305,
-            1076,
-            114,
-            43
+        "next": [
+            "TapTap-可签",
+            "TapTap-不可签"
         ],
-        "next": "TapTap-enterArknightsPage",
-        "interrupt": "TapTap-clickBack"
+        "interrupt": "TapTap-识别签到页面入口"
     },
     "TapTap-passZZZ": {
         "next": "TapTap-enterArknightsPage",
@@ -426,49 +397,11 @@
                 ]
             }
         },
-        "next": "TapTap-signArknights",
-        "interrupt": "TapTap-识别签到页面入口",
-        "on_error": "TapTap-passArknights",
-        "timeout": 5000
-    },
-    "TapTap-signArknights": {
-        "recognition": {
-            "type": "OCR",
-            "param": {
-                "expected": "立即集卡",
-                "roi": [
-                    362,
-                    1408,
-                    299,
-                    174
-                ]
-            }
-        },
-        "action": "Click",
-        "next": "TapTap-signSucceedArknights"
-    },
-    "TapTap-signSucceedArknights": {
-        "recognition": {
-            "type": "OCR",
-            "param": {
-                "expected": "签到成功",
-                "roi": [
-                    33,
-                    365,
-                    255,
-                    161
-                ]
-            }
-        },
-        "action": "Click",
-        "target": [
-            305,
-            1076,
-            114,
-            43
+        "next": [
+            "TapTap-可签",
+            "TapTap-不可签"
         ],
-        "next": "TapTap-enterP5XPage",
-        "interrupt": "TapTap-clickBack"
+        "interrupt": "TapTap-识别签到页面入口"
     },
     "TapTap-passArknights": {
         "next": "TapTap-enterP5XPage",
@@ -506,46 +439,21 @@
                 ]
             }
         },
-        "next": "TapTap-signP5X",
+        "next": [
+            "TapTap-可签",
+            "TapTap-不可签"
+        ],
         "interrupt": "TapTap-识别签到页面入口",
         "on_error": "TapTap-passP5X",
         "timeout": 5000
-    },
-    "TapTap-signP5X": {
-        "recognition": {
-            "type": "OCR",
-            "param": {
-                "expected": "立即签到",
-                "roi": [
-                    362,
-                    1408,
-                    299,
-                    174
-                ]
-            }
-        },
-        "action": "Click",
-        "next": "TapTap-passP5X",
-        "post_delay": 3000
-    },
-    "TapTap-getP5XAward": {
-        "recognition": {
-            "type": "OCR",
-            "param": {
-                "expected": "恭喜获得",
-                "roi": [
-                    206,
-                    336,
-                    266,
-                    190
-                ]
-            }
-        },
-        "next": "TapTap-recoGameName",
-        "post_delay": 2000
-    },
+    },   
     "TapTap-passP5X": {
-        "next": "stopTapTap"
+        "next": "TapTap-end"
+    },
+    "TapTap-pass":{
+        "pre_delay": 0,"post_delay": 0,
+        "action": "Custom",
+        "custom_action": "TapTap_Jump"
     },
     "TapTap-clickBack": {
         "action": "Click",
@@ -555,6 +463,9 @@
             46,
             52
         ]
+    },
+    "TapTap-end":{
+        "next": "stopTapTap"
     },
     "startTapTap": {
         "action": "StartApp",
