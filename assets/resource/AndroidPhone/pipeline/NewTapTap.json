@@ -1,12 +1,10 @@
 {
     "entry_signTapTap": {
         "next": [
-            //"TapTap-ocrRedeemCode",
-            "TapTap-getGenshinAward",
+            //"TapTap-recoGameName",  //test
             "Taptap-confirmApp"
         ],
         "interrupt": [
-            "skipAD_LowerRightCorner",
             "startTapTap"
         ]
     },
@@ -23,10 +21,10 @@
                 ]
             }
         },
-        "next": "TapTap-enterNewsPage",
+        "next": "TapTap-进动态页面",
         "pre_delay": 1500
     },
-    "TapTap-enterNewsPage": {
+    "TapTap-进动态页面": {
         "recognition": {
             "type": "OCR",
             "param": {
@@ -41,11 +39,11 @@
         },
         "action": "Click",
         "next": [
-            "TapTap-enterForumPage",
-            "TapTap-enterNewsPage"
+            "TapTap-进论坛页面",
+            "TapTap-进动态页面"
         ]
     },
-    "TapTap-enterForumPage": {
+    "TapTap-进论坛页面": {
         "recognition": {
             "type": "OCR",
             "param": {
@@ -60,36 +58,87 @@
         },
         "action": "Click",
         "next": [
-            "TapTap-flagGenshinPage",
-            "TapTap-enterForumPage"
+            "TapTap-enterGenshinPage",
+            "TapTap-进论坛页面"
         ],
         "post_delay": 2000
     },
-    "TapTap-flagGenshinPage": {
+    //====================================进签到页-上滑-识别名称====================================
+    "TapTap-识别签到页面入口": {
         "recognition": {
             "type": "OCR",
             "param": {
-                "expected": "原神",
+                "expected": [
+                    "签到.{1}原石", //原神入口 签到赢原石
+                    "签到领礼", //星铁入口 
+                    "签到活动", //绝区零入口
+                    "版本签到", //明日方舟
+                    "签到礼包" //P5X
+                ],
                 "roi": [
                     0,
-                    234,
-                    176,
-                    146
+                    513,
+                    720,
+                    52
                 ]
             }
         },
-        "post_delay": 1500,
-        "next": "TapTap-signGenshin",
-        "interrupt": [
-            "TapTap-checkSignButton",
-            "TapTap-原神已签"
+        "action": "Click",
+        "post_wait_freezes": 200,
+        "next": "TapTap-swipeUp"
+    },
+    "TapTap-swipeUp": { //上滑使签到页的游戏名出现
+        "action": "Swipe",
+        "begin": [
+            358,
+            1164,
+            1,
+            1
+        ],
+        "end": [
+            358,
+            443,
+            1,
+            1
+        ],
+        "duration": 100,
+        "next": [
+            "TapTap-recoGameName",
+            "TapTap-swipeUp"
         ]
     },
-    "TapTap-原神已签": {
+    "TapTap-recoGameName": {
         "recognition": {
             "type": "OCR",
             "param": {
-                "expected": "今天已集卡",
+                "expected": [
+                    "原神",
+                    "星穹铁道",
+                    "绝区零",
+                    "明日方舟",
+                    "女神异闻录"
+                ],
+                "roi": [
+                    144,
+                    320,
+                    360,
+                    430
+                ]
+            }
+        },
+        "pre_delay": 0,
+        "post_delay": 0,
+        //"next": "TapTap-recoRedeemCode"
+    },
+    //====================================签到并获取奖励====================================
+    "TapTap-不可签": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": [
+                    "今天已集卡",
+                    "活动已结束"
+                ],
                 "roi": [
                     362,
                     1408,
@@ -98,9 +147,9 @@
                 ]
             }
         },
-        "next": "TapTap-passGenshin"
+        "next": "TapTap-pass"
     },
-    "TapTap-signGenshin": {
+    "TapTap-可签": {
         "recognition": {
             "type": "OCR",
             "param": {
@@ -117,16 +166,15 @@
             }
         },
         "action": "Click",
-        //"next": "TapTap-passGenshin"
-        "next": "TapTap-getGenshinAward"
+        "next": "TapTap-getAward"
     },
-    "TapTap-getGenshinAward": {
+        "TapTap-getAward": {
         "recognition": {
             "type": "OCR",
             "param": {
                 "expected": [
-                    "领取今日礼包",
-                    "收下卡片"
+                    "领取今日礼包", //可能显示该字样时有礼包
+                    "收下卡片" //可能显示该字样时无礼包
                 ],
                 "roi": [
                     204,
@@ -138,11 +186,12 @@
         },
         "action": "Click",
         "post_wait_freezes": 1000,
-        "next": "TapTap-ocrRedeemCode2",
+        "next": "TapTap-recoRedeemCode", //应该再加一个中间过程，因为点完可能会没有礼包
         "timeout": 5000,
-        "on_error": "TapTap-passGenshin"
+        "on_error": "TapTap-pass"
     },
-    "TapTap-ocrRedeemCode2": { //临时，以后与其它的合并
+    //识别兑换码前必须先识别名称，已在进入签到页面时识别
+    "TapTap-recoRedeemCode": {
         "recognition": {
             "type": "OCR",
             "param": {
@@ -168,10 +217,39 @@
         "action": "Custom",
         "custom_action": "my_action_sendRedeemCode",
         "custom_action_param": {
-            "GameName": "Genshin"
-        },
-        "next": "TapTap-passGenshin"
+            "GameNameNode": "TapTap-recoGameName",
+            "BackPoint": "TapTap-pass" //在custom_action中将字段组合成指定的返回点
+        }
     },
+    //====================================签到====================================
+    "TapTap-enterGenshinPage":{
+        "next": "TapTap-flagGenshinPage",
+        "pre_delay": 0,
+        "post_delay": 0
+        
+    },
+    "TapTap-flagGenshinPage": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "原神",
+                "roi": [
+                    0,
+                    234,
+                    176,
+                    146
+                ]
+            }
+        },
+        "post_delay": 1500,
+        "next": [
+            "TapTap-可签",
+            "TapTap-不可签"
+        ],
+        "interrupt": [
+            "TapTap-识别签到页面入口"
+        ]
+    },  
     "TapTap-passGenshin": {
         "next": "TapTap-enterSRPage",
         "interrupt": "TapTap-clickBack"
@@ -208,12 +286,14 @@
                 ]
             }
         },
-        "next": "TapTap-signSR",
-        "interrupt": "TapTap-checkSignButton",
-        "on_error": "TapTap-passSR",
-        "timeout": 5000
+        "post_delay": 1500,
+        "next": [
+            "TapTap-星铁可签",
+            "TapTap-不可签" //这一步逻辑可能可以合并，把识别游戏名前置，根据名称跳转下一步
+        ],
+        "interrupt": "TapTap-识别签到页面入口"
     },
-    "TapTap-signSR": {
+    "TapTap-星铁可签": {
         "recognition": {
             "type": "OCR",
             "param": {
@@ -227,9 +307,9 @@
             }
         },
         "action": "Click",
-        "next": "TapTap-passSR"
+        "next": "TapTap-passStarrail" //还差一步确认领取礼包，可能可以与原神部分合并，等能领了再做
     },
-    "TapTap-passSR": {
+    "TapTap-passStarrail": {
         "next": "TapTap-enterZZZPage",
         "interrupt": "TapTap-clickBack"
     },
@@ -265,16 +345,17 @@
                 ]
             }
         },
-        "next": "TapTap-signZZZ",
-        "interrupt": "TapTap-checkSignButton",
-        "on_error": "TapTap-passZZZ",
-        "timeout": 5000
+        "next": "TapTap-绝区零可签",
+        "interrupt": "TapTap-识别签到页面入口"
     },
-    "TapTap-signZZZ": {
+    "TapTap-绝区零可签": {
         "recognition": {
             "type": "OCR",
             "param": {
-                "expected": ["立即集卡","立即签到"],
+                "expected": [
+                    "立即集卡",
+                    "立即签到"
+                ],
                 "roi": [
                     362,
                     1408,
@@ -346,7 +427,7 @@
             }
         },
         "next": "TapTap-signArknights",
-        "interrupt": "TapTap-checkSignButton",
+        "interrupt": "TapTap-识别签到页面入口",
         "on_error": "TapTap-passArknights",
         "timeout": 5000
     },
@@ -426,8 +507,8 @@
             }
         },
         "next": "TapTap-signP5X",
-        "interrupt": "TapTap-checkSignButton",
-        "on_error": "stopTapTap",
+        "interrupt": "TapTap-识别签到页面入口",
+        "on_error": "TapTap-passP5X",
         "timeout": 5000
     },
     "TapTap-signP5X": {
@@ -444,10 +525,10 @@
             }
         },
         "action": "Click",
-        "next": "stopTapTap",
+        "next": "TapTap-passP5X",
         "post_delay": 3000
     },
-    "next-getP5XAward": {
+    "TapTap-getP5XAward": {
         "recognition": {
             "type": "OCR",
             "param": {
@@ -460,60 +541,11 @@
                 ]
             }
         },
-        "next": "TapTap-ocrRedeemCode",
+        "next": "TapTap-recoGameName",
         "post_delay": 2000
     },
-    "TapTap-ocrRedeemCode": {
-        "recognition": {
-            "type": "OCR",
-            "param": {
-                "expected": "[a-zA-Z0-9]{12}", //备用通配符^[a-zA-Z0-9]{6,15}$ //^[a-zA-Z0-9]{12}$
-                "roi": [
-                    171,
-                    502,
-                    397,
-                    546
-                ],
-                "replace": [
-                    [
-                        "兑换码：",
-                        ""
-                    ],
-                    [
-                        "复制",
-                        ""
-                    ]
-                ]
-            }
-        },
-        "action": "Custom",
-        "custom_action": "my_action_sendRedeemCode",
-        "custom_action_param": {
-            "GameName": "P5X"
-        }
-        //"next"
-    },
-    "TapTap-checkSignButton": {
-        "recognition": {
-            "type": "OCR",
-            "param": {
-                "expected": [
-                    "签到.{1}原石",
-                    "签到领礼",
-                    "签到活动",
-                    "版本签到",
-                    "签到礼包"
-                ],
-                "roi": [
-                    0,
-                    513,
-                    720,
-                    52
-                ]
-            }
-        },
-        "action": "Click",
-        "post_delay": 1500
+    "TapTap-passP5X": {
+        "next": "stopTapTap"
     },
     "TapTap-clickBack": {
         "action": "Click",

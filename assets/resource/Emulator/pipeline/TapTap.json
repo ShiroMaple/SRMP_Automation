@@ -1,0 +1,555 @@
+{
+    "entry_signTapTap": {
+        "next": [
+            //"TapTap-recoGameName",  //test
+            "Taptap-confirmApp"
+        ],
+        "interrupt": [
+            "skipAD_LowerRightCorner",
+            "startTapTap"
+        ]
+    },
+    "Taptap-confirmApp": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "我的游戏",
+                "roi": [
+                    539,
+                    1422,
+                    181,
+                    179
+                ]
+            }
+        },
+        "next": "TapTap-enterNewsPage",
+        "pre_delay": 1500
+    },
+    "TapTap-enterNewsPage": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "动态",
+                "roi": [
+                    259,
+                    1420,
+                    202,
+                    181
+                ]
+            }
+        },
+        "action": "Click",
+        "next": [
+            "TapTap-enterForumPage",
+            "TapTap-enterNewsPage"
+        ]
+    },
+    "TapTap-enterForumPage": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "论坛",
+                "roi": [
+                    0,
+                    35,
+                    180,
+                    154
+                ]
+            }
+        },
+        "action": "Click",
+        "next": [
+            "TapTap-flagGenshinPage",
+            "TapTap-enterForumPage"
+        ],
+        "post_delay": 2000
+    },
+    "TapTap-flagGenshinPage": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "原神",
+                "roi": [
+                    0,
+                    234,
+                    176,
+                    146
+                ]
+            }
+        },
+        "post_delay": 1500,
+        "next": [
+            "TapTap-原神可签",
+            "TapTap-原神不可签"
+        ],
+        "interrupt": [
+            "TapTap-checkSignButton"
+        ]
+    },
+    "TapTap-checkSignButton": { //识别各页面的签到入口
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": [
+                    "签到.{1}原石", //原神入口 签到赢原石
+                    "签到领礼", //星铁入口 
+                    "签到活动", //绝区零入口
+                    "版本签到", //明日方舟
+                    "签到礼包" //P5X
+                ],
+                "roi": [
+                    0,
+                    513,
+                    720,
+                    52
+                ]
+            }
+        },
+        "action": "Click",
+        "post_wait_freezes": 200,
+        "next": "TapTap-swipeUp"
+    },
+    "TapTap-swipeUp": {
+        "action": "Swipe",
+        "begin": [
+            358,
+            1164,
+            1,
+            1
+        ],
+        "end": [
+            358,
+            443,
+            1,
+            1
+        ],
+        "duration": 100
+    },
+    "TapTap-原神不可签": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": [
+                    "今天已集卡",
+                    "活动已结束"
+                ],
+                "roi": [
+                    362,
+                    1408,
+                    299,
+                    174
+                ]
+            }
+        },
+        "next": "TapTap-passGenshin"
+    },
+    "TapTap-原神可签": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": [
+                    "立即签到",
+                    "立即集卡"
+                ],
+                "roi": [
+                    362,
+                    1408,
+                    299,
+                    174
+                ]
+            }
+        },
+        "action": "Click",
+        "next": "TapTap-getGenshinAward"
+    },
+    "TapTap-getGenshinAward": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": [
+                    "领取今日礼包", //可能显示该字样时有礼包
+                    "收下卡片" //可能显示该字样时无礼包
+                ],
+                "roi": [
+                    204,
+                    1013,
+                    306,
+                    172
+                ]
+            }
+        },
+        "action": "Click",
+        "post_wait_freezes": 1000,
+        "next": "TapTap-recoGameName", //应该再加一个中间过程，因为点完可能会没有礼包
+        "timeout": 5000,
+        "on_error": "TapTap-passGenshin"
+    },
+    "TapTap-recoGameName": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": [
+                    "原神",
+                    "星穹铁道",
+                    "绝区零",
+                    "明日方舟",
+                    "女神异闻录"
+                ],
+                "roi": [
+                    144,
+                    320,
+                    360,
+                    430
+                ]
+            }
+        },
+        "pre_delay": 0,
+        "post_delay": 0,
+        "next": "TapTap-recoRedeemCode"
+    },
+    //识别兑换码前必须先识别名称
+    "TapTap-recoRedeemCode": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "[a-zA-Z0-9]{12}", //备用通配符^[a-zA-Z0-9]{6,15}$ //^[a-zA-Z0-9]{12}$
+                "roi": [
+                    171,
+                    502,
+                    397,
+                    546
+                ],
+                "replace": [
+                    [
+                        "兑换码：",
+                        ""
+                    ],
+                    [
+                        "复制",
+                        ""
+                    ]
+                ]
+            }
+        },
+        "action": "Custom",
+        "custom_action": "my_action_sendRedeemCode",
+        "custom_action_param": {
+            "GameNameNode": "TapTap-recoGameName",
+            "BackPoint": "TapTap-pass" //在custom_action中将字段组合成指定的返回点
+        }
+    },
+    "TapTap-passGenshin": {
+        "next": "TapTap-enterSRPage",
+        "interrupt": "TapTap-clickBack"
+    },
+    "TapTap-enterSRPage": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "TapTap/iconSRPage.png",
+                "roi": [
+                    107,
+                    144,
+                    390,
+                    129
+                ]
+            }
+        },
+        "action": "Click",
+        "next": [
+            "TapTap-flagSRPage",
+            "TapTap-enterSRPage"
+        ]
+    },
+    "TapTap-flagSRPage": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "星穹铁道",
+                "roi": [
+                    64,
+                    231,
+                    243,
+                    149
+                ]
+            }
+        },
+        "post_delay": 1500,
+        "next": [
+            "TapTap-星铁可签",
+            "TapTap-原神不可签"     //这一步逻辑可能可以合并，把识别游戏名前置，根据名称跳转下一步
+        ],
+        "interrupt": "TapTap-checkSignButton"
+    },
+    "TapTap-星铁可签": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "立即集卡",
+                "roi": [
+                    362,
+                    1408,
+                    299,
+                    174
+                ]
+            }
+        },
+        "action": "Click",
+        "next": "TapTap-passStarrail"   //还差一步确认领取礼包，可能可以与原神部分合并，等能领了再做
+    },
+    "TapTap-passStarrail": {
+        "next": "TapTap-enterZZZPage",
+        "interrupt": "TapTap-clickBack"
+    },
+    "TapTap-enterZZZPage": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "TapTap/iconZZZPage.png",
+                "roi": [
+                    107,
+                    144,
+                    390,
+                    129
+                ]
+            }
+        },
+        "action": "Click",
+        "next": [
+            "TapTap-flagZZZPage",
+            "TapTap-enterZZZPage"
+        ]
+    },
+    "TapTap-flagZZZPage": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "绝区零",
+                "roi": [
+                    0,
+                    230,
+                    204,
+                    149
+                ]
+            }
+        },
+        "next": "TapTap-绝区零可签",
+        "interrupt": "TapTap-checkSignButton"
+    },
+    "TapTap-绝区零可签": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": [
+                    "立即集卡",
+                    "立即签到"
+                ],
+                "roi": [
+                    362,
+                    1408,
+                    299,
+                    174
+                ]
+            }
+        },
+        "action": "Click",
+        "next": "TapTap-signSucceedZZZ"
+    },
+    "TapTap-signSucceedZZZ": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "签到成功",
+                "roi": [
+                    33,
+                    365,
+                    255,
+                    161
+                ]
+            }
+        },
+        "action": "Click",
+        "target": [
+            305,
+            1076,
+            114,
+            43
+        ],
+        "next": "TapTap-enterArknightsPage",
+        "interrupt": "TapTap-clickBack"
+    },
+    "TapTap-passZZZ": {
+        "next": "TapTap-enterArknightsPage",
+        "interrupt": "TapTap-clickBack"
+    },
+    "TapTap-enterArknightsPage": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "TapTap/iconArknightsPage.png",
+                "roi": [
+                    107,
+                    144,
+                    390,
+                    129
+                ]
+            }
+        },
+        "action": "Click",
+        "next": [
+            "TapTap-flagArknightsPage",
+            "TapTap-enterArknightsPage"
+        ]
+    },
+    "TapTap-flagArknightsPage": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "明日方舟",
+                "roi": [
+                    0,
+                    235,
+                    233,
+                    142
+                ]
+            }
+        },
+        "next": "TapTap-signArknights",
+        "interrupt": "TapTap-checkSignButton",
+        "on_error": "TapTap-passArknights",
+        "timeout": 5000
+    },
+    "TapTap-signArknights": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "立即集卡",
+                "roi": [
+                    362,
+                    1408,
+                    299,
+                    174
+                ]
+            }
+        },
+        "action": "Click",
+        "next": "TapTap-signSucceedArknights"
+    },
+    "TapTap-signSucceedArknights": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "签到成功",
+                "roi": [
+                    33,
+                    365,
+                    255,
+                    161
+                ]
+            }
+        },
+        "action": "Click",
+        "target": [
+            305,
+            1076,
+            114,
+            43
+        ],
+        "next": "TapTap-enterP5XPage",
+        "interrupt": "TapTap-clickBack"
+    },
+    "TapTap-passArknights": {
+        "next": "TapTap-enterP5XPage",
+        "interrupt": "TapTap-clickBack"
+    },
+    "TapTap-enterP5XPage": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "TapTap/iconP5XPage.png",
+                "roi": [
+                    107,
+                    144,
+                    390,
+                    129
+                ]
+            }
+        },
+        "action": "Click",
+        "next": [
+            "TapTap-flagP5XPage",
+            "TapTap-enterP5XPage"
+        ]
+    },
+    "TapTap-flagP5XPage": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "女神异闻录",
+                "roi": [
+                    0,
+                    234,
+                    260,
+                    143
+                ]
+            }
+        },
+        "next": "TapTap-signP5X",
+        "interrupt": "TapTap-checkSignButton",
+        "on_error": "TapTap-passP5X",
+        "timeout": 5000
+    },
+    "TapTap-signP5X": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "立即签到",
+                "roi": [
+                    362,
+                    1408,
+                    299,
+                    174
+                ]
+            }
+        },
+        "action": "Click",
+        "next": "TapTap-passP5X",
+        "post_delay": 3000
+    },
+    "TapTap-getP5XAward": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "恭喜获得",
+                "roi": [
+                    206,
+                    336,
+                    266,
+                    190
+                ]
+            }
+        },
+        "next": "TapTap-recoGameName",
+        "post_delay": 2000
+    },
+    "TapTap-passP5X": {
+        "next": "stopTapTap"
+    },
+    "TapTap-clickBack": {
+        "action": "Click",
+        "target": [
+            24,
+            85,
+            46,
+            52
+        ]
+    },
+    "startTapTap": {
+        "action": "StartApp",
+        "package": "com.taptap"
+    },
+    "stopTapTap": {
+        "action": "StopApp",
+        "package": "com.taptap"
+    }
+}

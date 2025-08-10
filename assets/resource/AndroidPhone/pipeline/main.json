@@ -98,5 +98,8 @@
                 "duration": 500
             }
         }
+    },
+    "Global-jump":{
+        "action": "DoNothing"        
     }
 }

@@ -2,7 +2,7 @@
     "entry_signWeiboST": {
         "next": [
             // "Weibo-测试",    
-            "Weibo-locateRedeemCode",       
+            //"Weibo-locateRedeemCode",       
             "进入超话页面",
             "谢绝评分"
         ],
@@ -177,9 +177,9 @@
                 ],
                 "roi": [
                     64,
-                    650,
+                    600,
                     645,
-                    109
+                    159
                 ]
             }
         },
@@ -191,26 +191,6 @@
             0
         ],
         "next": "Weibo-locateRedeemCode"
-    },
-    "Weibo-cancelCheckbox": { //既然不然从剪贴板里直接获取，那就不使用复制按钮也就不需要这一步了
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "Weibo/checkboxChecked.png",
-                "roi": [
-                    202,
-                    939,
-                    134,
-                    135
-                ]
-            }
-        },
-        "action": "Click",
-        "post_delay": 1000,
-        "next": [
-            "Weibo-cancelCheckbox",
-            "Weibo-locateRedeemCode"
-        ]
     },
     "Weibo-locateRedeemCode": {
         "recognition": {
@@ -225,15 +205,32 @@
                 ]
             }
         },
-        "next": "Weibo-ocrRedeemCode"
+        "next": "Weibo-recoGameName"
     },
-    "Weibo-ocrRedeemCode": {
+    "Weibo-recoGameName": { //识别获取该礼包的游戏名
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "",
+                "roi": [
+                    202,
+                    197,
+                    136,
+                    92
+                ]
+            }
+        },
+        "pre_delay": 0,
+        "post_delay": 0,
+        "next": "Weibo-recoRedeemCode"
+    },
+    "Weibo-recoRedeemCode": {
         "recognition": {
             "type": "OCR",
             "param": {
                 "expected": "",
                 "only_rec": true,
-                "roi": "Weibo-locateRedeemCode", //因为使用前一个节点的坐标，所以测试时要从前一个开始不能直接跳到这一个
+                "roi": "Weibo-locateRedeemCode", //因为使用前面节点的坐标，所以测试时要从"Weibo-locateRedeemCode开始不能直接跳到这一个
                 "roi_offset": [
                     80,
                     -10,
@@ -244,7 +241,9 @@
         },
         "action": "Custom",
         "custom_action": "my_action_sendRedeemCode",
-        "custom_action_param": {"GameName":"Genshin"},
+        "custom_action_param": {
+            "GameNameNode": "Weibo-recoGameName"            
+        },
         "next": "位于超话签到页面",
         "interrupt": "FullScreen-swipeBack"
     },
@@ -333,5 +332,25 @@
     "退出微博": {
         "action": "StopApp",
         "package": "com.sina.weibo"
+    },
+    "Weibo-cancelCheckbox": { //既然不然从剪贴板里直接获取，那就不使用复制按钮也就不需要这一步了
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "Weibo/checkboxChecked.png",
+                "roi": [
+                    202,
+                    939,
+                    134,
+                    135
+                ]
+            }
+        },
+        "action": "Click",
+        "post_delay": 1000,
+        "next": [
+            "Weibo-cancelCheckbox",
+            "Weibo-locateRedeemCode"
+        ]
     }
 }

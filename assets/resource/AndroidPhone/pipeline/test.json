@@ -1,6 +1,6 @@
 {
     "entry_test": {
-        "next": "tryUnlock"
+        "next": "tryJump"
     },
     "tryTestCode": {
         "recognition": {
@@ -25,9 +25,14 @@
     "tryJump": {
         "recognition": "DirectHit",
         "action": "Custom",
-        "custom_action": "set_str_node_attrs",
+        "custom_action": "NodeOverride",
         //"custom_action_param": "node=FullScreen-swipeUp&keys=next&values=打开设置",
-        "custom_action_param": "node=FullScreen-swipeUp&keys=next&values=打开相册",
+        "custom_action_param": {
+            "FullScreen-swipeUp":{
+                //"next":"打开相册"
+                "next":"打开设置"
+            }
+        },
         "next": "FullScreen-swipeUp"
     },
     "打开设置": {
