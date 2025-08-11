@@ -48,8 +48,7 @@ class MyCustomAction(CustomAction):
 
         def find_latest_taptap_node(node_list) -> str:    
             """
-            反向遍历 List[NodeDetail]，找到最后一个 name 符合 "TapTap-flag***Page" 的节点，
-            并返回其 recognition.best_result。
+            反向遍历 List[NodeDetail]，找到最近一个 name 符合条件的节点，并返回其 recognition.best_result.text
             """
             for node in reversed(node_list):  # 从后往前遍历
                 if re.fullmatch(r"TapTap-flag.*Page", node.name):  # 精确匹配 name 模式
@@ -160,9 +159,9 @@ class TapTapJump(CustomAction):
         CallingNode = argv.node_name  # 获取调用源节点名
         Nodes=argv.task_detail.nodes  
         GameName=self.find_latest_name(Nodes)
-        logger.info(f"GameName:\n{GameName}")        
+        logger.info(f"GameName:{GameName}")        
         GameName=self.GameNameDict(GameName)
-        logger.info(f"GameName:\n{GameName}")
+        logger.info(f"GameName:{GameName}")
 
         NextNode="TapTap-pass"+GameName
         ppover={CallingNode:{"next":NextNode}}

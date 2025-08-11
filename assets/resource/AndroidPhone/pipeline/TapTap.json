@@ -1,7 +1,7 @@
 {
     "entry_signTapTap": {
         "next": [
-            "TapTap-flagGenshinPage",  //test
+            "TapTap-flagGenshinPage", //test
             "Taptap-confirmApp"
         ],
         "interrupt": [
@@ -84,62 +84,21 @@
             }
         },
         "action": "Click",
-        "post_wait_freezes": 1
-        //"next": "TapTap-swipeUp"
-    },
-    "TapTap-swipeUp": { //上滑使签到页的游戏名出现
-        "action": "Swipe",
-        "begin": [
-            358,
-            1164,
-            1,
-            1
-        ],
-        "end": [
-            358,
-            443,
-            1,
-            1
-        ],
-        "duration": 100,
-        "next": [
-            "TapTap-recoGameName",
-            "TapTap-swipeUp"
-        ]
-    },
-    "TapTap-recoGameName": {
-        "recognition": {
-            "type": "OCR",
-            "param": {
-                "expected": [
-                    "原神",
-                    "星穹铁道",
-                    "绝区零",
-                    "明日方舟",
-                    "女神异闻录"
-                ],
-                "roi": [
-                    144,
-                    320,
-                    360,
-                    430
-                ]
-            }
-        },
         "pre_delay": 0,
-        "post_delay": 0
+        "post_delay": 1000
+        //"post_wait_freezes": 100
+        //"next": "TapTap-swipeUp"
     },
     //====================================签到并获取奖励====================================
     "TapTap-不可签": {
         "recognition": {
             "type": "OCR",
             "param": {
-                "expected": [                    
+                "expected": [
                     "活动已结束",
                     "已签满",
                     "今天已集卡",
                     "今日已签到"
-
                 ],
                 "roi": [
                     362,
@@ -148,7 +107,7 @@
                     174
                 ]
             }
-        },
+        },        
         "next": "TapTap-pass"
     },
     "TapTap-可签": {
@@ -189,7 +148,7 @@
             }
         },
         "action": "Click",
-        "post_wait_freezes": 1000,
+        "post_wait_freezes": 500,
         "next": "TapTap-recoRedeemCode", //应该再加一个中间过程，因为点完可能会没有礼包
         "timeout": 5000,
         "on_error": "TapTap-pass"
@@ -213,7 +172,7 @@
             1076,
             114,
             43
-        ]//,
+        ] //,
         //"next": "TapTap-enterArknightsPage",
         //"interrupt": "TapTap-clickBack"
     },
@@ -260,14 +219,15 @@
             "param": {
                 "expected": "原神",
                 "roi": [
-                    0,
-                    234,
-                    176,
-                    146
+                    15,
+                    282,
+                    99,
+                    48
                 ]
             }
         },
-        "post_delay": 200,
+        //"post_delay": 200,
+        "post_wait_freezes": 100,
         "next": [
             "TapTap-可签",
             "TapTap-不可签"
@@ -277,10 +237,10 @@
         ]
     },
     "TapTap-passGenshin": {
-        "next": "TapTap-enterSRPage",
+        "next": "TapTap-enterStarrailPage",
         "interrupt": "TapTap-clickBack"
     },
-    "TapTap-enterSRPage": {
+    "TapTap-enterStarrailPage": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -296,23 +256,23 @@
         "action": "Click",
         "next": [
             "TapTap-flagSRPage",
-            "TapTap-enterSRPage"
+            "TapTap-enterStarrailPage"
         ]
     },
     "TapTap-flagSRPage": {
         "recognition": {
             "type": "OCR",
             "param": {
-                "expected": "星穹铁道",                
+                "expected": ".*星穹铁道",
                 "roi": [
-                    64,
-                    231,
-                    243,
-                    149
+                    15,
+                    276,
+                    254,
+                    54
                 ]
             }
         },
-        "post_delay": 1500,
+        "post_wait_freezes": 100,
         "next": [
             "TapTap-可签",
             "TapTap-不可签"
@@ -348,10 +308,10 @@
             "param": {
                 "expected": "绝区零",
                 "roi": [
-                    0,
-                    230,
-                    204,
-                    149
+                    14,
+                    280,
+                    131,
+                    50
                 ]
             }
         },
@@ -390,10 +350,10 @@
             "param": {
                 "expected": "明日方舟",
                 "roi": [
-                    0,
-                    235,
-                    233,
-                    142
+                    15,
+                    279,
+                    161,
+                    50
                 ]
             }
         },
@@ -430,12 +390,12 @@
         "recognition": {
             "type": "OCR",
             "param": {
-                "expected": "女神异闻录",
+                "expected": "女神异闻录.*",
                 "roi": [
-                    0,
-                    234,
-                    260,
-                    143
+                    15,
+                    280,
+                    335,
+                    52
                 ]
             }
         },
@@ -446,12 +406,13 @@
         "interrupt": "TapTap-识别签到页面入口",
         "on_error": "TapTap-passP5X",
         "timeout": 5000
-    },   
+    },
     "TapTap-passP5X": {
         "next": "TapTap-end"
     },
-    "TapTap-pass":{
-        "pre_delay": 0,"post_delay": 0,
+    "TapTap-pass": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "action": "Custom",
         "custom_action": "TapTap_Jump"
     },
@@ -464,7 +425,7 @@
             52
         ]
     },
-    "TapTap-end":{
+    "TapTap-end": {
         "next": "stopTapTap"
     },
     "startTapTap": {
