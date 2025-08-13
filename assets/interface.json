@@ -1,17 +1,13 @@
 {
     "name": "SRMP_AutoSign", 
-    "version":  "v0.1", 
-    //"mirrorchyan_rid":  "项目ID(从Mirror酱下载的必要字段)", //默认为null , 比如 M9A
-    //"mirrorchyan_multiplatform":  false, //项目多平台字段(从Mirror酱下载的字段)默认为false
-    "url":  "https://github.com/ShiroMaple/SRMP_Automation", //默认为null , 比如 https://github.com/{Github账户}/{Github项目}
-    "custom_title": "SRMP_AutoSign", //默认为null, 使用该字段后，标题栏将只显示custom_title和version
+    "version":  "v1.0.0", 
+    "url":  "https://github.com/ShiroMaple/SRMP_Automation", 
+    "custom_title": "SRMP_AutoSign", 
     "controller": [
         {
             "name": "安卓端",
             "type": "Adb"
-        }
-        /*
-        ,
+        },
         {
             "name": "桌面端",
             "type": "Win32",
@@ -20,7 +16,6 @@
                 "window_regex": "Visual Studio"
             }
         }
-        */
     ],
     "resource": [
         {
@@ -93,12 +88,10 @@
         },
         {
             "name": "森空岛",
-            "entry": "entry_signSkland"
-            /*
+            "entry": "entry_signSkland",            
             "option": [
                 "关闭森空岛"
             ]
-            */
         },
         {
             "name": "微博超话",
