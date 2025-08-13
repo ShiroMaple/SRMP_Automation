@@ -1,7 +1,6 @@
 {
     "entry_signTapTap": {
-        "next": [
-            "TapTap-flagGenshinPage", //test
+        "next": [            
             "Taptap-confirmApp"
         ],
         "interrupt": [
@@ -203,8 +202,8 @@
         "action": "Custom",
         "custom_action": "sendRedeemCode",
         "custom_action_param": {
-            "GameNameNode": "TapTap-flag.*Page"
-            //"BackPoint": "TapTap-pass" //在custom_action中将字段组合成指定的返回点
+            "pattern": "TapTap-flag.*Page",
+            "BackNodePrefix": "TapTap-pass" //在custom_action中将字段组合成指定的返回点
         }
     },
     //====================================签到====================================

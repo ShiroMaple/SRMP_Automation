@@ -11,6 +11,47 @@ sendkey = "sctp2102ta-lbduuk43fh2pz462ln61oko4"
 title = "from MaaFw"
 options = {"tags": "MaaFw"}
 
+def GameNameDict(GameName:str)->str:    
+    match GameName:
+        case "原神":
+            GameNameEng = "Genshin"
+        case "星穹铁道" | "崩坏：星穹铁道"|"坏：星穹铁道":
+            GameNameEng = "Starrail"
+        case "绝区零":
+            GameNameEng = "ZZZ"
+        case "明日方舟":
+            GameNameEng = "Arknights"
+        case "女神异闻录" | "女神异闻录：夜幕魅影"|"女神异闻录：夜嘉":
+            GameNameEng = "P5X"
+        case _:
+            GameNameEng = "Unknown"
+    return GameNameEng
+
+def find_latest_reco_text(pattern,node_list) -> str:    
+    """
+    反向遍历 List[node_list]，找到最后一个节点名称符合 pattern 的节点
+    示例pattern=r"ab.*cde"
+    返回匹配节点的 recognition.best_result
+    """
+    for node in reversed(node_list):  # 从后往前遍历
+        if re.fullmatch(pattern, node.name):  # 精确匹配 name 模式
+            return node.recognition.best_result.text
+    logger.info(f"{pattern}无匹配节点")
+    return None  # 无匹配节点
+
+def fetch_spec_reco_text(str,context,args) -> str: 
+    """
+    把指定的节点名和context和json格式化后的custom_action_param传入
+    示例args = json.loads(argv.custom_action_param)
+    返回最近一次运行该节点后的最
+    """    
+    NameNode = args.get("NameNode", "Unknown")  
+    # 需要在自定义动作参数中传入识别名称的节点"NameNode"
+    # logger.info(NameNode)
+    if NameNode == "Unknown": logger.warning("未传入名称识别节点")
+    nodeDetial = context.tasker.get_latest_node(NameNode)  # 获取最近一次"NameNode”的节点详情
+    name = (nodeDetial.recognition.best_result.text if nodeDetial else "")  # 从节点详情中获取到识别结果
+    return name
 
 @AgentServer.custom_action("my_action_111")
 class MyCustomAction(CustomAction):
@@ -22,7 +63,7 @@ class MyCustomAction(CustomAction):
 
         My_params = json.loads(argv.custom_action_param)  # 解析 JSON
         Reco_detail = argv.reco_detail  # 获取识别详情
-        best_result = Reco_detail.best_result
+        best_result = Reco_detail.best_result   #当前节点的匹配结果
         best_result_text = best_result.text if best_result else "No result found"
 
         # print(f"argv.custom_action_param : {argv.custom_action_param}") #str型字符串
@@ -34,7 +75,7 @@ class MyCustomAction(CustomAction):
         # response = sc_send(sendkey,title,desp,options)  # 调用 serverchan_sdk 的 sc_send 函数发送消息
         # print(response)  # 打印发送结果
         a1=argv.task_detail.nodes
-        
+        """
         node_dicts = [
         {
             'node_id': node.node_id,
@@ -44,21 +85,11 @@ class MyCustomAction(CustomAction):
             for node in a1
         ]              
         logger.info(f"nodes:\n{node_dicts}")
-        
-
-        def find_latest_taptap_node(node_list) -> str:    
-            """
-            反向遍历 List[NodeDetail]，找到最近一个 name 符合条件的节点，并返回其 recognition.best_result.text
-            """
-            for node in reversed(node_list):  # 从后往前遍历
-                if re.fullmatch(r"TapTap-flag.*Page", node.name):  # 精确匹配 name 模式
-                    return node.recognition.best_result.text
-            return None  # 无匹配节点
-
-        # 调用示例
-        latest_best_result = find_latest_taptap_node(a1)  # a1: List[NodeDetail]        
+        """
+        pattern=r".*OCR"
+        latest_best_result = find_latest_reco_text(pattern,a1)     
         logger.info(latest_best_result)
-        
+
         context.tasker.post_stop()        
 
         return True
@@ -66,6 +97,13 @@ class MyCustomAction(CustomAction):
 
 @AgentServer.custom_action("sendRedeemCode")
 class SendRedeemCode(CustomAction):
+    """
+    功能：根据传入的节点名找到其OCR的识别结果，通过serverchan发送通知，如果设置了返回点前缀，跳转到拼接名称后的返回点
+    参数：
+        pattern         节点名称的正则匹配表达式
+        BackNodePrefix  (可选)  返回节点名的前缀  
+    示例："custom_action_param":{"pattern":"TapTap-recoName","BackNodePrefix":"TapTap-pass"}
+    """
     def run(
         self,
         context: Context,
@@ -73,96 +111,50 @@ class SendRedeemCode(CustomAction):
     ) -> bool:
 
         args = json.loads(argv.custom_action_param)
-        GameNameNode = args.get(
-            "GameNameNode", "Unknown"
-        )  # 需要在自定义动作参数中传入识别名称的节点"GameNameNode”
-        # logger.info(GameNameNode)
-        if GameNameNode == "Unknown":
-            logger.warning("未传入游戏名称识别节点")
-        nodeDetial = context.tasker.get_latest_node(
-            GameNameNode
-        )  # 获取最近一次"GameNameNode”的节点详情
-        GameName = (
-            nodeDetial.recognition.best_result.text if nodeDetial else ""
-        )  # 从节点详情中获取到识别结果
-        match GameName:
-            case "原神":
-                GameName = "Genshin"
-            case "星穹铁道" | "崩坏：星穹铁道":
-                GameName = "Starrail"
-            case "绝区零":
-                GameName = "ZZZ"
-            case "明日方舟":
-                GameName = "Arknights"
-            case "女神异闻录" | "女神异闻录：夜幕魅影":
-                GameName = "P5X"
-            case _:
-                GameName = "Unknown"
+        try:
+            pattern=args.get("pattern")
+        except Exception as e:
+            logger.warning("传入的pattern异常",e)
+            return CustomAction.RunResult(success=False)
+        GameName = find_latest_reco_text(pattern,argv.task_detail.nodes )
+        GameNameEng=GameNameDict(GameName)
         RedeemCode = (
             argv.reco_detail.best_result.text
             if argv.reco_detail.best_result
             else "No result found"
         )  # 从调用本方法的节点参数中获取识别结果
-        desp = GameName + " RedeemCode: " + RedeemCode
-        # response = sc_send(sendkey, title, desp, options)   #通过serverchan推送消息
-        # print(response)
-        print(f"{GameName} RedeemCode: {RedeemCode}")
+        desp = GameNameEng + " RedeemCode: " + RedeemCode
+        response = sc_send(sendkey, title, desp, options)   #通过serverchan推送消息
+        print(response)
+        print(f"{GameNameEng} RedeemCode: {RedeemCode}")
 
-        BackPoint = args.get("BackPoint", "")
-        if not BackPoint:
-            logger.info("没有设置返回点")
+        BackNodePrefix = args.get("BackNodePrefix", "")
+        if not BackNodePrefix:
+            logger.info("未设置返回节点前缀，不覆写跳转")
+            return CustomAction.RunResult(success=True)
         else:
             CallingNode = argv.node_name  # 获取调用源节点名
-            BackPointNode = (
-                BackPoint + GameName
-            )  # 将传入的返回点和游戏名称组合成要返回的节点名称
-            ppover = {CallingNode: {"next": BackPointNode}}
+            BackNode = (BackNodePrefix + GameNameEng)  # 将传入的返回点和游戏名称组合成要返回的节点名称
+            ppover = {CallingNode: {"next": BackNode}}
             context.override_pipeline(ppover)
             logger.info(f"NodeOverride: {ppover}")
         return CustomAction.RunResult(success=True)
 
 @AgentServer.custom_action("TapTap_Jump")   #TapTap跳转至Pass节点
 class TapTapJump(CustomAction): 
-    #def recoGameName(self,context:Context)->str:
-        #nodeDetial = context.tasker.get_latest_node("TapTap-recoGameName")  # 获取最近一次"GameNameNode”的节点详情
-        #GameName = (nodeDetial.recognition.best_result.text if nodeDetial else "")  # 从节点详情中获取到识别结果
-    def GameNameDict(self,GameName:str)->str:    
-        match GameName:
-            case "原神":
-                GameName = "Genshin"
-            case "星穹铁道" | "崩坏：星穹铁道"|"坏：星穹铁道":
-                GameName = "Starrail"
-            case "绝区零":
-                GameName = "ZZZ"
-            case "明日方舟":
-                GameName = "Arknights"
-            case "女神异闻录" | "女神异闻录：夜幕魅影"|"女神异闻录：夜嘉":
-                GameName = "P5X"
-            case _:
-                GameName = "Unknown"
-        return GameName
-    def find_latest_name(self,node_list) -> str:    
-            """
-            反向遍历 List[NodeDetail]，找到最后一个 name 符合 "TapTap-flag***Page" 的节点，
-            并返回其 recognition.best_result。
-            """
-            for node in reversed(node_list):  # 从后往前遍历
-                if re.fullmatch(r"TapTap-flag.*Page", node.name):  # 精确匹配 name 模式
-                    return node.recognition.best_result.text
-            return None  # 无匹配节点
-
     def run(
             self,
             context:Context,
             argv:CustomAction.RunArg
     )->bool:        
         CallingNode = argv.node_name  # 获取调用源节点名
-        Nodes=argv.task_detail.nodes  
-        GameName=self.find_latest_name(Nodes)     
-        GameName=self.GameNameDict(GameName)
+        Nodes=argv.task_detail.nodes  #获取当前任务节点集合
+        pattern=r"TapTap-flag.*Page"
+        GameName=find_latest_reco_text(pattern,Nodes)     
+        GameNameEng=GameNameDict(GameName)
         #logger.info(f"GameName:{GameName}")
 
-        NextNode="TapTap-pass"+GameName #拼接返回节点名
+        NextNode="TapTap-pass"+GameNameEng #拼接返回节点名
         ppover={CallingNode:{"next":NextNode}}
         context.override_pipeline(ppover)
         logger.info(f"NodeOverride: {ppover}")
@@ -192,7 +184,7 @@ class SendMessage(CustomAction):
 
 
 """
-#运行节点
+#尝试用swipe解锁图案
 @AgentServer.custom_action("run")
 class Run(CustomAction):
     def run (
