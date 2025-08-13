@@ -5,7 +5,7 @@
 
 <div align="center">
 
-# MaaPracticeBoilerplate
+# SRMP_AutoSign
 
 </div>
 
@@ -17,8 +17,8 @@
 
 本项目由 **[MaaFramework](https://github.com/MaaXYZ/MaaFramework)** 强力驱动！
 
-感谢以下开发者对本项目作出的贡献（下面链接改成你自己的项目地址）:
+感谢以下开发者对本项目作出的贡献:
 
-[![Contributors]<a href="https://github.com/ShiroMaple/SRMP_Automation/graphs/contributors">
+[<a href="https://github.com/ShiroMaple/SRMP_Automation/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=ShiroMaple/SRMP_Automation" />
 </a>](https://github.com/ShiroMaple/SRMP_Automation/graphs/contributors)
