@@ -67,9 +67,9 @@ jobs:
         uses: robinraju/release-downloader@v1
         with:
           repository: MaaXYZ/MaaFramework
-          fileName: "MAA-win-${{ matrix.arch }}*"
+          fileName: "MAA-win-86_64-*"
           latest: true
-          preRelease: true
+          preRelease: false
           out-file-path: "deps"
           extract: true               
 
