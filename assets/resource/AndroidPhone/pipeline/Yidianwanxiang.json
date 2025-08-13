@@ -59,7 +59,9 @@
             }
         },
         "action": "Click",
-        "next": ["MIXC-enterSignPage","MIXC-enterStarPage"]
+        "post_wait_freezes": 100,
+        "next": ["MIXC-enterSignPage","MIXC-enterStarPage"],
+        "interrupt": "FullScreen-swipeBack"
     },
     "MIXC-enterSignPage": {
         "recognition": {

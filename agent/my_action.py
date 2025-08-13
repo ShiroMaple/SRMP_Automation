@@ -64,7 +64,7 @@ class MyCustomAction(CustomAction):
         return True
 
 
-@AgentServer.custom_action("my_action_sendRedeemCode")
+@AgentServer.custom_action("sendRedeemCode")
 class SendRedeemCode(CustomAction):
     def run(
         self,
@@ -158,12 +158,11 @@ class TapTapJump(CustomAction):
     )->bool:        
         CallingNode = argv.node_name  # 获取调用源节点名
         Nodes=argv.task_detail.nodes  
-        GameName=self.find_latest_name(Nodes)
-        logger.info(f"GameName:{GameName}")        
+        GameName=self.find_latest_name(Nodes)     
         GameName=self.GameNameDict(GameName)
-        logger.info(f"GameName:{GameName}")
+        #logger.info(f"GameName:{GameName}")
 
-        NextNode="TapTap-pass"+GameName
+        NextNode="TapTap-pass"+GameName #拼接返回节点名
         ppover={CallingNode:{"next":NextNode}}
         context.override_pipeline(ppover)
         logger.info(f"NodeOverride: {ppover}")

@@ -240,7 +240,7 @@
             }
         },
         "action": "Custom",
-        "custom_action": "my_action_sendRedeemCode",
+        "custom_action": "sendRedeemCode",
         "custom_action_param": {
             "GameNameNode": "Weibo-recoGameName"            
         },
