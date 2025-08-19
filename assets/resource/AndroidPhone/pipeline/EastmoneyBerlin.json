@@ -1,7 +1,7 @@
 { //目前无新债可申购，暂时上滑；出现可打新的情况时再继续编辑
     "entry_signEastmoneyBerlin": {
         "next": [
-            //"EastmoneyBerlin-reportResult",
+            //"EastmoneyBerlin-result_打新成功",
             "EastmoneyBerlin-enterTradePage"
         ],
         "interrupt": [
@@ -96,7 +96,7 @@
         "post_delay": 1,
         "next": [
             "EastmoneyBerlin-新债预约申购Step1",
-            "EastmoneyBerlin-checkNewBonds",
+            "EastmoneyBerlin-result_无新债",
             "EastmoneyBerlin-enterNewBondsPage"
         ]
     },
@@ -108,9 +108,18 @@
                 "roi" : [409,443,311,202]
             }
         },
+        /*
         "action": "Click",
         "next": "EastmoneyBerlin-新债预约申购Step2",
+        */
+        "next": "EastmoneyBerlin-result_有新债",
         "post_delay": 500
+    },
+    "EastmoneyBerlin-result_有新债":{
+        "action":"Custom",
+        "custom_action": "delay_focus_hook",
+        "custom_action_param": "key=任务成功&focus=东方财富有可申购新债",
+        "next": "FullScreen-swipeUp"
     },
     "EastmoneyBerlin-新债预约申购Step2":{   
         "recognition": {
@@ -121,24 +130,17 @@
             }
         },
         "action": "Click",
-        "next": ["EastmoneyBerlin-reportResult"],
+        "next": ["EastmoneyBerlin-result_打新成功"],
         "post_delay": 500
 
     },
-    "EastmoneyBerlin-reportResult":{
-        "recognition": {
-            "type": "OCR",
-            "param":{
-                "expected": "",
-                "roi" : [22,1267,565,157]
-            }
-        },
+    "EastmoneyBerlin-result_打新成功":{
         "action": "Custom",
-        "custom_action":"my_action_sendMessage",
-        "custom_action_param": {"Source":"东方财富"},
+        "custom_action": "delay_focus_hook",
+        "custom_action_param": "key=任务成功&focus=东方财富打新成功",
         "next": "stopEastmoneyBerlin"
     },
-    "EastmoneyBerlin-checkNewBonds": {
+    "EastmoneyBerlin-result_无新债": {
         "recognition": {
             "type": "OCR",
             "param": {
@@ -151,8 +153,9 @@
                 ]
             }
         },
-        "action": "DoNothing",
-        //"next": "FullScreen-swipeUp"
+        "action": "Custom",
+        "custom_action": "delay_focus_hook",
+        "custom_action_param": "key=任务成功&focus=东方财富无可购新债",
         "next": "stopEastmoneyBerlin"
     },
     "startEastmoneyBerlin": {

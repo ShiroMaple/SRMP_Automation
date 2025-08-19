@@ -7,6 +7,7 @@ from utils.logger import logger
 from utils.actionUtils import *
 import re
 
+#serverchan params
 sendkey = "sctp2102ta-lbduuk43fh2pz462ln61oko4"
 title = "from MaaFw"
 options = {"tags": "MaaFw"}
@@ -15,7 +16,7 @@ def GameNameDict(GameName:str)->str:
     match GameName:
         case "原神":
             GameNameEng = "Genshin"
-        case "星穹铁道" | "崩坏：星穹铁道"|"坏：星穹铁道":
+        case "星穹铁道" | "崩坏：星穹铁道"|"坏：星穹铁道"|"崩坏星":
             GameNameEng = "Starrail"
         case "绝区零":
             GameNameEng = "ZZZ"
@@ -182,6 +183,116 @@ class SendMessage(CustomAction):
         print(f"{MessageSource} : {Reco_Message}")
         return True
 
+from typing import Dict, Any
+import time
+from collections import defaultdict
+
+# 解析查询字符串 from https://github.com/kqcoxn/MaaNewMoonAccompanying/blob/main/agent/customs/utils.py
+def parse_query_args(argv: CustomAction.RunArg) -> dict[str, Any]:
+    if not argv.custom_action_param:
+        return {}
+
+    # 预处理参数：去除首尾引号并按'&'分割参数列表
+    args: list[str] = argv.custom_action_param.strip("\"'").split("&")
+
+    # 解析键值对到字典
+    params: Dict[str, Any] = {}
+    for arg in args:
+        # 分割键值
+        parts = arg.split("=")
+        if len(parts) >= 2:
+            params[parts[0]] = parts[1]
+
+    return params
+
+#延迟提醒列表
+delay_focus={}
+focus_wl=set()
+noticelist = defaultdict(list)  # 自动按 key 分组存储 focus
+
+# 添加延迟提醒
+@AgentServer.custom_action("delay_focus_hook")
+class DelayFocusHook(CustomAction):
+    def run(
+        self, context: Context, argv: CustomAction.RunArg
+    ) -> CustomAction.RunResult | bool:
+        global delay_focus,noticelist 
+        try:
+            args = parse_query_args(argv)
+            key = args.get("key", "")
+            focus = args.get("focus", "")
+            #delay_focus[key] = focus
+            noticelist[key].append(focus)
+            logger.info(f"当前提醒列表:{noticelist}")   #添加调试信息
+            return True
+        except Exception as e:
+            return logger.warning(f"添加延迟提醒{e}")
+
+
+# 添加延迟提醒
+@AgentServer.custom_action("set_focus_wl")
+class SetFocusBlackList(CustomAction):
+    def run(
+        self, context: Context, argv: CustomAction.RunArg
+    ) -> CustomAction.RunResult | bool:
+        global delay_focus, focus_wl
+        try:
+            args = parse_query_args(argv)
+            key = args.get("key", "")
+            if key != "":
+                focus_wl.add(key)                
+            #logger.info(f"添加延迟提醒set_focus_wl:{focus_wl}{key}")   #添加调试信息
+            return True
+        except Exception as e:
+            return logger.warning(f"添加延迟提醒黑名单{e}")
+
+
+# 延迟提醒
+@AgentServer.custom_action("delay_focus")
+class DelayFocus(CustomAction):
+    def run(
+        self, context: Context, argv: CustomAction.RunArg
+    ) -> CustomAction.RunResult | bool:
+        global delay_focus, focus_wl,noticelist
+
+        for key, notice_list in noticelist.items():
+            logger.info(f"Key: {key}, Focus: {notice_list}")
+        return True
+        """
+        try:
+            args = parse_query_args(argv)
+            is_block = args.get("block", False)
+            if is_block:
+                is_block = True
+
+            focuses = []
+            for key, focus in delay_focus.items():
+                if key in focus_wl:
+                    focuses.append(focus)
+
+            for key, focus in delay_focus.items():
+                if key in focus_wl:
+                    focuses.append(focus)
+            if len(focuses) > 0:
+                print("——————————")
+                print("注意：", flush=True)
+                for focus in focuses:
+                    time.sleep(0.1)                    
+                    print(f" * {focus}", flush=True)
+                    time.sleep(0.1)
+                print("——————————")
+                delay_focus = {}
+                focus_wl = set()
+                return not is_block
+            else:
+                print("> 无需提醒项")
+                delay_focus = {}
+                focus_wl = set()
+                return True
+
+        except Exception as e:
+            return logger.warning(f"延迟提醒{e}")
+        """
 
 """
 #尝试用swipe解锁图案

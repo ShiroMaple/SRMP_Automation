@@ -77,7 +77,8 @@
         "next": [
             "Fliggy-flagSignPage",
             "Fliggy-enterSignPage"
-        ]
+        ],
+        "interrupt": "Fliggy-closePopWindow"
     },
     "Fliggy-flagSignPage": {
         "recognition": {

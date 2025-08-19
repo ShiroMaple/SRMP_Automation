@@ -56,7 +56,13 @@
         },
         "action": "Click",
         "post_delay": 1500,
-        "next": "stopEastmoneyFund"
+        "next": "EastmoneyFund-success"
+    },
+    "EastmoneyFund-success":{
+        "action": "Custom",
+        "custom_action": "delay_focus_hook",
+        "custom_action_param": "key=任务成功&focus=天天基金签到成功",
+        "next":"stopEastmoneyFund"
     },
     "startEastmoneyFund": {
         "action": "StartApp",

@@ -4,7 +4,7 @@
     // 检测是否获取CDKEY等奖励
     "entry_signYouxia": {
         "next": [
-            "Youxia-checkSignPage",
+            "Youxia-flagSignPage",
             "Youxia-enterSignPage1",
             "Youxia-enterSignPage2",
             "Youxia-enterMyPage"
@@ -46,7 +46,7 @@
             }
         },
         "action": "Click",
-        "next": ["Youxia-checkSignPage","Youxia-enterSignPage2"]
+        "next": ["Youxia-flagSignPage","Youxia-enterSignPage2"]
     },
     "Youxia-enterSignPage2": {
         "recognition": {
@@ -62,9 +62,9 @@
             }
         },
         "action": "Click",
-        "next": "Youxia-checkSignPage"
+        "next": "Youxia-flagSignPage"
     },
-    "Youxia-checkSignPage": {
+    "Youxia-flagSignPage": {
         "recognition": {
             "type": "OCR",
             "param": {
@@ -79,9 +79,9 @@
         },
         "next": [
             "Youxia-sign",
-            "Youxia-tryLottery"
+            "Youxia-findLotteryButton"
         ],
-        "interrupt": "swipeUp",
+        "interrupt": "Youxia-swipeUp",
         "post_delay": 1500,
         "on_error": "FullScreen-swipeUp",
         "timeout": 10000
@@ -101,9 +101,24 @@
             }
         },
         "action": "Click",
-        "next": "Youxia-checkSigned"
+        "next": ["Youxia-result_SignSucceed"],
+        "on_error": ["Youxia-flagSignPage"],
+        "timeout": 3000
     },
-    "Youxia-checkSigned": {
+    "Youxia-result_SignSucceed":{
+        "recognition": {
+            "type": "OCR",
+            "param":{
+                "expected": "签到成功",
+                "roi":[322,1359,142,75]                
+            }
+        },
+        "action": "Custom",
+        "custom_action": "delay_focus_hook",
+        "custom_action_param": "key=任务成功&focus=游侠网签到成功",
+        "next": ["Youxia-flagSignPage"]
+    },
+    "Youxia-swipeUp": {
         "action": {
             "type": "Swipe",
             "param": {
@@ -122,10 +137,9 @@
                 "duration": 500
             }
         },
-        "next": "Youxia-tryLottery" //等获取可点击的抽奖按钮再启用
-        //"next": "FullScreen-swipeUp"
+        "post_wait_freezes": 300
     },
-    "Youxia-tryLottery": {
+    "Youxia-findLotteryButton": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -138,10 +152,30 @@
                 ]
             }
         },
-        "action": "Click",
-        "post_wait_freezes": 2000,
-        "next": "Youxia-ReceiveLottery",
+        "next": "Youxia-recoButtonColor",
         "timeout": 5000,
+        "on_error": "Youxia-result_NoLottery"
+    },
+    "Youxia-result_NoLottery":{
+        "action": "Custom",
+        "custom_action": "delay_focus_hook",
+        "custom_action_param": "key=任务成功&focus=游侠网无抽奖",
+        "next": "stopYouxia"
+    },
+    "Youxia-recoButtonColor":{
+        "recognition": {
+            "type": "ColorMatch",
+            "param":{
+                "roi":"Youxia-findLotteryButton",
+                "method": 4,
+                "lower": [210,60,0],
+                "upper": [255,200,60]
+            }
+        },
+        "action": "Click",
+        "post_wait_freezes": 1000,
+        "next": "Youxia-ReceiveLottery",
+        "timeout": 10000,
         "on_error": "FullScreen-swipeUp"
     },
     "Youxia-ReceiveLottery": {
@@ -158,9 +192,16 @@
             }
         },
         "action": "Click",
-        "next": "Youxia-checkSignPage",
-        "post_delay": 1500,
-        "interrupt": "FullScreen-swipeBack"
+        //"next": "Youxia-flagSignPage",
+        "next": "Youxia-recoRedeemCode",
+        "post_delay": 1500
+        //"interrupt": "FullScreen-swipeBack"
+    },
+    "Youxia-recoRedeemCode":{
+        "action": "Custom",
+        "custom_action": "delay_focus_hook",
+        "custom_action_param": "key=任务成功&focus=游侠网有抽奖",
+        "next": "FullScreen-swipeUp"
     },
     "startYouxia": {
         "action": "StartApp",

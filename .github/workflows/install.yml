@@ -54,7 +54,7 @@ jobs:
     runs-on: macos-latest
     strategy:
       matrix:
-        os: [win]
+        os: [win,macos]
         arch: [x86_64]
       fail-fast: false
 
@@ -110,7 +110,7 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: MaaXXX-${{ matrix.os }}-${{ matrix.arch }}
+          name: SRMP_AutoSign-${{ matrix.os }}-${{ matrix.arch }}
           path: "install"
 
   changelog:

@@ -1,7 +1,6 @@
 {
     "entry_signXiaoheihe": {
         "next": [
-            "checkSignSucceed",
             "enterXiaoheihe"
         ],
         "interrupt": "startXiaoheihe"
@@ -24,12 +23,13 @@
             101,
             92
         ],
-        "next": "checkSignSucceed",
+        "next": "Xiaoheihe-checkSignSucceed",
         "on_error": [
-            "stopXiaoheihe"
-        ]
+            "Xiaoheihe-failed"
+        ],
+        "timeout": 6000
     },
-    "checkSignSucceed": {
+    "Xiaoheihe-checkSignSucceed": {
         "recognition": "TemplateMatch",
         "template": "Xiaoheihe/SignSucceed_Xiaoheihe.png",
         "roi": [
@@ -38,20 +38,15 @@
             159,
             158
         ],
-        //"next": "clickConfirm"
-        "next":"FullScreen-swipeUp"
+        "action": "Custom",
+        "custom_action": "delay_focus_hook",
+        "custom_action_param": "key=任务成功&focus=小黑盒签到成功",
+        "next": "stopXiaoheihe"
     },
-    "clickConfirm": {
-        "recognition": "OCR",
-        "expected": "确定",
-        "roi": [
-            278,
-            913,
-            175,
-            72
-        ],
-        "action": "Click",
+    "Xiaoheihe-failed": {
+        "action": "Custom",
+        "custom_action": "delay_focus_hook",
+        "custom_action_param": "key=任务失败&focus=小黑盒未确认到成功",
         "next": "stopXiaoheihe"
     }
-    
 }

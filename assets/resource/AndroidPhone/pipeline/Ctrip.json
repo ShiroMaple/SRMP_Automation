@@ -14,8 +14,16 @@
         "recognition": {
             "type": "OCR",
             "param": {
-                "expected": ["立即安装","立即升级"],
-"roi" : [257,925,213,174]
+                "expected": [
+                    "立即安装",
+                    "立即升级"
+                ],
+                "roi": [
+                    257,
+                    925,
+                    213,
+                    174
+                ]
             }
         },
         "next": "Ctrip-clickClose"
@@ -25,7 +33,12 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "Ctrip/buttonClose1.png",
-"roi" : [559,460,142,142]
+                "roi": [
+                    559,
+                    430,
+                    142,
+                    172
+                ]
             }
         },
         "action": "Click",
@@ -104,7 +117,7 @@
         */
         "next": [
             "Ctrip-signByButton",
-            "Ctrip-closePopWindow",            
+            "Ctrip-closePopWindow",
             "Ctrip-signByBubble",
             "Ctrip-travelOnCloud",
             "Ctrip-isTravelling"
@@ -196,17 +209,25 @@
         },
         "action": "Click",
         "post_wait_freezes": 1000,
-        "next": ["Ctrip-云旅行次数奖励","Ctrip-randomTrip"]
+        "next": [
+            "Ctrip-云旅行次数奖励",
+            "Ctrip-randomTrip"
+        ]
     },
-    "Ctrip-云旅行次数奖励":{
+    "Ctrip-云旅行次数奖励": {
         "recognition": {
             "type": "OCR",
-            "param":{
+            "param": {
                 "expected": "领奖励",
-                "roi" : [516,298,186,144]
+                "roi": [
+                    516,
+                    298,
+                    186,
+                    144
+                ]
             }
         },
-        "action":"Click",
+        "action": "Click",
         "next": "Ctrip-randomTrip"
     },
     "Ctrip-randomTrip": {

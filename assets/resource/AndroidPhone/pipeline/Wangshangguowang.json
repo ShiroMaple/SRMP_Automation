@@ -87,9 +87,22 @@
             }
         },
         "next": "Wsgw-checkWeekAwards",
-        "interrupt": "Wsgw-clickReceive",
+        "interrupt": "Wsgw-result_SignSucceed",
         "timeout": 5000,
         "on_error": "FullScreen-swipeUp"
+    },
+    "Wsgw-result_SignSucceed":{
+        "recognition": {
+            "type": "OCR",
+            "param":{
+                "expected": "签到成功",
+                "roi":[254,566,204,65]
+            }
+        },
+        "action": "Custom",
+        "custom_action": "delay_focus_hook",
+        "custom_action_param": "key=任务成功&focus=网上国网签到成功",
+        "next": "Wsgw-clickReceive"
     },
     "Wsgw-clickReceive": {
         "recognition": {
@@ -123,9 +136,37 @@
         "action": "Click",
         "target_offset": [0,70,0,0],
         "post_delay": 3000,
-        "next": "Wsgw-checkSignPage"
+        "next": ["Wsgw-result_NoWeekAward"]
         //"next": "FullScreen-swipeUp"
     },
+    "Wsgw-result_NoWeekAward":{
+        "recognition": {
+            "type": "OCR",
+            "param":{
+                "expected": ["很遗憾"],
+                "roi":[132,756,116,53]                
+            }
+        },
+        "action": "Custom",
+        "custom_action": "delay_focus_hook",
+        "custom_action_param": "key=任务成功&focus=网上国网无周礼包",
+        "next":"stopWsgw"
+    },
+    /*
+    "Wsgw-result_GetWeekAward":{
+        "recognition": {
+            "type": "OCR",
+            "param":{
+                "expected": ["很遗憾"],
+                "roi":[132,756,116,53]                
+            }
+        },
+        "action": "Custom",
+        "custom_action": "delay_focus_hook",
+        "custom_action_param": "key=任务成功&focus=网上国网无周礼包",
+        "next":"stopWsgw"
+    },
+    */
     "startWsgw": {
         "action": "StartApp",
         "package": "com.sgcc.wsgw.cn"
