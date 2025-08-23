@@ -21,10 +21,11 @@
             }
         },
         "next": [
+            "Hitnns-closePopWindow",
             "Htinns-enterSignPage",
             "Htinns-enterMainPage"
-        ],
-        "interrupt": "Hitnns-closePopWindow"
+        ]
+        //"interrupt": []
     },
     "Htinns-enterMainPage": {
         "recognition": {
@@ -58,17 +59,19 @@
         },
         "action": "Click",
         "next": [
+            "Hitnns-closePopWindow",
             "Htinns-sign",
             "Htinns-enterSignPage"
-        ],
-        "interrupt": "Hitnns-closePopWindow"
-
+        ]
     },
     "Htinns-sign": {
         "recognition": {
             "type": "OCR",
             "param": {
-                "expected": ["立即签到","签到开盲盒"],
+                "expected": [
+                    "立即签到",
+                    "签到开盲盒"
+                ],
                 "roi": [
                     211,
                     1114,
@@ -78,18 +81,47 @@
             }
         },
         "action": "Click",
-        "post_wait_freezes": 1500,
-        "next": "stopHtinns"
+        "post_wait_freezes": 500,
+        "next": "Hitnns-result_SignSucceed"
     },
-    "Hitnns-closePopWindow":{
+    "Hitnns-result_SignSucceed": {
         "recognition": {
-            "type": "TemplateMatch",
-            "param":{
-                "template": ["Htinns/buttonClose1.png","Htinns/buttonClose2.png"],
-                "roi" : [289,1165,140,136]
+            "type": "OCR",
+            "param": {
+                "expected": "签到成功",
+                "roi": [
+                    93,
+                    412,
+                    216,
+                    71
+                ]
             }
         },
-        "action":"Click"
+        "action": "Custom",
+        "custom_action": "delay_focus_hook",
+        "custom_action_param": "tag=正常&msg=华住会签到成功",
+        "next": "stopHtinns"
+    },
+    "Hitnns-closePopWindow": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "Htinns/buttonClose1.png",
+                    "Htinns/buttonClose2.png"
+                ],
+                "roi": [
+                    289,
+                    1165,
+                    140,
+                    136
+                ]
+            }
+        },
+        "action": "Click",
+        "next": [
+            "Htinns-confirmApp"
+        ]
     },
     "startHtinns": {
         "action": "StartApp",

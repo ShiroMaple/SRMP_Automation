@@ -41,8 +41,7 @@
                 ]
             }
         },
-        "next": "stopFlyert",
-        "post_delay": 1500
+        "next": "Flyert-result_Succeed"
     },
     "Flyert-checkSigned": {
         "recognition": {
@@ -57,8 +56,15 @@
                 ]
             }
         },
-        "next": "stopFlyert",
-        "post_delay": 1500
+        "next": "Flyert-result_Succeed"
+    },
+    "Flyert-result_Succeed":{
+        "pre_delay": 0,
+        "post_delay": 0,
+        "action": "Custom",
+        "custom_action": "delay_focus_hook",
+        "custom_action_param": "tag=正常&msg=飞客签到成功",
+        "next": "stopFlyert"        
     },
     "startFlyert": {
         "action": "StartApp",

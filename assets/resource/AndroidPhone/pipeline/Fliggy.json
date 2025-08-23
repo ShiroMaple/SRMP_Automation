@@ -35,7 +35,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param":{
-                "template" : "Fliggy/buttonClosePopWindow.png",
+                "template" : ["Fliggy/buttonClosePopWindow1.png","Fliggy/buttonClosePopWindow2.png"],
                 "roi" : [275,1172,166,165],
                 "green_mask": true
             }
@@ -64,12 +64,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template" : "Fliggy/buttonSignPage.png",
-                "roi": [
-                    430,
-                    590,
-                    230,
-                    105
-                ]
+                "roi": [431,590,230,563]
             }
         },
         "action": "Click",
@@ -97,7 +92,8 @@
             "Fliggy-enterExtraPage",
             "Fliggy-fetchExtraAwards",
             "Fliggy-sign"
-        ]
+        ],
+        "interrupt": "Fliggy-closePopWindow"
     },
     "Fliggy-enterExtraPage": {
         "recognition": {
@@ -147,9 +143,9 @@
             }
         },
         "action": "Click",
-        "next": "Fliggy-signSucceed"
+        "next": "Fliggy-result_signSucceed"
     },
-    "Fliggy-signSucceed": {
+    "Fliggy-result_signSucceed": {
         "recognition": {
             "type": "OCR",
             "param": {
@@ -162,8 +158,10 @@
                 ]
             }
         },
-        "next": "stopFliggy",
-        "post_delay": 2000
+        "action": "Custom",
+        "custom_action": "delay_focus_hook",
+        "custom_action_param": "tag=正常&msg=飞猪签到成功",        
+        "next": "stopFliggy"
     },
     "Fliggy-clickBack": {
         "recognition": {

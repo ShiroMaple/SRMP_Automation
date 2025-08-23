@@ -2,7 +2,7 @@
     "entry_signCtrip": {
         "next": [
             "Ctrip-ignoreUpdate",
-            "Ctrip-enterMyPage"
+            "Ctrip-confirmApp"
             //,"Ctrip-flagSignPage"
         ],
         "interrupt": [
@@ -28,7 +28,7 @@
         },
         "next": "Ctrip-clickClose"
     },
-    "Ctrip-clickClose": {
+    "Ctrip-clickClose": { //关闭升级弹窗
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -43,6 +43,24 @@
         },
         "action": "Click",
         "next": "Ctrip-enterMyPage"
+    },
+    "Ctrip-confirmApp": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "Ctrip/logo.png",
+                "roi": [
+                    0,
+                    27,
+                    142,
+                    147
+                ]
+            }
+        },
+        "next": [
+            "Ctrip-ignoreUpdate",
+            "Ctrip-enterMyPage"
+        ]
     },
     "Ctrip-enterMyPage": {
         "recognition": {
@@ -141,7 +159,10 @@
         },
         "action": "Click",
         "post_delay": 1500,
-        "next": "Ctrip-closePopWindow"
+        "next": "Ctrip-closePopWindow",
+        "interrupt": [
+            "Ctrip-buttonHappyReceive"
+        ]
     },
     "Ctrip-closePopWindow": {
         "recognition": {
@@ -161,9 +182,11 @@
     },
     "Ctrip-buttonHappyReceive": {
         "recognition": {
-            "type": "TemplateMatch",
+            //"type": "TemplateMatch",
+            "type": "OCR",
             "param": {
-                "template": "Ctrip/buttonHappyReceive.png",
+                //"template": "Ctrip/buttonHappyReceive.png",
+                "expected": "开心收下",
                 "roi": [
                     114,
                     953,
@@ -260,8 +283,16 @@
                 ]
             }
         },
-        "next": "stopCtrip",
+        "next": "Ctrip-resultSucceed",
         "post_delay": 3000
+    },
+    "Ctrip-resultSucceed": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "action": "Custom",
+        "custom_action": "delay_focus_hook",
+        "custom_action_param": "tag=正常&msg=携程签到成功",
+        "next": "stopCtrip"
     },
     "startCtrip": {
         "action": "StartApp",

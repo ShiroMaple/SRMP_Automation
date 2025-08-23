@@ -5,28 +5,6 @@
         "pre_delay": 0,
         "post_delay": 0,        
         "next": [
-            "延迟提醒_任务成功提醒"
-        ]
-    },
-    "延迟提醒_任务成功提醒": {
-        "recognition": "DirectHit",
-        "action": "Custom",
-        "custom_action": "set_focus_wl",
-        "pre_delay": 0,
-        "post_delay": 0,
-        "custom_action_param": "key=任务成功",        
-        "next": [
-            "延迟提醒_任务失败提醒"
-        ]
-    },
-    "延迟提醒_任务失败提醒": {
-        "recognition": "DirectHit",
-        "action": "Custom",
-        "custom_action": "set_focus_wl",
-        "pre_delay": 0,
-        "post_delay": 0,
-        "custom_action_param": "key=任务失败",        
-        "next": [
             "延迟提醒_提醒"
         ]
     },

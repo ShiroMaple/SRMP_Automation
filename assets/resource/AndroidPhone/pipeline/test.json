@@ -5,7 +5,24 @@
     "testOCR":{
         "recognition": "OCR",
         "expected": "",
-        "next": "explore_NodeInfo"
+        "next": "testDelayNotice1"
+    },
+    "testDelayNotice1":{
+        "action": "Custom",
+        "custom_action": "delay_focus_hook",
+        "custom_action_param": "tag=提醒&msg=这是测试延迟提醒1",
+        "next":"testDelayNotice2"
+    },
+    "testDelayNotice2":{
+        "action": "Custom",
+        "custom_action": "delay_focus_hook",
+        "custom_action_param": "tag=提醒&msg=这是测试延迟提醒2",
+        "next":"testDelayNotice3"
+    },
+    "testDelayNotice3":{
+        "action": "Custom",
+        "custom_action": "delay_focus_hook",
+        "custom_action_param": "tag=提醒&msg=这是测试延迟提醒3"
     },
     "explore_NodeInfo":{
         "action": "Custom",

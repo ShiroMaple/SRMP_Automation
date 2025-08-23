@@ -101,7 +101,7 @@
         },
         "action": "Custom",
         "custom_action": "delay_focus_hook",
-        "custom_action_param": "key=任务成功&focus=网上国网签到成功",
+        "custom_action_param": "tag=正常&msg=网上国网签到成功",
         "next": "Wsgw-clickReceive"
     },
     "Wsgw-clickReceive": {
@@ -136,7 +136,7 @@
         "action": "Click",
         "target_offset": [0,70,0,0],
         "post_delay": 3000,
-        "next": ["Wsgw-result_NoWeekAward"]
+        "next": ["Wsgw-result_NoWeekAward","Wsgw-result_GetWeekAward"]
         //"next": "FullScreen-swipeUp"
     },
     "Wsgw-result_NoWeekAward":{
@@ -149,24 +149,22 @@
         },
         "action": "Custom",
         "custom_action": "delay_focus_hook",
-        "custom_action_param": "key=任务成功&focus=网上国网无周礼包",
+        "custom_action_param": "tag=正常&msg=网上国网无周礼包",
         "next":"stopWsgw"
-    },
-    /*
+    },    
     "Wsgw-result_GetWeekAward":{
         "recognition": {
             "type": "OCR",
             "param":{
-                "expected": ["很遗憾"],
-                "roi":[132,756,116,53]                
+                "expected": ["恭喜您"],
+                "roi":[252,677,211,87]              
             }
         },
         "action": "Custom",
         "custom_action": "delay_focus_hook",
-        "custom_action_param": "key=任务成功&focus=网上国网无周礼包",
+        "custom_action_param": "tag=正常&msg=网上国网获得周礼包",
         "next":"stopWsgw"
-    },
-    */
+    },    
     "startWsgw": {
         "action": "StartApp",
         "package": "com.sgcc.wsgw.cn"

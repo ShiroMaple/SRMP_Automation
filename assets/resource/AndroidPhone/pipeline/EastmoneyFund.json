@@ -1,10 +1,11 @@
 {
     "entry_signEastmoneyFund": {
         "next": [
+            "EastmoneyFund-closeTipWindow",
             "EastmoneyFund-enterMyPage"
         ],
         "interrupt": [
-            "skipAD_LowerRightCorner",
+            //"skipAD_LowerRightCorner",
             "startEastmoneyFund"
         ]
     },
@@ -22,8 +23,19 @@
             }
         },
         "action": "Click",
-        "next": "EastmoneyFund-enterSignPage",
+        "next": ["EastmoneyFund-enterSignPage","EastmoneyFund-closeTipWindow"],
         "pre_delay": 1500
+    },
+    "EastmoneyFund-closeTipWindow":{
+        "recognition": {
+            "type": "OCR",
+            "param":{
+                "expected": "知道了",
+                "roi":[95,1041,253,96]
+            }
+        },
+        "action": "Click",
+        "next": "EastmoneyFund-enterMyPage"
     },
     "EastmoneyFund-enterSignPage": {
         "recognition": {
@@ -56,12 +68,14 @@
         },
         "action": "Click",
         "post_delay": 1500,
-        "next": "EastmoneyFund-success"
+        "next": "EastmoneyFund-result_success"
     },
-    "EastmoneyFund-success":{
+    "EastmoneyFund-result_success":{
+        "pre_delay": 0,
+        "post_delay": 0,        
         "action": "Custom",
         "custom_action": "delay_focus_hook",
-        "custom_action_param": "key=任务成功&focus=天天基金签到成功",
+        "custom_action_param": "tag=正常&msg=天天基金签到成功",
         "next":"stopEastmoneyFund"
     },
     "startEastmoneyFund": {

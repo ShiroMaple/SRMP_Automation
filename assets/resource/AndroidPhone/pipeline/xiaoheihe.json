@@ -1,7 +1,8 @@
 {
     "entry_signXiaoheihe": {
         "next": [
-            "enterXiaoheihe"
+            "enterXiaoheihe",
+            "Xiaoheihe-result_SignSucceed"
         ],
         "interrupt": "startXiaoheihe"
     },
@@ -23,13 +24,13 @@
             101,
             92
         ],
-        "next": "Xiaoheihe-checkSignSucceed",
+        "next": "Xiaoheihe-result_SignSucceed",
         "on_error": [
-            "Xiaoheihe-failed"
+            "Xiaoheihe-result_failed"
         ],
         "timeout": 6000
     },
-    "Xiaoheihe-checkSignSucceed": {
+    "Xiaoheihe-result_SignSucceed": {
         "recognition": "TemplateMatch",
         "template": "Xiaoheihe/SignSucceed_Xiaoheihe.png",
         "roi": [
@@ -40,13 +41,15 @@
         ],
         "action": "Custom",
         "custom_action": "delay_focus_hook",
-        "custom_action_param": "key=任务成功&focus=小黑盒签到成功",
+        "custom_action_param": "tag=正常&msg=小黑盒签到成功",
         "next": "stopXiaoheihe"
     },
-    "Xiaoheihe-failed": {
+    "Xiaoheihe-result_failed": {
+        "pre_delay": 0,
+        "post_delay": 0,         
         "action": "Custom",
         "custom_action": "delay_focus_hook",
-        "custom_action_param": "key=任务失败&focus=小黑盒未确认到成功",
+        "custom_action_param": "tag=异常&msg=小黑盒未确认到成功",
         "next": "stopXiaoheihe"
     }
 }

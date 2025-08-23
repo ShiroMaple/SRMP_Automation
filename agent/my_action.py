@@ -44,7 +44,7 @@ def fetch_spec_reco_text(str,context,args) -> str:
     """
     把指定的节点名和context和json格式化后的custom_action_param传入
     示例args = json.loads(argv.custom_action_param)
-    返回最近一次运行该节点后的最
+    返回最近一次运行该节点后的识别结果
     """    
     NameNode = args.get("NameNode", "Unknown")  
     # 需要在自定义动作参数中传入识别名称的节点"NameNode"
@@ -124,14 +124,16 @@ class SendRedeemCode(CustomAction):
             if argv.reco_detail.best_result
             else "No result found"
         )  # 从调用本方法的节点参数中获取识别结果
-        desp = GameNameEng + " RedeemCode: " + RedeemCode
-        response = sc_send(sendkey, title, desp, options)   #通过serverchan推送消息
-        print(response)
-        print(f"{GameNameEng} RedeemCode: {RedeemCode}")
+        #desp = GameNameEng + " RedeemCode: " + RedeemCode
+        #response = sc_send(sendkey, title, desp, options)   #通过serverchan推送消息
+        msg=f"{GameNameEng}: {RedeemCode}"
+        add_notice("RedeemCode",msg)
+        #print(response)
+        #print(f"{GameNameEng} RedeemCode: {RedeemCode}")
 
         BackNodePrefix = args.get("BackNodePrefix", "")
         if not BackNodePrefix:
-            logger.info("未设置返回节点前缀，不覆写跳转")
+            logger.info("未声明返回节点前缀，不覆写跳转")
             return CustomAction.RunResult(success=True)
         else:
             CallingNode = argv.node_name  # 获取调用源节点名
@@ -206,9 +208,18 @@ def parse_query_args(argv: CustomAction.RunArg) -> dict[str, Any]:
     return params
 
 #延迟提醒列表
-delay_focus={}
-focus_wl=set()
 noticelist = defaultdict(list)  # 自动按 key 分组存储 focus
+
+def add_notice(tag:str, message:str):
+    """
+    添加通知到 noticelist
+    :param tag: 通知的标签
+    :param message: 通知内容
+    """
+    global noticelist
+    current_time = datetime.now().strftime("%H:%M:%S")
+    noticelist[tag].append((current_time,message))
+    logger.info(f"添加通知: {tag} - [{current_time}] {message}")
 
 # 添加延迟提醒
 @AgentServer.custom_action("delay_focus_hook")
@@ -219,80 +230,61 @@ class DelayFocusHook(CustomAction):
         global delay_focus,noticelist 
         try:
             args = parse_query_args(argv)
-            key = args.get("key", "")
-            focus = args.get("focus", "")
-            #delay_focus[key] = focus
-            noticelist[key].append(focus)
-            logger.info(f"当前提醒列表:{noticelist}")   #添加调试信息
-            return True
+            tag = args.get("tag", "")
+            msg = args.get("msg", "")
+            add_notice(tag,msg)
+            #logger.info(f"当前提醒列表:{noticelist}")   #添加调试信息
+            return CustomAction.RunResult(success=True)
         except Exception as e:
             return logger.warning(f"添加延迟提醒{e}")
 
-
-# 添加延迟提醒
-@AgentServer.custom_action("set_focus_wl")
-class SetFocusBlackList(CustomAction):
-    def run(
-        self, context: Context, argv: CustomAction.RunArg
-    ) -> CustomAction.RunResult | bool:
-        global delay_focus, focus_wl
-        try:
-            args = parse_query_args(argv)
-            key = args.get("key", "")
-            if key != "":
-                focus_wl.add(key)                
-            #logger.info(f"添加延迟提醒set_focus_wl:{focus_wl}{key}")   #添加调试信息
-            return True
-        except Exception as e:
-            return logger.warning(f"添加延迟提醒黑名单{e}")
-
-
-# 延迟提醒
+# 执行延迟提醒
 @AgentServer.custom_action("delay_focus")
 class DelayFocus(CustomAction):
     def run(
         self, context: Context, argv: CustomAction.RunArg
     ) -> CustomAction.RunResult | bool:
-        global delay_focus, focus_wl,noticelist
+        global noticelist
 
-        for key, notice_list in noticelist.items():
-            logger.info(f"Key: {key}, Focus: {notice_list}")
-        return True
-        """
-        try:
-            args = parse_query_args(argv)
-            is_block = args.get("block", False)
-            if is_block:
-                is_block = True
+        for tag, notice_list in noticelist.items():
+            #logger.info(f"Tag: {key}, Message: {notice_list}")
+            logger.info(f"Tag: {tag}")
+            for notice in notice_list:
+                logger.info(f"  {notice}")
+        final_notice()
+        return CustomAction.RunResult(success=True)
 
-            focuses = []
-            for key, focus in delay_focus.items():
-                if key in focus_wl:
-                    focuses.append(focus)
+#将字典格式的数据构建为 Markdown 格式的 desp
+def build_markdown_desp(data_dict):
+    desp_lines = []    
+    for tag, notice_list in data_dict.items():
+        # 添加 tag 作为标题
+        desp_lines.append(f"##  {tag}") #(共 {len(notice_list)} 个msg)")
+        desp_lines.append("")  # 空行
+        
+        # 添加每个 msg 作为列表项
+        for i, (time, msg) in enumerate(notice_list, 1):
+            desp_lines.append(f"{i}. [{time}] {msg}")
+        
+        desp_lines.append("")  # 空行分隔不同的 tag
+        desp_lines.append("---")  # 分隔线
+        desp_lines.append("")  # 空行
+    
+    # 将列表转换为字符串，用换行符连接
+    return "\n".join(desp_lines)
 
-            for key, focus in delay_focus.items():
-                if key in focus_wl:
-                    focuses.append(focus)
-            if len(focuses) > 0:
-                print("——————————")
-                print("注意：", flush=True)
-                for focus in focuses:
-                    time.sleep(0.1)                    
-                    print(f" * {focus}", flush=True)
-                    time.sleep(0.1)
-                print("——————————")
-                delay_focus = {}
-                focus_wl = set()
-                return not is_block
-            else:
-                print("> 无需提醒项")
-                delay_focus = {}
-                focus_wl = set()
-                return True
+def final_notice():
+    """
+    执行最终通知，将 noticelist 中的所有通知发送到 serverchan
+    """
+    global noticelist
+    if noticelist:
+        desp=build_markdown_desp(noticelist)
+        response = sc_send(sendkey, title, desp, options)
+        logger.info("已通过serverchan推送通知")
+    else:
+        logger.info("没有通知需要发送")       
 
-        except Exception as e:
-            return logger.warning(f"延迟提醒{e}")
-        """
 
 """
 #尝试用swipe解锁图案

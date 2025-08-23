@@ -116,9 +116,11 @@
         "post_delay": 500
     },
     "EastmoneyBerlin-result_有新债":{
+        "pre_delay": 0,
+        "post_delay": 0,        
         "action":"Custom",
         "custom_action": "delay_focus_hook",
-        "custom_action_param": "key=任务成功&focus=东方财富有可申购新债",
+        "custom_action_param": "tag=正常&msg=东方财富有可申购新债",
         "next": "FullScreen-swipeUp"
     },
     "EastmoneyBerlin-新债预约申购Step2":{   
@@ -135,9 +137,11 @@
 
     },
     "EastmoneyBerlin-result_打新成功":{
+        "pre_delay": 0,
+        "post_delay": 0,        
         "action": "Custom",
         "custom_action": "delay_focus_hook",
-        "custom_action_param": "key=任务成功&focus=东方财富打新成功",
+        "custom_action_param": "tag=正常&msg=东方财富打新成功",
         "next": "stopEastmoneyBerlin"
     },
     "EastmoneyBerlin-result_无新债": {
@@ -152,10 +156,10 @@
                     876
                 ]
             }
-        },
+        },        
         "action": "Custom",
         "custom_action": "delay_focus_hook",
-        "custom_action_param": "key=任务成功&focus=东方财富无可购新债",
+        "custom_action_param": "tag=正常&msg=东方财富无可购新债",
         "next": "stopEastmoneyBerlin"
     },
     "startEastmoneyBerlin": {

@@ -93,9 +93,9 @@
                 "template": "Youxia/buttonSign.png",
                 "roi": [
                     30,
-                    226,
+                    200,
                     658,
-                    1300
+                    1330
                 ],
                 "threshold": 0.9
             }
@@ -115,7 +115,7 @@
         },
         "action": "Custom",
         "custom_action": "delay_focus_hook",
-        "custom_action_param": "key=任务成功&focus=游侠网签到成功",
+        "custom_action_param": "tag=正常&msg=游侠网签到成功",
         "next": ["Youxia-flagSignPage"]
     },
     "Youxia-swipeUp": {
@@ -159,7 +159,7 @@
     "Youxia-result_NoLottery":{
         "action": "Custom",
         "custom_action": "delay_focus_hook",
-        "custom_action_param": "key=任务成功&focus=游侠网无抽奖",
+        "custom_action_param": "tag=正常&msg=游侠网无抽奖",
         "next": "stopYouxia"
     },
     "Youxia-recoButtonColor":{
@@ -197,11 +197,16 @@
         "post_delay": 1500
         //"interrupt": "FullScreen-swipeBack"
     },
-    "Youxia-recoRedeemCode":{
+    "Youxia-recoRedeemCode":{   //待补全
+        "next": "Youxia-resultReceivedLottery"
+    },
+    "Youxia-resultReceivedLottery":{
+        "pre_delay": 0,
+        "post_delay": 0,       
         "action": "Custom",
         "custom_action": "delay_focus_hook",
-        "custom_action_param": "key=任务成功&focus=游侠网有抽奖",
-        "next": "FullScreen-swipeUp"
+        "custom_action_param": "tag=正常&msg=游侠网已抽奖",
+        "next": "FullScreen-swipeUp"        
     },
     "startYouxia": {
         "action": "StartApp",
