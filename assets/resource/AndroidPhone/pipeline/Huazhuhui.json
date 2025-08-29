@@ -61,7 +61,8 @@
         "next": [
             "Hitnns-closePopWindow",
             "Htinns-sign",
-            "Htinns-enterSignPage"
+            "Htinns-enterSignPage",
+            "Hitnns-result_Signed"
         ]
     },
     "Htinns-sign": {
@@ -90,16 +91,29 @@
             "param": {
                 "expected": "签到成功",
                 "roi": [
-                    93,
-                    412,
-                    216,
-                    71
+                    80,
+                    320,
+                    414,
+                    210
                 ]
             }
         },
         "action": "Custom",
         "custom_action": "delay_focus_hook",
         "custom_action_param": "tag=正常&msg=华住会签到成功",
+        "next": "stopHtinns"
+    },
+    "Hitnns-result_Signed": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param":{
+                "template": "Htinns/flagSigned.png",
+                "roi":[57,1011,88,113]
+            }
+        },
+        "action": "Custom",
+        "custom_action": "delay_focus_hook",
+        "custom_action_param": "tag=正常&msg=华住会今日已签",
         "next": "stopHtinns"
     },
     "Hitnns-closePopWindow": {

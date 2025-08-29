@@ -44,20 +44,40 @@
             "Mihoyo-enterGenshinPage"
         ],
         "interrupt": [
-            "Mihoyo-closePopWindow",
+            "Mihoyo-关闭遮挡弹窗",
             "Mihoyo-左滑顶部选择栏"
         ]
     },
-    "Mihoyo-closePopWindow":{
+    "Mihoyo-关闭遮挡弹窗": {
         "recognition": {
             "type": "TemplateMatch",
-            "param":{
-                "template" : "Mihoyo/buttonClosePop.png",
-                "roi" : [292,1143,135,134]
+            "param": {
+                "template": "Mihoyo/buttonClosePop.png",
+                "roi": [
+                    292,
+                    1143,
+                    135,
+                    134
+                ]
             }
         },
-        "action":"Click"     
+        "action": "Click"
     },
+    "Mihoyo-关闭非遮挡弹窗": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "Mihoyo/buttonClosePop.png",
+                "roi": [
+                    292,
+                    1143,
+                    135,
+                    134
+                ]
+            }
+        },
+        "action": "Click"
+    },    
     "Mihoyo-左滑顶部选择栏": {
         "action": "Swipe",
         "begin": [
@@ -96,11 +116,11 @@
         "next": [
             "Mihoyo-signGenshin"
         ],
-        "interrupt": "Mihoyo-enterSignPage",
-        "on_error": "Mihoyo-signed1",
+        "interrupt": ["Mihoyo-关闭非遮挡弹窗","Mihoyo-enterSignPage"],
+        "on_error": "Mihoyo-passGenshin",
         "timeout": 8000
     },
-    "Mihoyo-signed1": {
+    "Mihoyo-passGenshin": {
         "action": "Click",
         "target": [
             39,
@@ -110,7 +130,7 @@
         ],
         "next": "Mihoyo-enterStarrailPage"
     },
-    "Mihoyo-signed2": {
+    "Mihoyo-passStarrail": {
         "action": "Click",
         "target": [
             39,
@@ -141,9 +161,31 @@
             0,
             0
         ],
+        "next": "Mihoyo-result_passGenshin",
+        "on_error": "Mihoyo-result_GenshinFailed"
+    },
+    "Mihoyo-result_passGenshin": {
+        "recognition": {
+            "type": "OCR",
+            "param":{
+                "expected": "签到成功",
+                "roi":[247,530,207,234]
+            }
+        },
+        "action": "Custom",
+        "custom_action": "delay_focus_hook",
+        "custom_action_param": "tag=正常&msg=米游社原神签到成功",
         "next": "Mihoyo-enterStarrailPage",
         "interrupt": "Mihoyo-swipeBack",
         "post_delay": 3000
+    },
+    "Mihoyo-result_GenshinFailed":{
+        "pre_delay": 0,
+        "post_delay": 0,        
+        "action": "Custom",
+        "custom_action": "delay_focus_hook",
+        "custom_action_param": "tag=异常&msg=米游社原神签到失败",
+        "next": "Mihoyo-enterStarrailPage"            
     },
     "Mihoyo-enterStarrailPage": {
         "recognition": {
@@ -164,7 +206,7 @@
         "action": "Click",
         "next": "Mihoyo-signStarrail",
         "interrupt": "Mihoyo-enterSignPage",
-        "on_error": "Mihoyo-signed2",
+        "on_error": "Mihoyo-passStarrail",
         "timeout": 8000
     },
     "Mihoyo-signStarrail": {
@@ -189,10 +231,32 @@
             0,
             -60
         ],
+        "next": "Mihoyo-result_passStarrail",
+        "on_error": "Mihoyo-result_StarrailFailed"
+    },
+    "Mihoyo-result_passStarrail": {
+        "recognition": {
+            "type": "OCR",
+            "param":{
+                "expected": "今日签到成功",
+                "roi":[304,531,226,61]
+            }
+        },
+        "action": "Custom",
+        "custom_action": "delay_focus_hook",
+        "custom_action_param": "tag=正常&msg=米游社星穹铁道签到成功",
         "next": "Mihoyo-enterZZZPage",
         "interrupt": "Mihoyo-swipeBack",
         "post_delay": 3000
     },
+    "Mihoyo-result_StarrailFailed":{
+        "pre_delay": 0,
+        "post_delay": 0,        
+        "action": "Custom",
+        "custom_action": "delay_focus_hook",
+        "custom_action_param": "tag=异常&msg=米游社星穹铁道签到失败",
+        "next": "Mihoyo-enterZZZPage"            
+    },   
     "Mihoyo-enterZZZPage": {
         "recognition": {
             "type": "TemplateMatch",
@@ -233,9 +297,31 @@
             -60,
             60
         ],
-        "post_delay": 1500,
-        "next": "stopMihoyo"
+        "next": "Mihoyo-result_ZZZSigned",
+        "on_error": "Mihoyo-result_ZZZFailed"
     },
+    "Mihoyo-result_ZZZSigned": {
+        "recognition": {
+            "type": "OCR",
+            "param":{
+                "expected": "今日签到成功",
+                "roi":[199,542,299,58]
+            }
+        },
+        "action": "Custom",
+        "custom_action": "delay_focus_hook",
+        "custom_action_param": "tag=正常&msg=米游社绝区零签到成功",
+        "next": "stopMihoyo",
+        "post_delay": 1500
+    },    
+    "Mihoyo-result_ZZZFailed":{
+        "pre_delay": 0,
+        "post_delay": 0,        
+        "action": "Custom",
+        "custom_action": "delay_focus_hook",
+        "custom_action_param": "tag=异常&msg=米游社绝区零签到失败",
+        "next": "stopMihoyo"          
+    },       
     "Mihoyo-enterSignPage": {
         "recognition": {
             "type": "OCR",

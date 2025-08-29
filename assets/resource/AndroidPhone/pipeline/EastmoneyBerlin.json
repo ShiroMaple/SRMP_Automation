@@ -2,12 +2,27 @@
     "entry_signEastmoneyBerlin": {
         "next": [
             //"EastmoneyBerlin-result_打新成功",
-            "EastmoneyBerlin-enterTradePage"
+            "EastmoneyBerlin-confirmApp"
         ],
         "interrupt": [
             //"skipAD_LowerRightCorner",    
             "startEastmoneyBerlin"
         ]
+    },
+    "EastmoneyBerlin-confirmApp":{
+        "recognition": {
+            "type": "OCR",
+            "param":{
+                "expected": ["基金"],
+                "roi": [
+                    0,
+                    0,
+                    0,
+                    0
+                ]
+            }
+        },
+        "next": ["EastmoneyBerlin-enterTradePage"]
     },
     "EastmoneyBerlin-enterTradePage": {
         "recognition": {

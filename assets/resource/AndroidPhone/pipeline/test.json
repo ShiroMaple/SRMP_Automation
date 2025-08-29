@@ -1,11 +1,12 @@
 {
     "entry_test": {
-        "next":  "testOCR"
+        "next":  ["testDelayNotice1","testOCR"],
+        "timeout": 2000
     },
     "testOCR":{
         "recognition": "OCR",
-        "expected": "",
-        "next": "testDelayNotice1"
+        "expected": "123",
+        "next": "testDelayNotice1"        
     },
     "testDelayNotice1":{
         "action": "Custom",
@@ -22,7 +23,9 @@
     "testDelayNotice3":{
         "action": "Custom",
         "custom_action": "delay_focus_hook",
-        "custom_action_param": "tag=提醒&msg=这是测试延迟提醒3"
+        "custom_action_param": "tag=提醒&msg=这是测试延迟提醒3",
+        "next": ["testOCR"],
+        "timeout": 2000
     },
     "explore_NodeInfo":{
         "action": "Custom",

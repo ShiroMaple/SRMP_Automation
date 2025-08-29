@@ -6,11 +6,27 @@ from serverchan_sdk import sc_send
 from utils.logger import logger
 from utils.actionUtils import *
 import re
+from maa.notification_handler import NotificationHandler, NotificationType
 
 #serverchan params
 sendkey = "sctp2102ta-lbduuk43fh2pz462ln61oko4"
-title = "from MaaFw"
+title = "Msg from MaaFw"
 options = {"tags": "MaaFw"}
+
+@AgentServer.custom_action("HandleError")
+class HandleError(CustomAction):
+    def run(
+        self,
+        context:Context,
+        argv:CustomAction.RunArg
+    ) -> bool:
+        task_detail=argv.task_detail
+        task_name=task_detail.entry
+        error_node=task_detail.nodes[-1].name
+        msg=f"任务 {task_name} 节点{error_node}触发on_error"
+        logger.warning(msg)
+        add_notice("异常",msg)        
+        return CustomAction.RunResult(success=True)
 
 def GameNameDict(GameName:str)->str:    
     match GameName:
@@ -95,7 +111,6 @@ class MyCustomAction(CustomAction):
 
         return True
 
-
 @AgentServer.custom_action("sendRedeemCode")
 class SendRedeemCode(CustomAction):
     """
@@ -160,7 +175,7 @@ class TapTapJump(CustomAction):
         NextNode="TapTap-pass"+GameNameEng #拼接返回节点名
         ppover={CallingNode:{"next":NextNode}}
         context.override_pipeline(ppover)
-        logger.info(f"NodeOverride: {ppover}")
+        logger.debug(f"NodeOverride: {ppover}")
         return CustomAction.RunResult(success=True)
     
 
@@ -284,6 +299,17 @@ def final_notice():
         logger.info("已通过serverchan推送通知")
     else:
         logger.info("没有通知需要发送")       
+
+class AdvancedNotificationHandler(NotificationHandler):
+    def on_tasker_task(self, noti_type, detail):
+        if noti_type == NotificationType.Starting:
+            logger.info(f"🚀 开始执行任务: {detail}")
+        elif noti_type == NotificationType.Succeeded:
+            logger.info(f"✅ 任务完成: {detail}")
+        elif noti_type == NotificationType.Failed:
+            logger.error(f"❌ 任务失败: {detail}, 错误: {detail}")
+            # 可以在这里触发重试机制或发送警报
+    
 
 
 """

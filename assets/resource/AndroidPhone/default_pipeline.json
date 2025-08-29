@@ -1,0 +1,5 @@
+{
+    "Default": {
+        "on_error": ["Global-handleError"]
+    }
+}

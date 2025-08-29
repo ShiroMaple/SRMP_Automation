@@ -96,10 +96,24 @@
             }
         },
         "action": "Click",
-        "post_wait_freezes": 3000,
+        "post_wait_freezes": 500,
+        "next": "MIXC-result_signSucceed"
+    },
+    "MIXC-result_signSucceed":{
+        "recognition": {
+            "type": "TemplateMatch",
+            "param":{
+                "template": "MIXC/TodaySigned.png",
+                "roi":[22,844,678,332]
+            }
+        },
+        "post_delay": 0,
+        "action":"Custom",
+        "custom_action": "delay_focus_hook",
+        "custom_action_param": "tag=正常&msg=一点万象签到成功",
         "next": "MIXC-openBox",
         "on_error": "FullScreen-swipeUp",
-        "timeout": 5000
+        "timeout": 5000        
     },
     "MIXC-openBox":{
         "recognition": {

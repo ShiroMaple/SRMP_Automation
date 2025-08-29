@@ -8,7 +8,7 @@
             // "skipAD_LowerRightCorner",
             "startIdlefish"
         ]
-    },    
+    },
     "Idlefish-isLoading": {
         "recognition": {
             "type": "TemplateMatch",
@@ -22,14 +22,14 @@
                 ]
             }
         },
-        "action":"DoNothing",   //不加这个DoNothing就会默认点一下跳转到广告页面去？
+        "action": "DoNothing", //不加这个DoNothing就会默认点一下跳转到广告页面去？
         "next": [
             "Idlefish-isStuck",
             "Idlefish-confirmApp"
         ],
         "interrupt": "startIdlefish",
         "post_delay": 4000
-    },    
+    },
     "Idlefish-isStuck": {
         "recognition": {
             "type": "TemplateMatch",
@@ -44,16 +44,21 @@
             }
         },
         "action": "StopApp",
-        "package": "com.taobao.idlefish",        
-        "next":"entry_signIdlefish",
+        "package": "com.taobao.idlefish",
+        "next": "entry_signIdlefish",
         "post_delay": 1000
     },
-    "Idlefish-confirmApp":{
+    "Idlefish-confirmApp": {
         "recognition": {
             "type": "OCR",
-            "param":{
+            "param": {
                 "expected": "闲鱼",
-                "roi" : [0,1490,174,111]
+                "roi": [
+                    0,
+                    1490,
+                    174,
+                    111
+                ]
             }
         },
         "action": "Click",
@@ -76,7 +81,7 @@
         "post_wait_freezes": 1500,
         "next": [
             "Idlefish-sign",
-            "Idlefish-signed",
+            "Idlefish-result_Signed",
             "Idlefish-enterSignPage"
         ]
     },
@@ -84,7 +89,10 @@
         "recognition": {
             "type": "OCR",
             "param": {
-                "expected": ["签到","领取奖励"],
+                "expected": [
+                    "签到",
+                    "领取奖励"
+                ],
                 "roi": [
                     540,
                     574,
@@ -95,10 +103,14 @@
         },
         "action": "Click",
         "post_delay": 1000,
-        "next": ["Idlefish-sign","Idlefish-signed"],
-        "interrupt": "Idlefish-clickBack"
+        "next": [
+            "Idlefish-sign",
+            "Idlefish-result_Signed"
+        ],
+        "interrupt": "Idlefish-clickBack",
+        "on_error": "restartIdlefish"
     },
-    "Idlefish-signed": {
+    "Idlefish-result_Signed": {
         "recognition": {
             "type": "OCR",
             "param": {
@@ -111,7 +123,9 @@
                 ]
             }
         },
-        //"action": "Click",
+        "action": "Custom",
+        "custom_action": "delay_focus_hook",
+        "custom_action_param": "tag=正常&msg=闲鱼币领取成功",
         "next": "Idlefish-enterMyPage",
         "interrupt": "Idlefish-clickBack"
     },
@@ -177,6 +191,34 @@
             109
         ],
         "post_delay": 3000,
+        "next": "Idlefish-result_fetchedExp",
+        "on_error": "Idlefish-result_fetchExpFailed"
+    },
+    "Idlefish-result_fetchedExp": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "",
+                "roi": [
+                    149,
+                    155,
+                    103,
+                    109
+                ]
+            }
+        },
+        "action": "Custom",
+        "custom_action": "delay_focus_hook",
+        "custom_action_param": "tag=正常&msg=闲鱼经验领取成功",
+        "next": "Idlefish-enterMyPost",
+        "interrupt": "Idlefish-clickBack"
+    },
+    "Idlefish-result_fetchExpFailed": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "action": "Custom",
+        "custom_action": "delay_focus_hook",
+        "custom_action_param": "tag=异常&msg=闲鱼经验领取失败",
         "next": "Idlefish-enterMyPost",
         "interrupt": "Idlefish-clickBack"
     },
@@ -194,7 +236,8 @@
             }
         },
         "action": "Click",
-        "next": "Idlefish-reFlash"
+        "next": "Idlefish-reFlash",
+        "on_error": "Idlefish-result_ReflashFailed"
     },
     "Idlefish-reFlash": {
         "recognition": {
@@ -210,8 +253,23 @@
             }
         },
         "action": "Click",
-        "next": "stopIdlefish",
-        "post_delay": 3000
+        "next": "Idlefish-result_ReFlashed"
+    },
+    "Idlefish-result_ReFlashed": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "action": "Custom",
+        "custom_action": "delay_focus_hook",
+        "custom_action_param": "tag=正常&msg=闲鱼擦亮成功",
+        "next": "stopIdlefish"
+    },
+    "Idlefish-result_ReflashFailed": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "action": "Custom",
+        "custom_action": "delay_focus_hook",
+        "custom_action_param": "tag=异常&msg=闲鱼未执行擦亮",
+        "next": "stopIdlefish"
     },
     "Idlefish-clickBack": {
         "recognition": {
@@ -232,6 +290,11 @@
         },
         "action": "Click",
         "post_delay": 500
+    },
+    "restartIdlefish": {
+        "action": "StopApp",
+        "package": "com.taobao.idlefish",
+        "next": "entry_signIdlefish"
     },
     "startIdlefish": {
         "action": "StartApp",

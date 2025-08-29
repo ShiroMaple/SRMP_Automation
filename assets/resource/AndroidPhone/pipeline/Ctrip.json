@@ -267,7 +267,7 @@
             }
         },
         "action": "Click",
-        "next": "stopCtrip",
+        "next": "Ctrip-isTravelling",
         "post_delay": 3000
     },
     "Ctrip-isTravelling": {
@@ -283,8 +283,7 @@
                 ]
             }
         },
-        "next": "Ctrip-resultSucceed",
-        "post_delay": 3000
+        "next": "Ctrip-resultSucceed"
     },
     "Ctrip-resultSucceed": {
         "pre_delay": 0,

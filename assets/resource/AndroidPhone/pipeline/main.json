@@ -101,5 +101,9 @@
     },
     "Global-jump":{
         "action": "DoNothing"        
+    },
+    "Global-handleError":{
+        "action": "Custom",
+        "custom_action": "HandleError"        
     }
 }

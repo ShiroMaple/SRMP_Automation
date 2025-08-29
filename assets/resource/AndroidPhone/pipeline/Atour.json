@@ -78,7 +78,6 @@
         },
         "action": "Click",
         "next": "Atour-result_signSucceed",
-        "on_error": "Atour-result_failed",
         "timeout": 5000
     },
     "Atour-result_signSucceed":{
@@ -87,15 +86,9 @@
         "action": "Custom",
         "custom_action": "delay_focus_hook",
         "custom_action_param": "tag=正常&msg=亚朵签到成功",
-        "next": "Atour-drawCard"
-    },
-    "Atour-result_failed":{
-        "pre_delay": 0,
-        "post_delay": 0,    
-        "action": "Custom",
-        "custom_action": "delay_focus_hook",
-        "custom_action_param": "tag=异常&msg=亚朵签到失败",
-        "next": "stopAtour"
+        "next": "Atour-drawCard",
+        "on_error": "stopAtour",
+        "timeout": 5000        
     },
     "Atour-drawCard": {
         "recognition": {

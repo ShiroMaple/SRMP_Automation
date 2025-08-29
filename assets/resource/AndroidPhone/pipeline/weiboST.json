@@ -137,13 +137,13 @@
             }
         },
         "next": [
-            "检测超话签到按钮",
-            "检测超话签到完成"
+            "Weibo-检测超话签到按钮",
+            "Weibo-检测超话签到完成"
         ],
         "interrupt": "微博上滑",
         "on_error": "退出微博"
     },
-    "检测超话签到按钮": {
+    "Weibo-检测超话签到按钮": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -156,11 +156,11 @@
                 ]
             }
         },
-        "next": "进入某个超话"
+        "next": "Weibo-进入某个超话"
     },
-    "进入某个超话": {
+    "Weibo-进入某个超话": {
         "action": "Click",
-        "target": "检测超话签到按钮",
+        "target": "Weibo-检测超话签到按钮",
         "post_delay": 1500,
         "next": [
             "Weibo-detectPresent",
@@ -266,7 +266,7 @@
             }
         }
     },
-    "检测超话签到完成": {
+    "Weibo-检测超话签到完成": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -281,6 +281,14 @@
                 "index": 4
             }
         },
+        "next": "Weibo-result_SignSucceed"
+    },
+    "Weibo-result_SignSucceed":{
+        "pre_delay": 0,
+        "post_delay": 0,    
+        "action": "Custom",
+        "custom_action": "delay_focus_hook",
+        "custom_action_param": "tag=正常&msg=微博签到成功",
         "next": "退出微博"
     },
     "微博-超话自动点赞": {

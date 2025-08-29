@@ -6,6 +6,7 @@
             "Wsgw-enterMyPage"
         ],
         "interrupt": [
+            "Wsgw-ignoreWarning",
             "startWsgw"
         ]
     },
@@ -39,7 +40,8 @@
             }
         },
         "action": "Click",
-        "next": "Wsgw-checkSignPage"
+        "next": "Wsgw-checkSignPage",
+        "interrupt": ["Wsgw-ignoreWarning"]
     },
     "Wsgw-enterMyPage": {
         "recognition": {
@@ -164,7 +166,17 @@
         "custom_action": "delay_focus_hook",
         "custom_action_param": "tag=正常&msg=网上国网获得周礼包",
         "next":"stopWsgw"
-    },    
+    },
+    "Wsgw-ignoreWarning":{
+        "recognition": {
+            "type": "TemplateMatch",
+            "param":{
+                "template": "Wsgw/buttonCloseWarning.png",
+                "roi":[545,286,134,131]
+            }
+        },
+        "action": "Click"
+    },
     "startWsgw": {
         "action": "StartApp",
         "package": "com.sgcc.wsgw.cn"

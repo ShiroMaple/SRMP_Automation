@@ -102,6 +102,12 @@
         //"post_wait_freezes": 100
         //"next": "TapTap-swipeUp"
     },
+    "TapTap-result_未找到签到入口":{
+        "action": "Custom",
+        "custom_action": "delay_focus_hook",
+        "custom_action_param": "tag=Tap&msg=未找到签到入口",
+        "next": "TapTap-pass"
+    },
     //====================================签到并获取奖励====================================
     "TapTap-不可签": {
         "recognition": {
@@ -121,7 +127,15 @@
                 ]
             }
         },        
-        "next": "TapTap-pass"
+        "next": "TapTap-result_不可签"
+    },
+    "TapTap-result_不可签":{
+        "pre_delay": 0,
+        "post_delay": 0,
+        "action": "Custom",
+        "custom_action": "delay_focus_hook",
+        "custom_action_param": "tag=Tap&msg=不可签",
+        "next": "TapTap-pass"        
     },
     "TapTap-可签": {
         "recognition": {
@@ -140,9 +154,17 @@
             }
         },
         "action": "Click",
-        "next": "TapTap-getAward",
+        "next": "TapTap-result_可签",
         "post_wait_freezes": 300
     },
+    "TapTap-result_可签":{
+        "pre_delay": 0,
+        "post_delay": 0,
+        "action": "Custom",
+        "custom_action": "delay_focus_hook",
+        "custom_action_param": "tag=Tap&msg=可签",
+        "next": "TapTap-getAward"        
+    },    
     "TapTap-getAward": {
         "recognition": {
             "type": "OCR",
@@ -242,13 +264,16 @@
         },
         //"post_delay": 200,
         "post_wait_freezes": 100,
+        "action": "Custom",
+        "custom_action": "delay_focus_hook",
+        "custom_action_param": "tag=Tap&msg=原神页面",
         "next": [
             "TapTap-可签",
             "TapTap-不可签"
         ],
-        "interrupt":"TapTap-识别签到页面入口",
+        "interrupt":["TapTap-ignoreUpdate","TapTap-识别签到页面入口"],
         "timeout": 5000,
-        "on_error": "TapTap-pass"
+        "on_error": "TapTap-result_未找到签到入口"
     },
     "TapTap-passGenshin": {
         "next": "TapTap-enterStarrailPage",
@@ -287,13 +312,16 @@
             }
         },
         "post_wait_freezes": 100,
+        "action": "Custom",
+        "custom_action": "delay_focus_hook",
+        "custom_action_param": "tag=Tap&msg=星穹铁道页面",        
         "next": [
             "TapTap-可签",
             "TapTap-不可签"
         ],
         "interrupt": "TapTap-识别签到页面入口",
         "timeout": 5000,
-        "on_error": "TapTap-pass"
+        "on_error": "TapTap-result_未找到签到入口"
     },
     "TapTap-passStarrail": {
         "next": "TapTap-enterZZZPage",
@@ -331,13 +359,16 @@
                 ]
             }
         },
+        "action": "Custom",
+        "custom_action": "delay_focus_hook",
+        "custom_action_param": "tag=Tap&msg=绝区零页面",
         "next": [
             "TapTap-可签",
             "TapTap-不可签"
         ],
         "interrupt": "TapTap-识别签到页面入口",
         "timeout": 5000,
-        "on_error": "TapTap-pass"
+        "on_error": "TapTap-result_未找到签到入口"
     },
     "TapTap-passZZZ": {
         "next": "TapTap-enterArknightsPage",
@@ -375,13 +406,16 @@
                 ]
             }
         },
+        "action": "Custom",
+        "custom_action": "delay_focus_hook",
+        "custom_action_param": "tag=Tap&msg=明日方舟页面",        
         "next": [
             "TapTap-可签",
             "TapTap-不可签"
         ],
         "interrupt": "TapTap-识别签到页面入口",
         "timeout": 5000,
-        "on_error": "TapTap-pass"
+        "on_error": "TapTap-result_未找到签到入口"
     },
     "TapTap-passArknights": {
         "next": "TapTap-enterP5XPage",
@@ -419,13 +453,16 @@
                 ]
             }
         },
+        "action": "Custom",
+        "custom_action": "delay_focus_hook",
+        "custom_action_param": "tag=Tap&msg=P5X页面",        
         "next": [
             "TapTap-可签",
             "TapTap-不可签"
         ],
         "interrupt": "TapTap-识别签到页面入口",
         "timeout": 5000,
-        "on_error": "TapTap-pass"
+        "on_error": "TapTap-result_未找到签到入口"
     },
     "TapTap-passP5X": {
         "next": "TapTap-end"

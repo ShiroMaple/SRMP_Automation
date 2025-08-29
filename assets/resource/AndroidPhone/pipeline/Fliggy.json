@@ -36,11 +36,11 @@
             "type": "TemplateMatch",
             "param":{
                 "template" : ["Fliggy/buttonClosePopWindow1.png","Fliggy/buttonClosePopWindow2.png"],
-                "roi" : [275,1172,166,165],
+                "roi" : [275,1000,166,335],
                 "green_mask": true
             }
         },
-        "action":"Click"
+        "action":"Click"        
     },
     "Fliggy-enterMainPage": {
         "recognition": {
@@ -93,7 +93,12 @@
             "Fliggy-fetchExtraAwards",
             "Fliggy-sign"
         ],
-        "interrupt": "Fliggy-closePopWindow"
+        "interrupt": "Fliggy-closePopWindow",
+        "on_error": "Fliggy-reConfirm"
+    },
+    "Fliggy-reConfirm":{
+        "next": ["Fliggy-confirmApp"],
+        "interrupt": ["Fliggy-clickBack"]
     },
     "Fliggy-enterExtraPage": {
         "recognition": {
