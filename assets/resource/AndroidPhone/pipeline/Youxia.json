@@ -55,9 +55,9 @@
                 "template": "Youxia/entranceSign2.png",
                 "roi": [
                     228,
-                    935,
+                    900,
                     263,
-                    172
+                    200
                 ]
             }
         },

@@ -98,7 +98,7 @@
         "recognition": {
             "type": "OCR",
             "param": {
-                "expected": "女神异闻录",
+                "expected": ["女神异闻录","wanmei"],
                 "roi": [
                     7,
                     512,

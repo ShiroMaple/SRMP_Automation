@@ -38,7 +38,7 @@ def GameNameDict(GameName:str)->str:
             GameNameEng = "ZZZ"
         case "明日方舟":
             GameNameEng = "Arknights"
-        case "女神异闻录" | "女神异闻录：夜幕魅影"|"女神异闻录：夜嘉":
+        case "女神异闻录" | "女神异闻录：夜幕魅影"|"女神异闻录：夜嘉"|"女神異闻录：夜幕魅影":
             GameNameEng = "P5X"
         case _:
             GameNameEng = "Unknown"

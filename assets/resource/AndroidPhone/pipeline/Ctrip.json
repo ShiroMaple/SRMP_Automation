@@ -159,7 +159,7 @@
         },
         "action": "Click",
         "post_delay": 1500,
-        "next": "Ctrip-closePopWindow",
+        "next": ["Ctrip-closePopWindow","Ctrip-flagSignPage"],
         "interrupt": [
             "Ctrip-buttonHappyReceive"
         ]
@@ -267,7 +267,7 @@
             }
         },
         "action": "Click",
-        "next": "Ctrip-isTravelling",
+        "next": ["Ctrip-isTravelling","Ctrip-randomTrip"],
         "post_delay": 3000
     },
     "Ctrip-isTravelling": {

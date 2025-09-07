@@ -1,22 +1,48 @@
 {
     "entry_signTapTap": {
-        "next": [            
+        "next": [
             "Taptap-confirmApp"
         ],
         "interrupt": [
             "startTapTap"
         ]
     },
-    "TapTap-ignoreUpdate":{
+    "TapTap-ignoreUpdate遮挡": {
         "recognition": {
             "type": "OCR",
-            "param":{
-                "expected": ["一键安装"],
-                "roi": [101,1052,522,113]
+            "param": {
+                "expected": [
+                    "一键安装"
+                ],
+                "roi": [
+                    101,
+                    1052,
+                    522,
+                    113
+                ]
             }
         },
-        "next": ["FullScreen-swipeBack"]
-    
+        "next": [
+            "FullScreen-swipeBack"
+        ]
+    },
+    "TapTap-ignoreUpdate非遮挡": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "TapTap/buttonClose.png"
+                ],
+                "roi": [
+                    205,
+                    799,
+                    315,
+                    654
+                ]
+            }
+        },
+        "action": "Click",
+        "next": "Taptap-confirmApp"
     },
     "Taptap-confirmApp": {
         "recognition": {
@@ -32,7 +58,9 @@
             }
         },
         "next": "TapTap-进动态页面",
-        "interrupt": ["TapTap-ignoreUpdate"],
+        "interrupt": [
+            "TapTap-ignoreUpdate遮挡"
+        ],
         "pre_delay": 1500
     },
     "TapTap-进动态页面": {
@@ -50,10 +78,13 @@
         },
         "action": "Click",
         "next": [
+            "TapTap-ignoreUpdate非遮挡",
             "TapTap-进论坛页面",
             "TapTap-进动态页面"
         ],
-        "interrupt": ["TapTap-ignoreUpdate"]
+        "interrupt": [
+            "TapTap-ignoreUpdate遮挡"
+        ]
     },
     "TapTap-进论坛页面": {
         "recognition": {
@@ -73,7 +104,9 @@
             "TapTap-enterGenshinPage",
             "TapTap-进论坛页面"
         ],
-        "interrupt": ["TapTap-ignoreUpdate"],
+        "interrupt": [
+            "TapTap-ignoreUpdate遮挡"
+        ],
         "post_delay": 2000
     },
     //====================================进签到页-上滑-识别名称====================================
@@ -102,7 +135,7 @@
         //"post_wait_freezes": 100
         //"next": "TapTap-swipeUp"
     },
-    "TapTap-result_未找到签到入口":{
+    "TapTap-result_未找到签到入口": {
         "action": "Custom",
         "custom_action": "delay_focus_hook",
         "custom_action_param": "tag=Tap&msg=未找到签到入口",
@@ -126,16 +159,16 @@
                     174
                 ]
             }
-        },        
+        },
         "next": "TapTap-result_不可签"
     },
-    "TapTap-result_不可签":{
+    "TapTap-result_不可签": {
         "pre_delay": 0,
         "post_delay": 0,
         "action": "Custom",
         "custom_action": "delay_focus_hook",
         "custom_action_param": "tag=Tap&msg=不可签",
-        "next": "TapTap-pass"        
+        "next": "TapTap-pass"
     },
     "TapTap-可签": {
         "recognition": {
@@ -157,14 +190,22 @@
         "next": "TapTap-result_可签",
         "post_wait_freezes": 300
     },
-    "TapTap-result_可签":{
+    "TapTap-result_可签": {
         "pre_delay": 0,
         "post_delay": 0,
         "action": "Custom",
         "custom_action": "delay_focus_hook",
         "custom_action_param": "tag=Tap&msg=可签",
-        "next": "TapTap-getAward"        
-    },    
+        "next": [
+            "TapTap-getAward",
+            "TapTap-recoRedeemCode"
+        ],
+        "on_error": [
+            "TapTap-可签",
+            "TapTap-不可签",
+            "Global-handleError"
+        ]
+    },
     "TapTap-getAward": {
         "recognition": {
             "type": "OCR",
@@ -184,7 +225,7 @@
         },
         "action": "Click",
         "post_wait_freezes": 500,
-        "next": "TapTap-recoRedeemCode", //应该再加一个中间过程，因为点完可能会没有礼包
+        "next": "TapTap-recoRedeemCode",
         "timeout": 5000,
         "on_error": "TapTap-pass"
     },
@@ -247,7 +288,9 @@
         "next": "TapTap-flagGenshinPage",
         "pre_delay": 0,
         "post_delay": 0,
-        "interrupt": ["TapTap-ignoreUpdate"]
+        "interrupt": [
+            "TapTap-ignoreUpdate遮挡"
+        ]
     },
     "TapTap-flagGenshinPage": {
         "recognition": {
@@ -271,7 +314,10 @@
             "TapTap-可签",
             "TapTap-不可签"
         ],
-        "interrupt":["TapTap-ignoreUpdate","TapTap-识别签到页面入口"],
+        "interrupt": [
+            "TapTap-ignoreUpdate遮挡",
+            "TapTap-识别签到页面入口"
+        ],
         "timeout": 5000,
         "on_error": "TapTap-result_未找到签到入口"
     },
@@ -314,7 +360,7 @@
         "post_wait_freezes": 100,
         "action": "Custom",
         "custom_action": "delay_focus_hook",
-        "custom_action_param": "tag=Tap&msg=星穹铁道页面",        
+        "custom_action_param": "tag=Tap&msg=星穹铁道页面",
         "next": [
             "TapTap-可签",
             "TapTap-不可签"
@@ -408,7 +454,7 @@
         },
         "action": "Custom",
         "custom_action": "delay_focus_hook",
-        "custom_action_param": "tag=Tap&msg=明日方舟页面",        
+        "custom_action_param": "tag=Tap&msg=明日方舟页面",
         "next": [
             "TapTap-可签",
             "TapTap-不可签"
@@ -444,7 +490,10 @@
         "recognition": {
             "type": "OCR",
             "param": {
-                "expected": "女神异闻录.*",
+                "expected": [
+                    "女神异闻录.*",
+                    "女神.*"
+                ],
                 "roi": [
                     15,
                     280,
@@ -455,7 +504,7 @@
         },
         "action": "Custom",
         "custom_action": "delay_focus_hook",
-        "custom_action_param": "tag=Tap&msg=P5X页面",        
+        "custom_action_param": "tag=Tap&msg=P5X页面",
         "next": [
             "TapTap-可签",
             "TapTap-不可签"

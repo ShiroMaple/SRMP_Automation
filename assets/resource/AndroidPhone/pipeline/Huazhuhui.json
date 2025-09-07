@@ -106,9 +106,14 @@
     "Hitnns-result_Signed": {
         "recognition": {
             "type": "TemplateMatch",
-            "param":{
+            "param": {
                 "template": "Htinns/flagSigned.png",
-                "roi":[57,1011,88,113]
+                "roi": [
+                    57,
+                    1011,
+                    88,
+                    113
+                ]
             }
         },
         "action": "Custom",
@@ -125,10 +130,10 @@
                     "Htinns/buttonClose2.png"
                 ],
                 "roi": [
-                    289,
-                    1165,
-                    140,
-                    136
+                    288,
+                    98,
+                    143,
+                    1233
                 ]
             }
         },

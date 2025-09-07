@@ -1,13 +1,22 @@
 {
     "entry_signEastmoneyFund": {
-        "next": [
-            "EastmoneyFund-closeTipWindow",
-            "EastmoneyFund-enterMyPage"
-        ],
+        "next": "EastmoneyFund-confirmApp",
         "interrupt": [
             //"skipAD_LowerRightCorner",
             "startEastmoneyFund"
         ]
+    },
+    "EastmoneyFund-confirmApp":{
+        "recognition": {
+            "type": "OCR",
+            "param":{
+                "expected": ["基金"]                
+            }
+        },
+        "next": [
+            "EastmoneyFund-closeTipWindow",
+            "EastmoneyFund-enterMyPage"
+        ]        
     },
     "EastmoneyFund-enterMyPage": {
         "recognition": {
