@@ -119,7 +119,7 @@
         "recognition": {
             "type": "OCR",
             "param":{
-                "expected" : "键预约申购",
+                "expected" : ["键预约申购","申购今日新债"],
                 "roi" : [409,443,311,202]
             }
         },

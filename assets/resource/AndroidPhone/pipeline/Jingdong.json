@@ -45,12 +45,7 @@
             "type": "OCR",
             "param": {
                 "expected": "秒杀",
-                "roi": [
-                    0,
-                    320,
-                    156,
-                    134
-                ]
+                "roi": [2,321,153,401]
             }
         },
         "action": "Click",

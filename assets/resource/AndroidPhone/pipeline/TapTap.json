@@ -94,7 +94,7 @@
                 "roi": [
                     0,
                     35,
-                    180,
+                    400,
                     154
                 ]
             }
@@ -339,6 +339,7 @@
             }
         },
         "action": "Click",
+        "post_delay": 1000,
         "next": [
             "TapTap-flagSRPage",
             "TapTap-enterStarrailPage"
@@ -387,6 +388,7 @@
             }
         },
         "action": "Click",
+        "post_delay": 1000,
         "next": [
             "TapTap-flagZZZPage",
             "TapTap-enterZZZPage"
@@ -434,6 +436,7 @@
             }
         },
         "action": "Click",
+        "post_delay": 1000,
         "next": [
             "TapTap-flagArknightsPage",
             "TapTap-enterArknightsPage"
@@ -481,6 +484,7 @@
             }
         },
         "action": "Click",
+        "post_delay": 1000,
         "next": [
             "TapTap-flagP5XPage",
             "TapTap-enterP5XPage"

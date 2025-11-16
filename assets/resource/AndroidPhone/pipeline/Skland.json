@@ -95,8 +95,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param":{
-                "template": "Skland/SignSucceed.png",
-                "roi":[71,374,171,91]   
+                "template": "Skland/SignSucceed.png"                
             }
         },
         "post_delay": 0,

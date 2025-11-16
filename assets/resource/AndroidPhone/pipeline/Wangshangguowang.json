@@ -57,7 +57,7 @@
             }
         },
         "action": "Click",
-        "next": "Wsgw-findSignButton2"
+        "next": ["Wsgw-findSignButton2","Wsgw-enterMyPage"]
     },
     "Wsgw-findSignButton2": {
         "recognition": {

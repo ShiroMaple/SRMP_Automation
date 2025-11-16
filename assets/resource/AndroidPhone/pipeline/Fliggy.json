@@ -116,7 +116,10 @@
         "action": "Click",
         "post_delay": 2000,
         "next": "Fliggy-flagSignPage",
-        "interrupt": "Fliggy-clickBack"
+        "interrupt": [
+            //"Fliggy-clickBack"
+            "FullScreen-swipeBack"
+        ]
     },
     "Fliggy-fetchExtraAwards": {
         "recognition": {

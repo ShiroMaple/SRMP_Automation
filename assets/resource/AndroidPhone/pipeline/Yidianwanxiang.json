@@ -84,15 +84,10 @@
     },
     "MIXC-sign": {
         "recognition": {
-            "type": "OCR",
+            "type": "TemplateMatch",
             "param": {
-                "expected": "签到",
-                "roi": [
-                    253,
-                    1048,
-                    214,
-                    168
-                ]
+                "template": "MIXC/buttonSign.png",
+                "roi": [250,296,220,921]
             }
         },
         "action": "Click",
@@ -104,7 +99,7 @@
             "type": "TemplateMatch",
             "param":{
                 "template": "MIXC/TodaySigned.png",
-                "roi":[22,844,678,332]
+                "threshold": [0.85]                
             }
         },
         "post_delay": 0,

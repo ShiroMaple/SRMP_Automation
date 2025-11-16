@@ -40,6 +40,7 @@
                 ]
             }
         },
+        "rate_limit": 2000,
         "next": [
             "Mihoyo-enterGenshinPage"
         ],
@@ -96,17 +97,18 @@
     "Mihoyo-左滑顶部选择栏": {
         "action": "Swipe",
         "begin": [
-            159,
-            103,
+            111,
+            114,
             1,
             1
         ],
         "end": [
-            453,
-            103,
+            393,
+            115,
             1,
             1
-        ]
+        ],
+        "duration": 50
     },
     "Mihoyo-enterGenshinPage": {
         "recognition": {
@@ -128,6 +130,7 @@
             }
         },
         "action": "Click",
+        "rate_limit": 2000,
         "next": [
             "Mihoyo-signGenshin"
         ],
@@ -164,22 +167,18 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "Mihoyo/iconSignGenshin.png",
-                "roi": [
-                    46,
-                    487,
-                    628,
-                    421
-                ],
+                "roi": [47,487,628,544],
                 "green_mask": true
             }
         },
-        "action": "Click",
+        "action": "Click",        
         "target_offset": [
             -60,
             60,
             0,
             0
         ],
+        "rate_limit": 2000,
         "next": [
             "Mihoyo-result_passGenshin",
             "Mihoyo-signGenshin"
@@ -232,6 +231,7 @@
             }
         },
         "action": "Click",
+        "rate_limit": 2000,
         "next": "Mihoyo-signStarrail",
         "interrupt": [
             "Mihoyo-关闭意外页面",
@@ -262,6 +262,8 @@
             0,
             -60
         ],
+        "rate_limit": 2000,
+        "post_delay": 1500,
         "next": [
             "Mihoyo-result_passStarrail",
             "Mihoyo-signStarrail"
@@ -276,7 +278,7 @@
                 "roi": [
                     304,
                     431,
-                    226,
+                    256,
                     261
                 ]
             }
@@ -312,6 +314,7 @@
             }
         },
         "action": "Click",
+        "rate_limit": 2000,
         "next": "Mihoyo-signZZZ",
         "interrupt": [
             "Mihoyo-关闭意外页面",
@@ -340,6 +343,7 @@
             -60,
             60
         ],
+        "rate_limit": 2000,
         "next": [
             "Mihoyo-result_ZZZSigned",
             "Mihoyo-signZZZ"

@@ -32,7 +32,7 @@
             }
         },
         "action": "Click",
-        "next": ["EastmoneyFund-enterSignPage","EastmoneyFund-closeTipWindow"],
+        "next": ["EastmoneyFund-enterSignPage","EastmoneyFund-closeTipWindow","EastmoneyFund-enterMyPage"],
         "pre_delay": 1500
     },
     "EastmoneyFund-closeTipWindow":{
@@ -60,7 +60,7 @@
             }
         },
         "action": "Click",
-        "next": "EastmoneyFund-sign"
+        "next": ["EastmoneyFund-sign"]
     },
     "EastmoneyFund-sign": {
         "recognition": {

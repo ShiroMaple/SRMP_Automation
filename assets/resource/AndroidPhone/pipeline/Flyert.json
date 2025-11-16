@@ -1,5 +1,6 @@
 { //缺少完成确认，会遗漏
     "entry_signFlyert": {
+        "rate_limit": 1500,
         "next": [
             "Flyert-enterSignPage"
         ],

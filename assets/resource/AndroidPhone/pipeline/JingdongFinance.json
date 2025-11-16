@@ -37,10 +37,12 @@
         },
         "action": "Click",
         "next": [
-            "JDFinance-flagSignPage"
+            "JDFinance-flagSignPage",
+            "JDFinance-enterSignPage"
         ],
         "interrupt": [
-            "JDFinance-close遮挡弹窗"
+            "JDFinance-close遮挡弹窗",
+            "JDFinance-close底部弹窗"
         ]
     },
     "JDFinance-flagSignPage": {
@@ -71,7 +73,7 @@
     "JDFinance-click": {
         "action": "Click",
         "target": "JDFinance-flagSignPage",
-        "next": "JDFinance-flagSignPage",
+        "next": ["JDFinance-flagSignPage","JDFinance-confirmApp"],
         "interrupt": [
             "JDFinance-close遮挡弹窗",
             "JDFinance-close底部弹窗",
@@ -127,6 +129,17 @@
         "action": "Click",
         "post_delay": 1500
     },
+    "JDFinance-拒绝跳转App":{
+        "recognition": {
+            "type": "OCR",
+            "param":{
+                "expected": ["拒绝"],
+                "roi": [7,1125,701,421]
+
+            }
+        },
+        "action":"Click"
+    },
     "JDFinance-clickBack": {
         "recognition": {
             "type": "TemplateMatch",
@@ -181,7 +194,8 @@
             "JDFinance-天天免费领2京豆Step1"
         ],
         "interrupt": [
-            "JDFinance-close遮挡弹窗"
+            "JDFinance-close遮挡弹窗",
+            "JDFinance-拒绝跳转App"
         ],
         "on_error": [
             "JDFinance-双签领京豆Step1"
@@ -216,12 +230,7 @@
             "type": "OCR",
             "param": {
                 "expected": "一键领京豆",
-                "roi": [
-                    239,
-                    467,
-                    237,
-                    90
-                ]
+                "roi": [240,471,237,417]
             }
         },
         "action": "Click",

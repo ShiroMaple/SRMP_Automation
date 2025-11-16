@@ -201,7 +201,6 @@ class SendMessage(CustomAction):
         return True
 
 from typing import Dict, Any
-import time
 from collections import defaultdict
 
 # 解析查询字符串 from https://github.com/kqcoxn/MaaNewMoonAccompanying/blob/main/agent/customs/utils.py
