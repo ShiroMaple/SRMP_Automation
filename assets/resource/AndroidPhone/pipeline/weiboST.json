@@ -31,8 +31,8 @@
                 "roi": [
                     6,
                     72,
-                    63,
-                    70
+                    75,
+                    75
                 ],
                 "green_mask": true,
                 "threshold": [
