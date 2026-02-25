@@ -12,6 +12,11 @@
 本仓库为基于[MaaFramework]开发的自用自动签到项目
 通过ADB连接Redmi Note 14 Pro完成一系列软件的日常签到操作
 
+# Version
+MaaSupport 405.5.1
+MaaFramework 4.5.6
+Python Binding MaaFw 4.5.6  https://pypi.org/project/MaaFw/4.5.6/#files
+
 
 ## 鸣谢
 
